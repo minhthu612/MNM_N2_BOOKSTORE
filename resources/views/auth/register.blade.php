@@ -1,52 +1,61 @@
 <x-guest-layout>
+
+    <!-- Success -->
+    @if (session('status'))
+        <div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    <!-- Error -->
+    @if ($errors->any())
+        <div class="mb-4 p-3 bg-red-100 text-red-700 rounded">
+            {{ $errors->first('register') ?? 'Có lỗi xảy ra' }}
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
+        <!-- Username -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label value="Tên đăng nhập" />
+            <x-text-input name="username" class="block mt-1 w-full" :value="old('username')" required />
         </div>
 
-        <!-- Email Address -->
+        <!-- Email -->
         <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-label value="Email" />
+            <x-text-input name="email" type="email" class="block mt-1 w-full" :value="old('email')" required />
+        </div>
+
+        <!-- Fullname -->
+        <div class="mt-4">
+            <x-input-label value="Họ và tên" />
+            <x-text-input name="fullname" class="block mt-1 w-full" :value="old('fullname')" required />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input-label value="Mật khẩu" />
+            <x-text-input type="password" name="password" class="block mt-1 w-full" required />
         </div>
 
-        <!-- Confirm Password -->
+        <!-- Confirm -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            <x-input-label value="Xác nhận mật khẩu" />
+            <x-text-input type="password" name="password_confirmation" class="block mt-1 w-full" required />
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
+            <a href="{{ route('login') }}" class="text-sm text-blue-600">
+                Đã có tài khoản?
             </a>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
+            <x-primary-button class="ms-3">
+                Đăng ký
             </x-primary-button>
         </div>
     </form>
+
 </x-guest-layout>

@@ -30,22 +30,37 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // 📌 validate giống script gốc
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'username' => 'required',
+            'email' => 'required|email',
+            'fullname' => 'required',
+            'password' => 'required|min:6|confirmed',
         ]);
 
+        // 📌 check trùng
+        $exists = User::where('username', $request->username)
+                    ->orWhere('email', $request->email)
+                    ->exists();
+
+        if ($exists) {
+            return back()->withErrors([
+                'register' => 'Tên đăng nhập hoặc email đã tồn tại.'
+            ])->withInput();
+        }
+
+        // 📌 tạo user
         $user = User::create([
-            'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'fullname' => $request->fullname,
+            'password_hashed' => Hash::make($request->password),
+            'role' => 'Customer',
+            'status' => 'Active',
         ]);
 
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        // ❌ KHÔNG auto login (giống script gốc)
+        return redirect()->route('login')
+            ->with('status', 'Đăng ký thành công! Bạn có thể đăng nhập.');
     }
 }

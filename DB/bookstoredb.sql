@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 09, 2026 at 04:09 PM
+-- Generation Time: Apr 15, 2026 at 03:59 PM
 -- Server version: 9.1.0
 -- PHP Version: 8.3.14
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `book`
+-- Database: `bookstoredb`
 --
 
 DELIMITER $$
@@ -68,12 +68,12 @@ DROP TABLE IF EXISTS `addresses`;
 CREATE TABLE IF NOT EXISTS `addresses` (
   `address_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `fullname` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `street` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `city` varchar(100) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `district` varchar(100) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `ward` varchar(100) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `fullname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `street` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `city` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `district` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `ward` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `is_default` tinyint(1) DEFAULT '0',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`address_id`),
@@ -203,8 +203,8 @@ CREATE TABLE IF NOT EXISTS `books` (
   `price` decimal(10,2) NOT NULL,
   `discount` int DEFAULT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci,
-  `images` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `link_images` varchar(500) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `images` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `link_images` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `sold_quantity` int DEFAULT '0',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`book_id`),
@@ -495,15 +495,15 @@ CREATE TABLE IF NOT EXISTS `book_sets` (
   `set_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci,
-  `images` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `link_images` varchar(500) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `images` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `link_images` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `discount` decimal(5,2) DEFAULT '0.00',
   `sold_quantity` int DEFAULT '0',
   `stock` int DEFAULT '0',
   `reorder_level` int DEFAULT '10',
-  `stock_status` varchar(30) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `stock_status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `last_updated` datetime DEFAULT NULL,
   PRIMARY KEY (`set_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
@@ -735,6 +735,36 @@ INSERT INTO `book_views` (`view_id`, `user_id`, `book_id`, `viewed_at`) VALUES
 (68, 35, 98, '2025-12-05 11:30:14'),
 (69, 38, 99, '2025-12-05 13:55:55'),
 (70, 41, 100, '2025-12-05 16:12:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache`
+--
+
+DROP TABLE IF EXISTS `cache`;
+CREATE TABLE IF NOT EXISTS `cache` (
+  `key` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expiration` bigint NOT NULL,
+  PRIMARY KEY (`key`),
+  KEY `cache_expiration_index` (`expiration`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_locks`
+--
+
+DROP TABLE IF EXISTS `cache_locks`;
+CREATE TABLE IF NOT EXISTS `cache_locks` (
+  `key` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expiration` bigint NOT NULL,
+  PRIMARY KEY (`key`),
+  KEY `cache_locks_expiration_index` (`expiration`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1050,6 +1080,25 @@ INSERT INTO `coupons` (`coupon_id`, `code`, `discount`, `status`, `created_at`) 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `failed_jobs`
+--
+
+DROP TABLE IF EXISTS `failed_jobs`;
+CREATE TABLE IF NOT EXISTS `failed_jobs` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `inventory`
 --
 
@@ -1059,7 +1108,7 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `book_id` int NOT NULL,
   `stock` int DEFAULT '0',
   `reorder_level` int DEFAULT '10',
-  `stock_status` varchar(30) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `stock_status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `last_updated` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`inventory_id`),
   UNIQUE KEY `book_id` (`book_id`)
@@ -1290,6 +1339,70 @@ INSERT INTO `inventory` (`inventory_id`, `book_id`, `stock`, `reorder_level`, `s
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `jobs`
+--
+
+DROP TABLE IF EXISTS `jobs`;
+CREATE TABLE IF NOT EXISTS `jobs` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `queue` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attempts` tinyint UNSIGNED NOT NULL,
+  `reserved_at` int UNSIGNED DEFAULT NULL,
+  `available_at` int UNSIGNED NOT NULL,
+  `created_at` int UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `jobs_queue_index` (`queue`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_batches`
+--
+
+DROP TABLE IF EXISTS `job_batches`;
+CREATE TABLE IF NOT EXISTS `job_batches` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total_jobs` int NOT NULL,
+  `pending_jobs` int NOT NULL,
+  `failed_jobs` int NOT NULL,
+  `failed_job_ids` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `options` mediumtext COLLATE utf8mb4_unicode_ci,
+  `cancelled_at` int DEFAULT NULL,
+  `created_at` int NOT NULL,
+  `finished_at` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+DROP TABLE IF EXISTS `migrations`;
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '0001_01_01_000001_create_cache_table', 1),
+(2, '0001_01_01_000002_create_jobs_table', 1),
+(3, '2026_04_15_155713_create_sessions_table', 2),
+(4, '2026_04_15_155722_create_password_reset_tokens_table', 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `notifications`
 --
 
@@ -1381,14 +1494,14 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `total_amount` decimal(12,2) NOT NULL,
   `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL DEFAULT 'pending',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `shipping_address` text COLLATE utf8mb4_vietnamese_ci,
-  `payment_method` varchar(50) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `shipping_address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci,
+  `payment_method` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `shipping_fee` decimal(10,2) DEFAULT '0.00',
   `discount_amount` decimal(10,2) DEFAULT '0.00',
-  `coupon_code` varchar(100) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `notes` text COLLATE utf8mb4_vietnamese_ci,
+  `coupon_code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci,
   `delivered_at` datetime DEFAULT NULL,
-  `tracking_number` varchar(100) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `tracking_number` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   PRIMARY KEY (`order_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
@@ -1578,6 +1691,20 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `password_reset_tokens`
+--
+
+DROP TABLE IF EXISTS `password_reset_tokens`;
+CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reviews`
 --
 
@@ -1668,6 +1795,25 @@ INSERT INTO `reviews` (`review_id`, `user_id`, `book_id`, `rating`, `comment`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sessions`
+--
+
+DROP TABLE IF EXISTS `sessions`;
+CREATE TABLE IF NOT EXISTS `sessions` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text COLLATE utf8mb4_unicode_ci,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_activity` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sessions_user_id_index` (`user_id`),
+  KEY `sessions_last_activity_index` (`last_activity`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -1676,18 +1822,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `password_hashed` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `PASSWORD` varchar(500) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `PASSWORD` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `fullname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL DEFAULT 'user',
   `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL DEFAULT 'active',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `phone` varchar(20) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `birthdate` date DEFAULT NULL,
-  `gender` enum('male','female','other') COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `gender` enum('male','female','other') CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   `points` int DEFAULT '0',
-  `membership_level` varchar(50) COLLATE utf8mb4_vietnamese_ci DEFAULT 'regular',
+  `membership_level` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT 'regular',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
@@ -1825,10 +1971,10 @@ DELIMITER ;
 --
 DROP VIEW IF EXISTS `vw_book_order_count`;
 CREATE TABLE IF NOT EXISTS `vw_book_order_count` (
-`author` varchar(255)
-,`book_id` int
-,`order_count` bigint
+`book_id` int
 ,`title` varchar(255)
+,`author` varchar(255)
+,`order_count` bigint
 );
 
 -- --------------------------------------------------------
@@ -1839,12 +1985,12 @@ CREATE TABLE IF NOT EXISTS `vw_book_order_count` (
 --
 DROP VIEW IF EXISTS `vw_order_summary`;
 CREATE TABLE IF NOT EXISTS `vw_order_summary` (
-`created_at` datetime
+`order_id` int
 ,`customer_name` varchar(255)
-,`item_count` bigint
-,`order_id` int
-,`status` varchar(50)
 ,`total_amount` decimal(12,2)
+,`status` varchar(50)
+,`created_at` datetime
+,`item_count` bigint
 );
 
 -- --------------------------------------------------------
@@ -1855,12 +2001,12 @@ CREATE TABLE IF NOT EXISTS `vw_order_summary` (
 --
 DROP VIEW IF EXISTS `vw_user_orders`;
 CREATE TABLE IF NOT EXISTS `vw_user_orders` (
-`fullname` varchar(255)
-,`handled_orders` bigint
+`user_id` int
+,`username` varchar(100)
+,`fullname` varchar(255)
 ,`role` varchar(50)
 ,`status` varchar(50)
-,`user_id` int
-,`username` varchar(100)
+,`handled_orders` bigint
 );
 
 -- --------------------------------------------------------
