@@ -88,7 +88,7 @@
 
         <!-- SEARCH -->
         <form class="d-flex me-3" method="GET" action="/">
-            <input class="form-control me-2" name="q" placeholder="Tìm sách...">
+            <input type="text" name="keyword" placeholder="Tìm sách...">
             <button class="btn btn-outline-light">
                 🔍
             </button>

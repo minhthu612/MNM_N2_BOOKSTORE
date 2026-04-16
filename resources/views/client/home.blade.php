@@ -49,16 +49,10 @@
 
             <!-- button -->
             <div class="mt-2">
-                @auth
-                    <a href="#" class="btn btn-sm btn-outline-primary">
-                        Chi tiết
-                    </a>
-                @else
-                    <a href="{{ route('login', ['msg'=>'require']) }}"
-                       class="btn btn-sm btn-outline-primary">
-                        Chi tiết
-                    </a>
-                @endauth
+                <a href="{{ url('/books/'.$book->book_id) }}"
+                class="btn btn-sm btn-outline-primary">
+                    Chi tiết
+                </a>
             </div>
 
         </div>
