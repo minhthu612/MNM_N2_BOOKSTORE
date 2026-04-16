@@ -6,7 +6,7 @@
     {{ $category_name }}
 </h2>
 
-<div class="row mt-4">
+<div class="row justify-content-center mt-4">
 
 @forelse($books as $book)
 
@@ -20,9 +20,9 @@
         <div class="bg-white p-3 rounded shadow hover:shadow-lg h-100">
 
             <!-- ảnh -->
-            <img src="{{ $book->link_images ?? 'images/no-image.jpg' }}"
-                 class="img-fluid mb-2"
-                 style="height:180px; object-fit:contain;">
+            <img src="{{ asset($book->link_images ?? 'images/no-image.jpg') }}"
+                class="img-fluid mb-2"
+                style="height:180px; object-fit:contain;">
 
             <!-- tên -->
             <h6 class="fw-bold" style="height:40px; overflow:hidden;">
@@ -65,7 +65,7 @@
     </div>
 
 @empty
-    <p>Không có sách</p>
+    <p class="text-center w-100">Không có sách</p>
 @endforelse
 
 </div>
