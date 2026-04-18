@@ -43,31 +43,50 @@ class BookController extends Controller
             abort(404);
         }
 
-        // tăng lượt xem (KHÔNG bắt login)
+        // =========================
+        // VIEW COUNT (GIỐNG CODE CŨ)
+        // =========================
         DB::table('book_views')->insert([
             'user_id' => auth()->id() ?? null,
             'book_id' => $id,
             'viewed_at' => now()
         ]);
 
-        // rating
+        // tổng lượt xem
+        $total_views = DB::table('book_views')
+            ->where('book_id', $id)
+            ->count();
+
+        // =========================
+        // RATING
+        // =========================
         $rating = DB::table('reviews')
             ->where('book_id', $id)
             ->selectRaw('AVG(rating) as avg_rating, COUNT(*) as total_reviews')
             ->first();
 
-        // reviews list
-        $reviews = DB::table('reviews as r')
+        $avg_rating = round($rating->avg_rating ?? 0, 1);
+        $total_reviews = $rating->total_reviews ?? 0;
+
+        // =========================
+        // LIST REVIEWS (ĐỔ VÀO MẢNG GIỐNG PHP CŨ)
+        // =========================
+        $list_reviews = DB::table('reviews as r')
             ->join('users as u', 'r.user_id', '=', 'u.user_id')
             ->where('r.book_id', $id)
+            ->select('r.*', 'u.fullname', 'u.username')
             ->orderBy('r.created_at', 'desc')
             ->get();
 
-        return view('client.books.detail', [
-            'book' => $book,
-            'avg_rating' => round($rating->avg_rating ?? 0, 1),
-            'total_reviews' => $rating->total_reviews ?? 0,
-            'reviews' => $reviews
-        ]);
+        // =========================
+        // RETURN VIEW (QUAN TRỌNG)
+        // =========================
+        return view('client.books.detail', compact(
+            'book',
+            'avg_rating',
+            'total_reviews',
+            'total_views',
+            'list_reviews'
+        ));
     }
 }

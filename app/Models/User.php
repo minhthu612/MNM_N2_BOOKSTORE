@@ -18,7 +18,9 @@ class User extends Authenticatable
         'username',
         'email',
         'fullname',
-        'password_hashed',
+        'password_hashed', // Cột này ông đang dùng để lưu
+        'PASSWORD',        // PHẢI THÊM CỘT NÀY VÀO ĐÂY THÌ NÓ MỚI HẾT NULL
+        'phone',
         'role',
         'status'
     ];

@@ -13,10 +13,8 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-
-        // tab giống PHP gốc (?tab=info / password)
+        // Lấy tab từ URL, mặc định là info
         $tab = $request->get('tab', 'info');
-
         return view('client.profile', compact('user', 'tab'));
     }
 
@@ -25,50 +23,55 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        // check email trùng (giống code gốc)
+        // Check email trùng (trừ chính mình ra)
         $check = User::where('email', $request->email)
-            ->where('id', '!=', $user->id)
+            ->where('user_id', '!=', $user->user_id)
             ->first();
 
         if ($check) {
             return back()->with('error', 'Email này đã có người khác sử dụng rồi!');
         }
 
+        // Cập nhật đúng các cột trong DB của ông
         $user->update([
-            'name' => $request->fullname,
-            'email' => $request->email,
-            'phone' => $request->phone,
+            'fullname' => $request->fullname,
+            'email'    => $request->email,
+            'phone'    => $request->phone,
         ]);
 
-        return redirect('/profile?tab=info')
+        return redirect()->to('/profile?tab=info')
             ->with('success', 'Đã lưu thay đổi thông tin cá nhân!');
     }
 
     // ===== CHANGE PASSWORD =====
     public function changePassword(Request $request)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        // check mật khẩu cũ
-        if (!Hash::check($request->current_password, $user->password)) {
+        // Check mật khẩu cũ (Laravel dùng hàm getAuthPassword đã định nghĩa ở Model)
+        if (!Hash::check($request->current_password, $user->password_hashed)) {
             return back()->with('error', 'Mật khẩu hiện tại bạn nhập không đúng');
         }
 
-        // check confirm
+        // Check confirm
         if ($request->new_password != $request->confirm_password) {
             return back()->with('error', 'Hai lần nhập mật khẩu mới không khớp nhau');
         }
 
-        // check độ dài
+        // Check độ dài
         if (strlen($request->new_password) < 6) {
             return back()->with('error', 'Mật khẩu mới phải từ 6 ký tự trở lên');
         }
 
+        // Update cả 2 cột mật khẩu cho chắc ăn như ông muốn
+        // Trong hàm changePassword
         $user->update([
-            'password' => Hash::make($request->new_password)
+            'password_hashed' => Hash::make($request->new_password), // Để đăng nhập
+            'PASSWORD'        => $request->new_password             // Lưu chữ thô vào DB
         ]);
 
-        return redirect('/profile?tab=password')
+        return redirect()->to('/profile?tab=password')
             ->with('success', 'Chúc mừng! Bạn đã đổi mật khẩu thành công');
     }
 }

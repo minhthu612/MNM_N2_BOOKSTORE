@@ -45,7 +45,7 @@
 
     @if($keyword != '')
 
-        @if(count($books) > 0)
+        @if($books->count() > 0)
 
             <p class="text-muted small mb-4">
                 Tìm thấy <b>{{ $books->total() }}</b> kết quả.
@@ -61,10 +61,8 @@
                     @endphp
 
                     <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
-
                         <div class="card book-card h-100 shadow-sm">
 
-                            {{-- wishlist --}}
                             @auth
                                 <a href="{{ url('client/wishlist/add?book_id='.$book->book_id) }}"
                                    class="wishlist-btn-fast">
@@ -72,7 +70,6 @@
                                 </a>
                             @endauth
 
-                            {{-- discount --}}
                             @if($book->discount > 0)
                                 <div class="position-absolute top-0 start-0 m-2 bg-danger text-white px-2 rounded small">
                                     -{{ $book->discount }}%
@@ -86,7 +83,7 @@
 
                             <div class="card-body d-flex flex-column">
 
-                                <h6 class="fw-bold text-truncate-2 mb-2">
+                                <h6 class="fw-bold text-truncate-2 mb-2" style="height:2.5rem">
                                     {{ $book->title }}
                                 </h6>
 
@@ -107,24 +104,15 @@
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-
                                     <small class="text-muted">
                                         <i class="fas fa-shopping-cart"></i>
                                         {{ $book->sold_quantity }}
                                     </small>
 
-                                    @auth
-                                        <a href="{{ url('/books/'.$book->book_id) }}"
-                                           class="btn btn-sm btn-outline-primary rounded-pill">
-                                            Chi tiết
-                                        </a>
-                                    @else
-                                        <a href="{{ route('login') }}"
-                                           class="btn btn-sm btn-outline-primary rounded-pill">
-                                            Chi tiết
-                                        </a>
-                                    @endauth
-
+                                    <a href="{{ url('/books/'.$book->book_id) }}"
+                                       class="btn btn-sm btn-outline-primary rounded-pill">
+                                        Chi tiết
+                                    </a>
                                 </div>
                             </div>
 
@@ -160,14 +148,14 @@
 
             </div>
 
-            <div class="mt-3">
-                {{ $books->links() }}
+            <div class="d-flex justify-content-center mt-4">
+                {{ $books->links('pagination::bootstrap-5') }}
             </div>
 
         @else
             <div class="text-center py-5">
                 <h5 class="text-muted">Không tìm thấy sách phù hợp</h5>
-                <a href="{{ route('home') }}" class="btn btn-primary rounded-pill mt-3">
+                <a href="{{ url('/') }}" class="btn btn-primary rounded-pill mt-3">
                     Về trang chủ
                 </a>
             </div>

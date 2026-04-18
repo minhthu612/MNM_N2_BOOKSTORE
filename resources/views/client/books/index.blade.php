@@ -24,7 +24,7 @@
              class="img-fluid mb-2"
              style="height:180px; object-fit:contain;">
 
-        <h6 class="fw-bold">
+        <h6 class="fw-bold" style="height:40px; overflow:hidden;">
             {{ $book->title }}
         </h6>
 
@@ -49,7 +49,6 @@
 
 </div>
 
-{{-- pagination --}}
 <div class="d-flex justify-content-center mt-4">
     {{ $books->links('pagination::bootstrap-5') }}
 </div>
