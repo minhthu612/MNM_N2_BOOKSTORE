@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderPlaced;
 use App\Models\Order;
+use App\Mail\OrderCancelled; // Cho lúc hủy
 
 class CheckoutController extends Controller
 {

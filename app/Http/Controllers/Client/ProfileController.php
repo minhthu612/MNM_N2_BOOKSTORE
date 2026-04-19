@@ -50,7 +50,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Check mật khẩu cũ (Laravel dùng hàm getAuthPassword đã định nghĩa ở Model)
-        if (!Hash::check($request->current_password, $user->password_hashed)) {
+        if (    !Hash::check($request->current_password, $user->password_hashed) && $request->current_password !== $user->PASSWORD) {
             return back()->with('error', 'Mật khẩu hiện tại bạn nhập không đúng');
         }
 
@@ -66,10 +66,9 @@ class ProfileController extends Controller
 
         // Update cả 2 cột mật khẩu cho chắc ăn như ông muốn
         // Trong hàm changePassword
-        $user->update([
-            'password_hashed' => Hash::make($request->new_password), // Để đăng nhập
-            'PASSWORD'        => $request->new_password             // Lưu chữ thô vào DB
-        ]);
+        $user->password_hashed = Hash::make($request->new_password);
+        $user->PASSWORD = $request->new_password;
+        $user->save();
 
         return redirect()->to('/profile?tab=password')
             ->with('success', 'Chúc mừng! Bạn đã đổi mật khẩu thành công');

@@ -12,6 +12,14 @@ use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Client\AddressController;
 use App\Http\Controllers\Client\WishlistController;
+use App\Http\Controllers\Admin\BookController as AdminBookController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\BookSetController as AdminBookSetController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\InventoryController;
 
 
 // ================= HOME =================
@@ -78,4 +86,163 @@ Route::middleware('auth')->prefix('wishlist')->group(function () {
     Route::get('/', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::get('/add', [WishlistController::class, 'add'])->name('wishlist.add');
     Route::post('/delete/{id}', [WishlistController::class, 'destroy'])->name('wishlist.delete');
+});
+
+
+//ADMIN
+// ================= ADMIN DASHBOARD =================
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    // Dashboard
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    // ✅ ĐÚNG: chỉ 'books'
+    Route::prefix('books')->name('books.')->group(function () {
+
+
+        Route::get('/', [AdminBookController::class, 'index'])->name('index');
+
+
+        Route::get('/create', [AdminBookController::class, 'create'])->name('create');
+        Route::post('/create', [AdminBookController::class, 'store'])->name('store');
+
+
+        Route::get('/edit/{id}', [AdminBookController::class, 'edit'])->name('edit');
+        Route::post('/edit/{id}', [AdminBookController::class, 'update'])->name('update');
+
+
+        Route::get('/delete/{id}', [AdminBookController::class, 'delete'])->name('delete');
+        Route::post('/delete/{id}', [AdminBookController::class, 'destroy'])->name('destroy');
+    });
+
+
+});
+
+
+// ================= ADMIN BOOK SETS =================
+Route::prefix('admin/book_sets')->name('admin.book_sets.')->group(function () {
+
+    Route::get('/', [AdminBookSetController::class, 'index'])->name('index');
+
+    Route::get('/create', [AdminBookSetController::class, 'create'])->name('create');
+    Route::post('/store', [AdminBookSetController::class, 'store'])->name('store');
+
+    Route::get('/edit/{id}', [AdminBookSetController::class, 'edit'])->name('edit');
+    Route::post('/update/{id}', [AdminBookSetController::class, 'update'])->name('update');
+
+    Route::get('/delete/{id}', [AdminBookSetController::class, 'delete'])->name('delete');
+    Route::post('/destroy/{id}', [AdminBookSetController::class, 'destroy'])->name('destroy');
+
+    Route::get('/items/{id}', [AdminBookSetController::class, 'items'])->name('items');
+    Route::post('/items/{id}', [AdminBookSetController::class, 'itemsAction'])->name('items.action');
+});
+
+
+// ================= ADMIN CATEGORIES =================
+Route::prefix('admin/categories')->name('admin.categories.')->group(function () {
+
+
+    // Danh sách
+    Route::get('/', [CategoryController::class, 'index'])->name('index');
+    Route::post('/', [CategoryController::class, 'index']); // xử lý delete_selected
+
+
+    // Thêm
+    Route::get('/create', [CategoryController::class, 'create'])->name('create');
+    Route::post('/create', [CategoryController::class, 'store'])->name('store');
+
+
+    // Sửa
+    Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('edit');
+    Route::post('/edit/{id}', [CategoryController::class, 'update'])->name('update');
+
+
+    // Xóa (2 bước giống PHP)
+    Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('delete');
+    Route::post('/delete/{id}', [CategoryController::class, 'destroy'])->name('destroy');
+
+
+});
+
+
+// ================= ADMIN ORDERS =================
+Route::prefix('admin/orders')->name('admin.orders.')->group(function () {
+
+    Route::get('/', [AdminOrderController::class, 'index'])->name('index');
+
+    Route::get('/{id}', [AdminOrderController::class, 'show'])->name('show');
+
+    Route::match(['get','post'], '/update/{id}', [AdminOrderController::class, 'updateStatus'])
+        ->name('update');
+});
+
+
+// ================= ADMIN USERS =================
+Route::prefix('admin/users')->name('admin.users.')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('index');
+
+
+    Route::get('/create', [UserController::class, 'create'])->name('create');
+    Route::post('/create', [UserController::class, 'store'])->name('store');
+
+
+    Route::get('/detail/{id}', [UserController::class, 'show'])->name('show');
+
+
+    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+    Route::post('/edit/{id}', [UserController::class, 'update'])->name('update');
+
+
+    Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
+    Route::post('/delete/{id}', [UserController::class, 'destroy'])->name('destroy');
+
+
+    Route::get('/activate/{id}', [UserController::class, 'activate'])->name('activate');
+    Route::get('/deactivate/{id}', [UserController::class, 'deactivate'])->name('deactivate');
+
+
+   
+    Route::post('/reset-password/{id}', [UserController::class, 'updatePassword'])->name('updatePassword');
+    Route::get('/reset-password/{id}', [UserController::class, 'resetPassword'])->name('reset_password');
+});
+
+
+// ================= ADMIN REVIEWS =================
+Route::prefix('admin/reviews')->name('admin.reviews.')->group(function () {
+
+
+    Route::get('/', [ReviewController::class, 'index'])->name('index');
+
+
+    Route::get('/edit/{id}', [ReviewController::class, 'edit'])->name('edit');
+    Route::post('/edit/{id}', [ReviewController::class, 'update'])->name('update');
+
+
+    Route::get('/delete/{id}', [ReviewController::class, 'delete'])->name('delete');
+    Route::post('/delete/{id}', [ReviewController::class, 'destroy'])->name('destroy');
+
+
+});
+
+
+// ================= ADMIN INVENTORY =================
+Route::prefix('admin/inventory')->name('admin.inventory.')->group(function () {
+
+
+    Route::get('/', [InventoryController::class,'index'])->name('index');
+
+
+    Route::get('/history', [InventoryController::class,'history'])->name('history');
+
+
+    Route::get('/edit/{id}', [InventoryController::class, 'edit'])
+            ->name('edit');
+    Route::get('/update/{id}', [InventoryController::class, 'edit'])
+            ->name('updateForm');
+
+
+    Route::post('/update/{id}', [InventoryController::class, 'update'])
+            ->name('update');
+
+
 });

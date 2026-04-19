@@ -18,8 +18,8 @@ class User extends Authenticatable
         'username',
         'email',
         'fullname',
-        'password_hashed', // Cột này ông đang dùng để lưu
-        'PASSWORD',        // PHẢI THÊM CỘT NÀY VÀO ĐÂY THÌ NÓ MỚI HẾT NULL
+        'password_hashed',
+        'PASSWORD',
         'phone',
         'role',
         'status'
@@ -27,9 +27,9 @@ class User extends Authenticatable
 
     protected $hidden = [
         'password_hashed',
-        'remember_token',
     ];
 
+    // 🔥 QUAN TRỌNG: Laravel sẽ dùng cái này để check password
     public function getAuthPassword()
     {
         return $this->password_hashed;

@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\OrderCancelled; // Nhớ check file này đã tạo chưa nha
+use App\Mail\OrderCancelled; 
+use App\Mail\OrderPlaced; 
 use App\Models\Order;
 
 class OrderController extends Controller
@@ -71,14 +72,15 @@ class OrderController extends Controller
 
                 // 🔥 GỬI MAIL THÔNG BÁO HỦY ĐƠN
                 try {
-                    // Lấy order thông qua Model để Mail có thể đọc được các field dễ dàng
-                    $order = Order::find($id);
+                    // LẤY DỮ LIỆU MỚI NHẤT KÈM RELATIONSHIP ĐỂ MAIL HIỆN ĐỦ SẢN PHẨM
+                    $order = Order::with(['orderDetails.book'])->find($id);
+                    
                     if ($order && Auth::user()->email) {
+                        // Gọi đúng class OrderCancelled
                         Mail::to(Auth::user()->email)->send(new OrderCancelled($order));
                     }
                 } catch (\Exception $mailEx) {
-                    // Log lỗi mail nếu config .env sai, nhưng đơn vẫn được hủy thành công
-                    \Log::error("Lỗi gửi mail hủy đơn: " . $mailEx->getMessage());
+                    \Log::error("Lỗi gửi mail hủy đơn #" . $id . ": " . $mailEx->getMessage());
                 }
 
                 return redirect()->route('orders.index')->with('success', "Đã hủy đơn hàng #$id thành công!");
