@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-
+@section('title', 'Chỉnh sửa đánh giá')
 @section('content')
 
 

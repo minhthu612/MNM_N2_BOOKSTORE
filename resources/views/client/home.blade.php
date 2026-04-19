@@ -90,10 +90,16 @@
                     <div class="badge-discount">-{{ $giam }}%</div>
                 @endif
 
-                {{-- NÚT YÊU THÍCH --}}
-                <a href="{{ route('wishlist.add', ['book_id' => $book->book_id]) }}" class="btn-wishlist">
-                    <i class="far fa-heart"></i>
-                </a>
+                <!-- ❤️ NÚT WISHLIST -->
+                <button class="btn-wishlist"
+                        data-id="{{ $book->book_id }}"
+                        style="position:absolute; top:10px; right:10px; border:none; background:none;">
+
+                    <i class="fa-heart 
+                        {{ in_array($book->book_id, $wishlist_ids ?? []) ? 'fas text-danger' : 'far' }}">
+                    </i>
+
+                </button>
 
                 {{-- ẢNH --}}
                 <div class="text-center position-relative">

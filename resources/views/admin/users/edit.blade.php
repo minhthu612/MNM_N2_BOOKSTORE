@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Sửa thông tin: ' . $user->username)
 @section('content')
 
 

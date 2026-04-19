@@ -28,9 +28,9 @@
 
 
         {{-- ERROR --}}
-        @if ($error != '')
+        @if (session('error'))
             <div class="alert alert-danger border-0 shadow-sm">
-                <i class="fas fa-exclamation-circle me-2"></i> {{ $error }}
+                <i class="fas fa-exclamation-circle me-2"></i> {{ session('error') }}
             </div>
         @endif
 

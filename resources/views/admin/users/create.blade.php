@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Thêm người dùng mới')
 @section('content')
 
 
@@ -18,14 +19,6 @@
             <h4 class="text-primary fw-bold mb-0">THÊM THÀNH VIÊN MỚI</h4>
             <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary rounded-pill px-3">Quay lại</a>
         </div>
-
-
-        {{-- ERROR --}}
-        @if(session('error'))
-            <div class="alert alert-danger border-0 shadow-sm">
-                <i class="fas fa-exclamation-triangle me-2"></i> {{ session('error') }}
-            </div>
-        @endif
 
 
         <form method="POST" action="{{ route('admin.users.store') }}">

@@ -44,7 +44,7 @@
 
 
                 <h4 class="fw-bold mb-1">{{ $user->fullname }}</h4>
-                <p class="text-muted small">@{{ $user->username }}</p>
+                <p class="text-muted small">{{ '@' . $user->username }}</p>
 
 
                 <div class="d-flex justify-content-center gap-2 mb-3">

@@ -201,15 +201,14 @@ Route::prefix('admin/users')->name('admin.users.')->group(function () {
 
 
     Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
-    Route::post('/delete/{id}', [UserController::class, 'destroy'])->name('destroy');
+    Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('destroy');
 
 
     Route::get('/activate/{id}', [UserController::class, 'activate'])->name('activate');
     Route::get('/deactivate/{id}', [UserController::class, 'deactivate'])->name('deactivate');
 
-
-   
-    Route::post('/reset-password/{id}', [UserController::class, 'updatePassword'])->name('updatePassword');
+    // Sửa 'updatePassword' thành 'resetPassword' vì trong Controller bạn đặt tên là resetPassword
+    Route::post('/reset-password/{id}', [UserController::class, 'resetPassword'])->name('updatePassword');
     Route::get('/reset-password/{id}', [UserController::class, 'resetPassword'])->name('reset_password');
 });
 
@@ -234,22 +233,12 @@ Route::prefix('admin/reviews')->name('admin.reviews.')->group(function () {
 
 // ================= ADMIN INVENTORY =================
 Route::prefix('admin/inventory')->name('admin.inventory.')->group(function () {
+    Route::get('/', [InventoryController::class, 'index'])->name('index');
+    Route::get('/history', [InventoryController::class, 'history'])->name('history');
 
-
-    Route::get('/', [InventoryController::class,'index'])->name('index');
-
-
-    Route::get('/history', [InventoryController::class,'history'])->name('history');
-
-
-    Route::get('/edit/{id}', [InventoryController::class, 'edit'])
-            ->name('edit');
-    Route::get('/update/{id}', [InventoryController::class, 'edit'])
-            ->name('updateForm');
-
-
-    Route::post('/update/{id}', [InventoryController::class, 'update'])
-            ->name('update');
-
-
+    // Route này để HIỂN THỊ giao diện (GET)
+    Route::get('/edit/{id}', [InventoryController::class, 'edit'])->name('edit');
+    
+    // Route này để XỬ LÝ lưu dữ liệu (POST)
+    Route::post('/update/{id}', [InventoryController::class, 'update'])->name('update');
 });
