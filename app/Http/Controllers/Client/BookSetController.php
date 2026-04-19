@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Models\BookSet; // ✅ thêm model nhưng KHÔNG phá code cũ
+use App\Models\BookSet; 
 
 class BookSetController extends Controller
 {
@@ -19,7 +19,7 @@ class BookSetController extends Controller
         // ===== VIEW (ghi lượt xem) =====
         DB::table('book_views')->insert([
             'user_id' => Auth::id(),
-            'book_id' => $id, // ⚠️ đang dùng chung với book
+            'book_id' => $id, 
             'viewed_at' => now()
         ]);
 
@@ -48,9 +48,9 @@ class BookSetController extends Controller
             ->where('bsi.set_id', $id)
             ->get();
 
-        // ===== RATING (THÊM để giống book detail) =====
+        // ===== RATING =====
         $rating = DB::table('reviews')
-            ->where('book_id', $id) // ⚠️ dùng chung với book
+            ->where('book_id', $id) 
             ->selectRaw('AVG(rating) as avg_rating, COUNT(*) as total_reviews')
             ->first();
 
@@ -65,13 +65,25 @@ class BookSetController extends Controller
             ->select('r.*', 'u.fullname', 'u.username')
             ->get();
 
+        // ==========================================
+        // 👉 THÊM: LẤY DANH SÁCH ID ĐÃ YÊU THÍCH (NEW)
+        // ==========================================
+        $wishlist_ids = [];
+        if (Auth::check()) {
+            $wishlist_ids = DB::table('wishlist')
+                ->where('user_id', Auth::id())
+                ->pluck('book_id')
+                ->toArray();
+        }
+
         return view('client.book_sets.detail', compact(
             'set',
             'total_views',
             'list_items',
             'list_reviews',
-            'avg_rating',      // ✅ thêm
-            'total_reviews'    // ✅ thêm
+            'avg_rating',
+            'total_reviews',
+            'wishlist_ids' // 👈 Truyền qua view
         ));
     }
 }

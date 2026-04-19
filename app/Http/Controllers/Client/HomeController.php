@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller; 
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -32,7 +33,6 @@ class HomeController extends Controller
             }
         }
 
-        // 👉 THÊM: tên bộ sách
         if ($set_id) {
             $set = DB::table('book_sets')
                     ->where('set_id', $set_id)
@@ -43,7 +43,6 @@ class HomeController extends Controller
             }
         }
 
-        // 👉 THÊM: lấy list bộ SGK (dropdown)
         $bookSets = DB::table('book_sets')
                     ->where('stock_status', '!=', 'DELETED')
                     ->orderBy('set_id')
@@ -55,7 +54,7 @@ class HomeController extends Controller
                 ->where('set_id', $set_id)
                 ->selectRaw("set_id as book_id, name as title, link_images, price, discount, sold_quantity, 'set' as loai")
                 ->paginate(12)
-                ->appends($request->query()); // 👈 giữ query khi phân trang
+                ->appends($request->query());
         } else {
             $query = DB::table('books');
 
@@ -63,15 +62,24 @@ class HomeController extends Controller
                 $query->where('category_id', $category_id);
             }
 
-            // ===== SORT =====
             if ($view_type == 'new') {
                 $query->orderBy('created_at', 'desc');
             } else {
                 $query->orderBy('sold_quantity', 'desc');
             }
 
-            $books = $query->paginate(12)
-                           ->appends($request->query()); // 👈 giữ query
+            $books = $query->paginate(12)->appends($request->query());
+        }
+
+        // ==========================================
+        // 👉 THÊM: LẤY DANH SÁCH ID ĐÃ YÊU THÍCH
+        // ==========================================
+        $wishlist_ids = [];
+        if (Auth::check()) {
+            $wishlist_ids = DB::table('wishlist')
+                ->where('user_id', Auth::id())
+                ->pluck('book_id')
+                ->toArray();
         }
 
         return view('client.home', compact(
@@ -79,7 +87,8 @@ class HomeController extends Controller
             'category_name',
             'category_id',
             'set_id',
-            'bookSets'
+            'bookSets',
+            'wishlist_ids' // 👈 Truyền mảng này qua View
         ));
     }
 }

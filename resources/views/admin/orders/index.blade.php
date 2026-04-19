@@ -1,11 +1,16 @@
 @extends('layouts.app')
 @section('title', 'Quản lý đơn hàng')
 
+
 @section('content')
+
+
 
 
 <style>
    
+
+
 
 
     .the-bang { background: #fff; border-radius: 12px; }
@@ -24,7 +29,11 @@
 </style>
 
 
+
+
 <div class="container-fluid">
+
+
 
 
     {{-- STATS --}}
@@ -50,6 +59,8 @@
     </div>
 
 
+
+
     <div class="card the-bang border-0 shadow-sm">
         <div class="card-header bg-white py-3">
             <h5 class="mb-0 text-primary fw-bold">
@@ -58,7 +69,11 @@
         </div>
 
 
+
+
         <div class="card-body">
+
+
 
 
             {{-- FILTER --}}
@@ -69,6 +84,8 @@
                            value="{{ $search }}"
                            placeholder="Mã đơn, tên khách...">
                 </div>
+
+
 
 
                 <div class="col-md-2">
@@ -83,14 +100,20 @@
                 </div>
 
 
+
+
                 <div class="col-md-2">
                     <input type="date" name="date_from" class="form-control" value="{{ $date_from }}">
                 </div>
 
 
+
+
                 <div class="col-md-2">
                     <input type="date" name="date_to" class="form-control" value="{{ $date_to }}">
                 </div>
+
+
 
 
                 <div class="col-md-3 d-flex gap-1">
@@ -99,6 +122,8 @@
                        class="btn btn-outline-secondary w-100 rounded-pill">Reset</a>
                 </div>
             </form>
+
+
 
 
             {{-- TABLE --}}
@@ -117,12 +142,16 @@
                     </thead>
 
 
+
+
                     <tbody>
                     @forelse($orders as $o)
                         <tr class="text-center">
                             <td>
                                 <span class="fw-bold text-primary">#{{ $o->order_id }}</span>
                             </td>
+
+
 
 
                             <td class="text-start">
@@ -132,6 +161,8 @@
                             </td>
 
 
+
+
                             <td>
                                 <span class="badge bg-info text-dark px-3 py-2">
                                     {{ $o->total_qty }} cuốn
@@ -139,11 +170,15 @@
                             </td>
 
 
+
+
                             <td>
                                 <span class="fw-bold text-danger">
                                     {{ number_format($o->total_amount) }}đ
                                 </span>
                             </td>
+
+
 
 
                             <td>
@@ -161,6 +196,8 @@
                             </td>
 
 
+
+
                             <td>
                                 <div class="small">
                                     {{ \Carbon\Carbon::parse($o->created_at)->format('d/m/Y') }}
@@ -171,14 +208,18 @@
                             </td>
 
 
+
+
                             <td>
-                                <a href="{{ route('admin.orders.show',$o->order_id) }}"
+                                <a href="{{ route('admin.orders.show', $o->order_id) }}?{{ http_build_query(request()->all()) }}"
                                    class="btn btn-info text-white nut-hanh-dong">
                                     <i class="fas fa-eye"></i> Xem
                                 </a>
 
 
-                                <a href="{{ route('admin.orders.update',$o->order_id) }}"
+
+
+                                <a href="{{ route('admin.orders.update',$o->order_id) }}?{{ http_build_query(request()->all()) }}"
                                    class="btn btn-warning text-dark nut-hanh-dong">
                                     <i class="fas fa-edit"></i> Sửa
                                 </a>
@@ -196,6 +237,8 @@
                 </div>
 
 
+
+
                 {{-- pagination --}}
                 <div class="mt-4 d-flex justify-content-center">
                     {{ $orders->appends(request()->all())->links() }}
@@ -205,9 +248,10 @@
     </div>
 
 
+
+
 </div>
 
 
-
-
 @endsection
+

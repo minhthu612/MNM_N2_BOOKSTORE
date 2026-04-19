@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth; // 👈 Thêm dòng này để dùng Auth
 
 class BookController extends Controller
 {
@@ -78,6 +79,17 @@ class BookController extends Controller
             ->orderBy('r.created_at', 'desc')
             ->get();
 
+        // ==========================================
+        // 👉 THÊM: LẤY DANH SÁCH ID ĐÃ YÊU THÍCH (NEW)
+        // ==========================================
+        $wishlist_ids = [];
+        if (Auth::check()) {
+            $wishlist_ids = DB::table('wishlist')
+                ->where('user_id', Auth::id())
+                ->pluck('book_id')
+                ->toArray();
+        }
+
         // =========================
         // RETURN VIEW (QUAN TRỌNG)
         // =========================
@@ -86,7 +98,8 @@ class BookController extends Controller
             'avg_rating',
             'total_reviews',
             'total_views',
-            'list_reviews'
+            'list_reviews',
+            'wishlist_ids' // 👈 Nhớ truyền thêm biến này vào view
         ));
     }
 }

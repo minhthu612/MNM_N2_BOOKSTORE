@@ -10,7 +10,6 @@
     .item-nho { border: 1px solid #f1f1f1; border-radius: 10px; padding: 10px; margin-bottom: 10px; background: #fafafa; transition: 0.3s; }
     .item-nho:hover { background: #fdfdfd; border-color: #667eea; }
     
-    /* Nút đặt mua bo tròn cực đại giống trang sách lẻ */
     .nut-dat-mua { 
         border-radius: 50px !important; 
         padding: 15px 40px !important; 
@@ -20,7 +19,6 @@
         box-shadow: 0 4px 15px rgba(217, 83, 79, 0.3);
     }
     
-    /* Nút trái tim tròn viền đỏ */
     .nut-yeu-thich-tron {
         width: 55px;
         height: 55px;
@@ -33,8 +31,10 @@
         background: white;
         transition: 0.3s;
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        text-decoration: none;
     }
-    .nut-yeu-thich-tron:hover {
+    /* Thêm trạng thái Active để nút đỏ hẳn lên khi đã thích */
+    .nut-yeu-thich-tron:hover, .nut-yeu-thich-tron.active {
         background: #ff4d4f !important;
         color: white !important;
     }
@@ -45,7 +45,7 @@
 
 <div class="container py-5">
     
-    {{-- 1. CỤM THÔNG BÁO (SUCCESS/INFO/ERROR) --}}
+    {{-- THÔNG BÁO --}}
     @if(session('success'))
         <div class="alert alert-success border-0 shadow-sm rounded-3 d-flex align-items-center mb-4" role="alert" style="background-color: #d1e7dd; color: #0f5132;">
             <i class="fas fa-check-circle me-2"></i>
@@ -53,21 +53,6 @@
         </div>
     @endif
 
-    @if(session('info'))
-        <div class="alert alert-info border-0 shadow-sm rounded-3 d-flex align-items-center mb-4" role="alert" style="background-color: #cff4fc; color: #055160;">
-            <i class="fas fa-info-circle me-2"></i>
-            <div>{{ session('info') }}</div>
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-danger border-0 shadow-sm rounded-3 d-flex align-items-center mb-4" role="alert" style="background-color: #f8d7da; color: #842029;">
-            <i class="fas fa-exclamation-triangle me-2"></i>
-            <div>{{ session('error') }}</div>
-        </div>
-    @endif
-
-    {{-- BREADCRUMB --}}
     <div class="mb-4">
         <a href="{{ url('/') }}" class="text-decoration-none text-muted">Trang chủ</a> / 
         <span class="text-dark fw-bold">Bộ sách: {{ $set->name }}</span>
@@ -75,7 +60,6 @@
 
     <div class="khung-combo shadow-sm">
         <div class="row g-5">
-            {{-- BÊN TRÁI: ẢNH VÀ DANH SÁCH CON --}}
             <div class="col-md-5">
                 <div class="text-center p-3 bg-light rounded-3">
                     <img src="{{ asset($set->link_images ?? 'images/no-image.jpg') }}" class="anh-combo-lon" alt="{{ $set->name }}">
@@ -94,7 +78,6 @@
                 </div>
             </div>
 
-            {{-- BÊN PHẢI: THÔNG TIN VÀ NÚT MUA --}}
             <div class="col-md-7">
                 <div class="mb-2">
                     <span class="badge bg-warning text-dark rounded-pill px-3">BỘ SÁCH TIẾT KIỆM</span>
@@ -117,6 +100,8 @@
                         $goc = $set->price;
                         $giam = $set->discount ?? 0;
                         $cuoi = $goc - ($goc * $giam / 100);
+                        // Kiểm tra xem bộ sách này đã được thích chưa
+                        $da_thich = in_array($set->set_id, $wishlist_ids ?? []);
                     @endphp
                     <div class="gia-combo">
                         {{ number_format($cuoi, 0, ',', '.') }}đ
@@ -137,7 +122,6 @@
                     </div>
                 </div>
 
-                {{-- NÚT MUA TRỌN BỘ & YÊU THÍCH --}}
                 @if (($set->stock ?? 0) > 0)
                 <form action="{{ route('cart.addSet') }}" method="POST">
                     @csrf
@@ -154,9 +138,10 @@
                         </button>
 
                         @auth
+                        {{-- CẬP NHẬT TRẠNG THÁI NÚT TRÁI TIM --}}
                         <a href="{{ route('wishlist.add', ['book_id' => $set->set_id]) }}"
-                           class="btn nut-yeu-thich-tron shadow-sm">
-                            <i class="far fa-heart fs-4"></i>
+                           class="btn nut-yeu-thich-tron shadow-sm {{ $da_thich ? 'active' : '' }}">
+                            <i class="{{ $da_thich ? 'fas' : 'far' }} fa-heart fs-4"></i>
                         </a>
                         @endauth
                     </div>
@@ -165,7 +150,6 @@
             </div>
         </div>
 
-        {{-- ĐÁNH GIÁ KHÁCH HÀNG --}}
         <div class="row mt-5 pt-5 border-top">
             <div class="col-md-8">
                 <h5 class="fw-bold mb-4 text-primary text-uppercase">

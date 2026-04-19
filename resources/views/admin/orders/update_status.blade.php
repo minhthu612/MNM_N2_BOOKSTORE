@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
+
 @section('title', 'Cập nhật đơn hàng #' . $order->order_id)
+
 
 @section('content')
 <style>
@@ -9,10 +11,10 @@
     .nut-bam { border-radius: 25px !important; padding: 10px 30px !important; font-weight: bold; transition: all 0.3s; }
     .nut-bam:hover { transform: translateY(-2px); }
     .thong-tin-don { background: #f8f9fa; border-left: 5px solid #0d6efd; padding: 15px; border-radius: 8px; }
-    
+   
     /* Ghi chú lịch sử */
     .khung-ghi-chu { background: #fdfdfd; border-radius: 10px; border: 1px solid #f0f0f0; }
-    
+   
     /* Alert lưu ý kiểu mới cho đẹp */
     .alert-custom-note {
         background-color: #fff9db;
@@ -22,6 +24,7 @@
         padding: 12px 15px;
     }
 </style>
+
 
 <div class="container">
     {{-- 1. GIAO DIỆN XÁC NHẬN --}}
@@ -37,14 +40,15 @@
                     @endif
                 </p>
                 <div class="d-flex justify-content-center gap-3 mt-4">
-                    <a href="{{ route('admin.orders.update', $order->order_id) }}?action={{ $action }}&confirmed=1" 
+                    <a href="{{ route('admin.orders.update', $order->order_id) }}?action={{ $action }}&confirmed=1"
                        class="btn btn-danger nut-bam shadow-sm">ĐỒNG Ý</a>
-                    <a href="{{ route('admin.orders.show', $order->order_id) }}" 
+                    <a href="{{ route('admin.orders.show', $order->order_id) }}"
                        class="btn btn-light nut-bam border">HỦY BỎ</a>
                 </div>
             </div>
         </div>
     @else
+
 
     {{-- 2. GIAO DIỆN FORM CẬP NHẬT --}}
     <div class="khung-cap-nhat shadow-sm">
@@ -52,10 +56,12 @@
             <h4 class="text-primary fw-bold mb-0">
                 <i class="fas fa-edit me-2"></i>CẬP NHẬT TRẠNG THÁI
             </h4>
-            <a href="{{ route('admin.orders.show', $order->order_id) }}" class="btn btn-outline-secondary rounded-pill px-3 fw-bold small">
+            <a href="{{ route('admin.orders.index') }}?{{ http_build_query(request()->all()) }}"
+            class="btn btn-outline-secondary rounded-pill px-3 fw-bold small">
                 <i class="fas fa-arrow-left me-1"></i> Quay lại
             </a>
         </div>
+
 
         <div class="row">
             {{-- Cột trái: Form nhập --}}
@@ -73,7 +79,8 @@
                     </div>
                 </div>
 
-                <form method="POST" action="{{ route('admin.orders.update', $order->order_id) }}">
+
+                <form method="POST" action="{{ route('admin.orders.update', $order->order_id) }}?{{ http_build_query(request()->all()) }}">
                     @csrf
                     <div class="mb-4">
                         <label class="fw-bold mb-2 text-dark">Trạng thái xử lý</label>
@@ -86,20 +93,23 @@
                         </select>
                     </div>
 
+
                     <div class="mb-4">
                         <label class="fw-bold mb-2 text-dark">Mã vận đơn (Nếu có)</label>
-                        <input type="text" name="tracking_number" class="form-control o-nhap shadow-sm" 
+                        <input type="text" name="tracking_number" class="form-control o-nhap shadow-sm"
                                value="{{ $order->tracking_number }}" placeholder="Nhập mã từ đơn vị vận chuyển...">
                     </div>
 
+
                     <div class="mb-4">
                         <label class="fw-bold mb-2 text-dark">Ghi chú nội bộ</label>
-                        <textarea name="notes" class="form-control o-nhap shadow-sm" rows="3" 
+                        <textarea name="notes" class="form-control o-nhap shadow-sm" rows="3"
                                   placeholder="Nhập lý do thay đổi hoặc lời nhắn cho khách..."></textarea>
                         <div class="mt-2 text-muted small fst-italic">
                             <i class="fas fa-info-circle me-1"></i> Nội dung này sẽ được lưu vào lịch sử đơn hàng.
                         </div>
                     </div>
+
 
                     <div class="pt-3 border-top">
                         <button type="submit" class="btn btn-primary nut-bam shadow w-100 py-3">
@@ -108,6 +118,7 @@
                     </div>
                 </form>
             </div>
+
 
             {{-- Cột phải: Lịch sử và Lưu ý --}}
             <div class="col-md-5">
@@ -125,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-                
+               
                 {{-- Khung lưu ý đã được đưa vào đây cho đẹp --}}
                 <div class="alert-custom-note shadow-sm">
                     <div class="d-flex">
