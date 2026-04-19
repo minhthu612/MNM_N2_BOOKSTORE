@@ -1,6 +1,5 @@
 @extends('layouts.app')
-
-
+@section('title', 'Báo cáo tồn kho')
 @section('content')
 
 
@@ -31,7 +30,11 @@
 </style>
 
 
+
+
 <div class="container-fluid">
+
+
 
 
     <div class="row g-3 mb-4 text-center">
@@ -43,12 +46,16 @@
         </div>
 
 
+
+
         <div class="col-md-4">
             <div class="card the-thong-ke bg-success text-white p-3">
                 <h3 class="fw-bold mb-0">{{ $stats->in_stock }}</h3>
                 <div class="small">Đầu sách còn hàng</div>
             </div>
         </div>
+
+
 
 
         <div class="col-md-4">
@@ -60,6 +67,8 @@
     </div>
 
 
+
+
     <div class="card the-bang border-0 shadow-sm">
         <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
             <h5 class="mb-0 text-primary fw-bold">CHI TIẾT TỒN KHO HIỆN TẠI</h5>
@@ -69,6 +78,8 @@
         </div>
 
 
+
+
         <div class="card-body">
             <form method="GET" action="" class="row g-2 mb-4">
                 <div class="col-md-5">
@@ -76,6 +87,8 @@
                            placeholder="Tìm tên sách hoặc tác giả..."
                            value="{{ $search }}">
                 </div>
+
+
 
 
                 <div class="col-md-3">
@@ -88,9 +101,13 @@
                 </div>
 
 
+
+
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-primary w-100 rounded-pill">Lọc kết quả</button>
                 </div>
+
+
 
 
                 <div class="col-md-2">
@@ -98,6 +115,8 @@
                        class="btn btn-outline-secondary w-100 rounded-pill">Xóa lọc</a>
                 </div>
             </form>
+
+
 
 
             <div class="table-responsive">
@@ -113,12 +132,18 @@
                     </thead>
 
 
+
+
                     <tbody>
                         @if(count($inventory_list) > 0)
 
 
+
+
                             @foreach ($inventory_list as $row)
                                 <tr class="text-center">
+
+
 
 
                                     <td>
@@ -131,10 +156,14 @@
                                     </td>
 
 
+
+
                                     <td class="text-start">
                                         <div class="fw-bold">{{ $row->title }}</div>
                                         <small class="text-muted">{{ $row->author }}</small>
                                     </td>
+
+
 
 
                                     <td>
@@ -142,6 +171,8 @@
                                             {{ $row->stock }}
                                         </span>
                                     </td>
+
+
 
 
                                     <td>
@@ -155,16 +186,22 @@
                                     </td>
 
 
+
+
                                     <td>
-                                        <a href="{{ route('admin.inventory.updateForm', $row->inventory_id) }}"
+                                        <a href="{{ route('admin.inventory.edit', $row->inventory_id) }}"
                                            class="btn btn-info text-white nut-hanh-dong">
                                             <i class="fas fa-edit"></i> Sửa
                                         </a>
                                     </td>
 
 
+
+
                                 </tr>
                             @endforeach
+
+
 
 
                         @else
@@ -177,6 +214,8 @@
                     </tbody>
                 </table>
             </div>
+
+
 
 
             @if($total_pages > 1)
@@ -193,6 +232,8 @@
                     </ul>
                 </nav>
             @endif
+
+
 
 
         </div>

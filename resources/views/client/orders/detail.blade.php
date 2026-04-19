@@ -30,6 +30,12 @@
 
 <div class="container py-5">
 
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show rounded-pill px-4 shadow-sm mb-4" role="alert">
+        <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
     <div class="mb-4 bg-white p-3 rounded-3 shadow-sm border">
         <a href="{{ route('orders.index') }}" class="text-decoration-none fw-bold">
@@ -52,17 +58,23 @@
                 <h5 class="fw-bold"><i class="fas fa-map-marker-alt text-danger me-2"></i> THÔNG TIN NHẬN HÀNG</h5>
                 <hr>
                
+                {{-- Trong file detail.blade.php --}}
                 <div class="small">
-                    <p class="mb-1"><strong>Người nhận:</strong> {{ $order->fullname }}</p>
-                    <p class="mb-1"><strong>Số điện thoại:</strong> {{ $order->phone ?? 'Chưa cập nhật' }}</p>
+                    {{-- Ưu tiên lấy tên trong đơn hàng, nếu trống (đơn cũ) thì lấy tên tài khoản --}}
+                    <p class="mb-1"><strong>Người nhận:</strong> {{ $order->fullname ?? Auth::user()->fullname }}</p>
+                   
+                    {{-- Ưu tiên lấy SĐT trong đơn hàng, nếu trống thì lấy SĐT tài khoản --}}
+                    <p class="mb-1"><strong>Số điện thoại:</strong> {{ $order->phone ?? Auth::user()->phone }}</p>
+                   
                     <p class="mb-1"><strong>Địa chỉ giao:</strong></p>
                     <p class="text-muted mb-3">{{ $order->shipping_address }}</p>
-
-
+               
                     <div class="p-2 bg-light rounded border small">
                         <strong>Ghi chú:</strong> {{ $order->notes ?: 'Không có ghi chú.' }}
                     </div>
                 </div>
+               
+   
 
 
                 {{-- ĐẾM NGƯỢC + UPDATE --}}

@@ -15,6 +15,17 @@
 <div class="container py-5">
     <h3 class="fw-bold mb-4 text-center text-uppercase">Xác nhận thanh toán</h3>
 
+    {{-- Hiển thị thông báo lỗi nếu Backend trả về (Ví dụ: chưa chọn địa chỉ) --}}
+    @if ($errors->any())
+        <div class="alert alert-danger rounded-4 shadow-sm mb-4">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li><i class="fas fa-exclamation-circle me-2"></i>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="row g-4">
         <div class="col-lg-7">
             <div class="khung-thanh-toan shadow-sm mb-4">
@@ -25,10 +36,17 @@
                     </a>
                 </div>
 
+                {{-- THÔNG BÁO NẾU CHƯA CÓ ĐỊA CHỈ --}}
+                @if($addresses->isEmpty())
+                    <div class="alert alert-warning rounded-4 text-center py-4">
+                        <i class="fas fa-info-circle fa-2x mb-2 text-warning"></i>
+                        <p class="mb-0">Bạn chưa có địa chỉ nhận hàng nào. Vui lòng bấm <b>"Thêm mới"</b> để tiếp tục đặt hàng!</p>
+                    </div>
+                @endif
+
                 @foreach ($addresses as $addr)
                     <div class="dia-chi-card {{ $addr->address_id == $selected_address_id ? 'active' : '' }}">
-                        <div class="row align-items-stretch"> {{-- Sửa thành stretch để cột bên phải cao bằng cột trái --}}
-                            {{-- Cột bên trái: Thông tin địa chỉ --}}
+                        <div class="row align-items-stretch">
                             <div class="col-md-8">
                                 <div class="fw-bold text-dark fs-5 d-flex align-items-center">
                                     {{ $addr->fullname }} 
@@ -54,16 +72,12 @@
                                 </div>
                             </div>
 
-                            {{-- Cột bên phải: Các nút hành động (Căn giữa và thẳng hàng) --}}
                             <div class="col-md-4 border-start d-flex flex-column justify-content-center ps-4"> 
-                                {{-- ps-4 để đẩy nội dung cách xa đường kẻ dọc ra cho đẹp --}}
-                                
                                 <a href="{{ route('address.edit', $addr->address_id) }}" class="hanh-dong-dia-chi text-primary mb-2">
                                     <i class="fas fa-edit"></i> Chỉnh sửa
                                 </a>
 
                                 @if ($addr->is_default == 0)
-                                    {{-- Nút đặt mặc định --}}
                                     <form action="{{ route('address.default', $addr->address_id) }}" method="POST" class="mb-2">
                                         @csrf
                                         <button type="submit" class="hanh-dong-dia-chi text-info">
@@ -71,7 +85,6 @@
                                         </button>
                                     </form>
 
-                                    {{-- Nút xóa bỏ --}}
                                     <form action="{{ route('address.delete', $addr->address_id) }}" method="POST" onsubmit="return confirm('Xác nhận xóa địa chỉ này?')">
                                         @csrf
                                         <button type="submit" class="hanh-dong-dia-chi text-danger">
@@ -86,6 +99,7 @@
 
                 <form action="{{ route('checkout.store') }}" method="POST" id="checkoutForm">
                     @csrf
+                    {{-- Các input hidden mang dữ liệu địa chỉ đã chọn --}}
                     <input type="hidden" name="fullname" value="{{ $current_addr->fullname ?? '' }}">
                     <input type="hidden" name="phone" value="{{ $current_addr->phone ?? '' }}">
                     <input type="hidden" name="address" value="{{ $selected_address_text }}">
@@ -133,9 +147,45 @@
                         <span class="fw-bold text-danger fs-3">{{ number_format($final_total) }}đ</span>
                     </div>
                 </div>
-                <button type="submit" form="checkoutForm" class="btn btn-primary w-100 nut-thanh-toan shadow mt-4">ĐẶT HÀNG NGAY</button>
+                
+                {{-- Nút đặt hàng: Nếu không có địa chỉ sẽ bị chặn bởi JS bên dưới --}}
+                <button type="submit" id="btnSubmit" form="checkoutForm" class="btn btn-primary w-100 nut-thanh-toan shadow mt-4">
+                    ĐẶT HÀNG NGAY
+                </button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+    // 1. Lấy toàn bộ dữ liệu trong form
+    let formData = new FormData(this);
+    
+    // 2. Kiểm tra địa chỉ
+    let address = formData.get('address');
+    let fullname = formData.get('fullname');
+
+    if (!address || address.trim() === "" || !fullname) {
+        e.preventDefault();
+        alert("Vui lòng chọn hoặc thêm địa chỉ nhận hàng trước khi đặt hàng!");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return false;
+    }
+
+    // 3. KIỂM TRA PHƯƠNG THỨC THANH TOÁN (Sửa chỗ này)
+    let payment = formData.get('payment_method'); // Lấy trực tiếp giá trị đang chọn
+    
+    if (!payment) {
+        e.preventDefault();
+        alert("Vui lòng chọn phương thức thanh toán!");
+        return false;
+    }
+
+    // Nếu mọi thứ ok thì đổi trạng thái nút
+    let btn = document.getElementById('btnSubmit');
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> ĐANG XỬ LÝ...';
+    btn.disabled = true;
+});
+</script>
 @endsection

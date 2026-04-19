@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-
+@section('title', 'Xác nhận xóa đánh giá')
 @section('content')
 
 

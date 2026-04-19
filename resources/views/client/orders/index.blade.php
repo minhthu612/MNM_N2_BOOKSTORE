@@ -1,5 +1,6 @@
 @extends('layouts.client')
 
+
 @section('content')
 <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -7,9 +8,11 @@
         <a href="{{ url('/') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">Tiếp tục mua sắm</a>
     </div>
 
+
     @if(session('success'))
         <div class="alert alert-success border-0 shadow-sm mb-3">{{ session('success') }}</div>
     @endif
+
 
     <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
         <div class="table-responsive">
@@ -38,7 +41,7 @@
                         @endphp
                         <tr>
                             <td class="ps-4 fw-bold text-primary">#{{ $order->order_id }}</td>
-                            <td>{{ date('d/m/Y H:i', strtotime($order->created_at)) }}</td>
+                            <td>{{ \Carbon\Carbon::parse($order->created_at)->timezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i') }}</td>
                             <td><small class="fw-bold">{{ $order->payment_method }}</small></td>
                             <td class="fw-bold text-danger">{{ number_format($order->total_amount, 0, ',', '.') }}đ</td>
                             <td>

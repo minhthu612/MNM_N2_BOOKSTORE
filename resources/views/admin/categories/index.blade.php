@@ -4,14 +4,6 @@
 
 
 <div class="container-fluid">
-   
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm">
-            <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
 
     <div class="card the-bang border-0 shadow-sm">
         <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
@@ -58,8 +50,12 @@
                                 <td class="text-start">{{ $cat->category_name }}</td>
                                 <td>{{ $cat->book_count }}</td>
                                 <td>
-                                    <a href="{{ route('admin.categories.edit',$cat->category_id) }}" class="btn btn-info text-white">Sửa</a>
-                                    <a href="{{ route('admin.categories.delete',$cat->category_id) }}" class="btn btn-danger">Xóa</a>
+                                    <a href="{{route('admin.categories.edit',$cat->category_id)}}" class="btn btn-info text-white nut-hanh-dong">
+                                        <i class="fas fa-edit me-1"></i> Sửa
+                                    </a>
+                                    <a href="{{ route('admin.categories.delete',$cat->category_id) }}" class="btn btn-danger nut-hanh-dong" onclick="return confirm('Bạn có chắc muốn xóa sách này?')">
+                                        <i class="fas fa-trash-alt me-1"></i> Xóa
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach

@@ -1,15 +1,14 @@
 <?php
 
-
 namespace App\Http\Controllers\Client;
-
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail; // 👈 THÊM DÒNG NÀY
+use App\Mail\OrderAddressUpdated;    // 👈 THÊM DÒNG NÀY (Nhớ tạo file Mail trước)
 use Carbon\Carbon;
-
 
 class OrderController extends Controller
 {
@@ -20,7 +19,6 @@ class OrderController extends Controller
     {
         $user_id = Auth::id();
 
-
         $orders = DB::select(
             "SELECT *
              FROM orders
@@ -29,10 +27,8 @@ class OrderController extends Controller
             [$user_id]
         );
 
-
         return view('client.orders.index', compact('orders'));
     }
-
 
     // ========================
     // 2. CHI TIẾT ĐƠN HÀNG
@@ -41,19 +37,18 @@ class OrderController extends Controller
     {
         $user_id = Auth::id();
 
-
-        // Lấy thẳng từ bảng orders, không cần JOIN sang users nữa
-        // vì ta đã có fullname và phone trong orders rồi (nếu làm theo Cách 2)
-        $order = DB::table('orders')
-            ->where('order_id', $id)
-            ->where('user_id', $user_id)
-            ->first();
-
+        // Thêm u.phone và u.fullname vào câu SELECT để Blade có thể dùng
+        $order = DB::selectOne(
+            "SELECT o.*, u.phone as user_phone, u.fullname as user_fullname
+            FROM orders o
+            JOIN users u ON o.user_id = u.user_id
+            WHERE o.order_id = ? AND o.user_id = ?",
+            [$id, $user_id]
+        );
 
         if (!$order) {
             return redirect()->route('orders.index')->with('error', 'Không tìm thấy đơn hàng!');
         }
-
 
         $items = DB::select(
             "SELECT oi.*, b.title, b.link_images
@@ -63,20 +58,11 @@ class OrderController extends Controller
             [$id]
         );
 
-
-        // ========================
-        // TIME LIMIT 1 HOUR (FIX CHUẨN)
-        // ========================
-        $expireAt = Carbon::parse($order->created_at)
-        ->startOfSecond()
-        ->addHour();
-        $remainingSeconds = (int) now()->diffInSeconds($expireAt, false);
-        $remainingSeconds = max(0, $remainingSeconds);
-
+        $expireAt = \Carbon\Carbon::parse($order->created_at)->addHour();
+        $remainingSeconds = max(0, now()->diffInSeconds($expireAt, false));
 
         return view('client.orders.detail', compact('order', 'items', 'remainingSeconds'));
     }
-
 
     // ========================
     // 3. EDIT ADDRESS FORM
@@ -85,24 +71,20 @@ class OrderController extends Controller
     {
         $user_id = Auth::id();
 
-
         $order = DB::selectOne(
-            "SELECT o.*, u.fullname, u.phone
-             FROM orders o
-             JOIN users u ON o.user_id = u.user_id
-             WHERE o.order_id = ? AND o.user_id = ?",
+            "SELECT o.*, u.phone as user_phone, u.fullname as user_fullname
+            FROM orders o
+            JOIN users u ON o.user_id = u.user_id
+            WHERE o.order_id = ? AND o.user_id = ?",
             [$id, $user_id]
         );
-
 
         if (!$order) {
             return redirect()->route('orders.index');
         }
 
-
         $expireAt = Carbon::parse($order->created_at)->addHour();
         $remainingSeconds = now()->diffInSeconds($expireAt, false);
-
 
         if ($remainingSeconds <= 0) {
             return redirect()
@@ -110,74 +92,93 @@ class OrderController extends Controller
                 ->with('error', 'Hết thời gian chỉnh sửa địa chỉ!');
         }
 
-
         return view('client.orders.edit_address', compact('order', 'remainingSeconds'));
     }
 
+    // ========================
+    // 4. UPDATE ADDRESS (CẬP NHẬT ĐỊA CHỈ + GỬI MAIL)
+    // ========================
+
+public function updateAddress(Request $request, $id)
+{
+    $user_id = Auth::id();
+
+    // 1. Kiểm tra đơn hàng chính chủ và lấy ra để check thời gian
+    $order = DB::table('orders')->where('order_id', $id)->where('user_id', $user_id)->first();
+
+    if (!$order) {
+        return redirect()->route('orders.index')->with('error', 'Không tìm thấy đơn hàng!');
+    }
+
+    // 2. Kiểm tra giới hạn 1 giờ (Sửa lại logic so sánh cho chuẩn)
+    $expireAt = \Carbon\Carbon::parse($order->created_at)->addHour();
+    if (now()->gt($expireAt)) {
+        return redirect()->route('orders.show', $id)->with('error', 'Đã hết thời gian chỉnh sửa địa chỉ!');
+    }
+
+    // 3. Ghép địa chỉ từ form
+    $full_address = trim($request->street . ', ' . $request->ward . ', ' . $request->district . ', ' . $request->city);
+
+    // 4. THỰC HIỆN UPDATE
+    $updated = DB::table('orders')
+        ->where('order_id', $id)
+        ->update([
+            'shipping_address' => $full_address,
+            'fullname'         => $request->fullname,
+            'phone'            => $request->phone,
+            'updated_at'       => now()
+        ]);
+
+    // ============================================================
+    // THÊM: GỬI MAIL THÔNG BÁO (Chèn vào đây trước khi Redirect)
+    // ============================================================
+    try {
+        $userEmail = Auth::user()->email;
+        if ($userEmail) {
+            // Lấy data đã update để mail hiện đúng 123456789
+            $updatedOrder = DB::table('orders')->where('order_id', $id)->first();
+            \Mail::to($userEmail)->send(new \App\Mail\OrderAddressUpdated($updatedOrder));
+        }
+    } catch (\Exception $e) {
+        \Log::error("Gửi mail update thất bại: " . $e->getMessage());
+    }
+
+    // 5. REDIRECT VỀ TRANG CHI TIẾT (Vẫn là code cũ của bạn đây)
+    return redirect()->route('orders.show', $id)->with('success', 'Cập nhật thông tin giao hàng thành công!');
+}
 
     // ========================
-    // 4. UPDATE ADDRESS (ĐÃ FIX TRIỆT ĐỂ)
+    // 5. HỦY ĐƠN HÀNG
     // ========================
-    public function updateAddress(Request $request, $id)
+    public function cancel($id)
     {
-        $user_id = Auth::id();
+        $user_id = \Illuminate\Support\Facades\Auth::id();
 
-
-        $order = DB::table('orders')
+        // Tìm đơn hàng và kiểm tra quyền sở hữu + trạng thái
+        $order = \Illuminate\Support\Facades\DB::table('orders')
             ->where('order_id', $id)
             ->where('user_id', $user_id)
             ->first();
-
 
         if (!$order) {
             return redirect()->route('orders.index')
                 ->with('error', 'Không tìm thấy đơn hàng!');
         }
 
-
-        // Check giới hạn 1 giờ
-        $expireAt = \Carbon\Carbon::parse($order->created_at)->addHour();
-        if (now()->greaterThan($expireAt)) {
+        // Chỉ cho phép hủy khi đơn hàng đang ở trạng thái 'pending'
+        if ($order->status !== 'pending') {
             return redirect()->route('orders.show', $id)
-                ->with('error', 'Hết thời gian chỉnh sửa địa chỉ!');
+                ->with('error', 'Không thể hủy đơn hàng ở trạng thái này!');
         }
 
-
-        // 1. Thêm validate cho fullname và phone
-        $request->validate([
-            'fullname' => 'required|string|max:255',
-            'phone'    => 'required|numeric|digits_between:10,11',
-            'city'     => 'required',
-            'district' => 'required',
-            'ward'     => 'required',
-            'street'   => 'required',
-        ], [
-            'phone.numeric' => 'Số điện thoại phải là chữ số.',
-            'phone.digits_between' => 'Số điện thoại không hợp lệ (10-11 số).',
-        ]);
-
-
-        // Ghép địa chỉ
-        $address = trim(
-            $request->street . ', ' .
-            $request->ward . ', ' .
-            $request->district . ', ' .
-            $request->city
-        );
-
-
-        // 2. Cập nhật đồng thời Địa chỉ, Tên và SĐT vào bảng orders
-        DB::table('orders')
+        // Thực hiện cập nhật trạng thái đơn hàng thành 'cancelled'
+        \Illuminate\Support\Facades\DB::table('orders')
             ->where('order_id', $id)
             ->update([
-                'shipping_address' => $address,
-                'fullname'         => $request->fullname, // Cập nhật tên mới
-                'phone'            => $request->phone,    // Cập nhật SĐT mới
+                'status' => 'cancelled',
             ]);
 
-
-        return redirect()
-            ->route('orders.show', $id)
-            ->with('success', 'Cập nhật thông tin nhận hàng thành công!');
+        return redirect()->route('orders.show', $id)
+            ->with('success', 'Đã hủy đơn hàng thành công!');
     }
 }

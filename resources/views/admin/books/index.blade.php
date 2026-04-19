@@ -146,10 +146,13 @@ if($img==''){ $img='https://via.placeholder.com/60x80?text=No+Image'; }
 
 <td>{{ $b->stock ?? 0 }}</td>
 
-
 <td>
-<a href="{{route('admin.books.edit',['id'=>$b->book_id])}}" class="btn btn-info text-white nut-hanh-dong">Sửa</a>
-<a href="{{route('admin.books.delete',['id'=>$b->book_id])}}" class="btn btn-danger nut-hanh-dong">Xóa</a>
+    <a href="{{route('admin.books.edit',['id'=>$b->book_id])}}" class="btn btn-info text-white nut-hanh-dong">
+        <i class="fas fa-edit me-1"></i> Sửa
+    </a>
+    <a href="{{route('admin.books.delete',['id'=>$b->book_id])}}" class="btn btn-danger nut-hanh-dong" onclick="return confirm('Bạn có chắc muốn xóa sách này?')">
+        <i class="fas fa-trash-alt me-1"></i> Xóa
+    </a>
 </td>
 </tr>
 @endforeach
