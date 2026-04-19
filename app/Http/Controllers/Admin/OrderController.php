@@ -49,7 +49,7 @@ class OrderController extends Controller
                 'u.fullname',
                 DB::raw('(SELECT SUM(quantity) FROM order_items WHERE order_id = o.order_id) as total_qty')
             )
-            ->orderBy('o.created_at', 'desc')
+            ->orderBy('o.created_at', 'asc')
             ->paginate(10);
 
         $stats = DB::table('orders')
