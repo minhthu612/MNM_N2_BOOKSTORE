@@ -69,7 +69,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+
+    Route::get('/orders/{id}/edit-address', [OrderController::class, 'editAddress'])
+        ->name('orders.edit_address');
+
+    Route::post('/orders/{id}/update-address', [OrderController::class, 'updateAddress'])
+        ->name('orders.update_address');
 });
+
 
 // ================= ADDRESS =================
 Route::middleware('auth')->prefix('address')->group(function () {
