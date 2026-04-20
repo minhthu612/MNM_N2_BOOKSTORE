@@ -1,10 +1,16 @@
 @extends('layouts.app')
 
 
+
+
 @section('title', 'Chi tiết: ' . $user->username)
 
 
+
+
 @section('content')
+
+
 
 
 <style>
@@ -25,6 +31,8 @@
 </style>
 
 
+
+
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="fw-bold text-dark mb-0">HỒ SƠ NGƯỜI DÙNG</h4>
@@ -32,6 +40,8 @@
             <i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
         </a>
     </div>
+
+
 
 
     <div class="row">
@@ -43,12 +53,18 @@
                 </div>
 
 
+
+
                 <h4 class="fw-bold mb-1">{{ $user->fullname }}</h4>
                 <p class="text-muted small">{{ '@' . $user->username }}</p>
 
 
+
+
                 <div class="d-flex justify-content-center gap-2 mb-3">
                     <span class="badge bg-primary rounded-pill px-3">{{ $user->role }}</span>
+
+
 
 
                     @if ($user->status == 'Active')
@@ -59,7 +75,11 @@
                 </div>
 
 
+
+
                 <hr>
+
+
 
 
                 <div class="text-start">
@@ -71,6 +91,8 @@
                     </div>
 
 
+
+
                     <div class="mb-3">
                         <small class="text-muted d-block text-uppercase fw-bold" style="font-size: 0.7rem;">
                             Số điện thoại:
@@ -79,6 +101,8 @@
                             {{ $user->phone != '' ? $user->phone : 'Chưa cập nhật' }}
                         </span>
                     </div>
+
+
 
 
                     <div class="mb-3">
@@ -94,10 +118,14 @@
                 </div>
 
 
+
+
                 <div class="d-grid gap-2 mt-4">
                     <a href="{{ route('admin.users.edit', $user->user_id) }}" class="btn btn-warning nut-bam">
                         Sửa thông tin
                     </a>
+
+
 
 
                     <a href="{{ route('admin.users.delete', $user->user_id) }}" class="btn btn-outline-danger nut-bam">
@@ -108,8 +136,12 @@
         </div>
 
 
+
+
         {{-- RIGHT --}}
         <div class="col-md-8">
+
+
 
 
             {{-- STATS --}}
@@ -122,6 +154,8 @@
                 </div>
 
 
+
+
                 <div class="col-md-4">
                     <div class="the-thong-ke bg-success shadow-sm">
                         <h3 class="fw-bold mb-0">
@@ -130,6 +164,8 @@
                         <small class="text-uppercase fw-bold" style="font-size: 0.7rem;">Tổng chi tiêu</small>
                     </div>
                 </div>
+
+
 
 
                 <div class="col-md-4">
@@ -143,11 +179,15 @@
             </div>
 
 
+
+
             {{-- ACTIVITIES --}}
             <div class="khung-trang shadow-sm">
                 <h5 class="fw-bold mb-4">
                     <i class="fas fa-history me-2 text-primary"></i>HOẠT ĐỘNG GẦN ĐÂY
                 </h5>
+
+
 
 
                 @if (count($activities) > 0)
@@ -158,37 +198,49 @@
                                     <div>
 
 
-                                        @if ($act->type == 'order')
+
+
+                                        @if ($act['type'] == 'order')
                                             <span class="fw-bold text-dark">
-                                                Đặt đơn hàng #{{ $act->id }}
+                                                Đặt đơn hàng #{{ $act['id']}}
                                             </span>
 
 
+
+
                                             <div class="small text-muted">
-                                                Giá trị: {{ number_format($act->info) }}đ
-                                                - Trạng thái: {{ $act->status }}
+                                                Giá trị: {{ number_format($act['info']) }}đ
+                                                - Trạng thái: {{ $act['status'] }}
                                             </div>
+
+
 
 
                                         @else
                                             <span class="fw-bold text-dark">
-                                                Đánh giá sách: {{ $act->info }}
+                                                Đánh giá sách: {{ $act['info'] }}
                                             </span>
+
+
 
 
                                             <div class="small text-warning">
                                                 @for ($i = 1; $i <= 5; $i++)
-                                                    {{ $i <= $act->status ? '★' : '☆' }}
+                                                    {{ $i <= $act['status'] ? '★' : '☆' }}
                                                 @endfor
                                             </div>
                                         @endif
 
 
+
+
                                     </div>
 
 
+
+
                                     <small class="text-muted">
-                                        {{ date('d/m/Y H:i', strtotime($act->created_at)) }}
+                                        {{ date('d/m/Y H:i', strtotime($act['created_at'])) }}
                                     </small>
                                 </div>
                             </div>
@@ -203,9 +255,13 @@
             </div>
 
 
+
+
         </div>
     </div>
 </div>
+
+
 
 
 @endsection

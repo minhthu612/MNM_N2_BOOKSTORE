@@ -3,6 +3,8 @@
 @section('content')
 
 
+
+
 <style>
     .khung-sua { background-color: #ffffff; padding: 30px; border-radius: 15px; border: 1px solid #e0e0e0; }
     .o-nhap { border-radius: 10px !important; padding: 12px; }
@@ -11,8 +13,12 @@
 </style>
 
 
+
+
 <div class="container">
     <div class="khung-sua shadow-sm">
+
+
 
 
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -23,6 +29,8 @@
         </div>
 
 
+
+
         {{-- ERROR --}}
         @if(session('error'))
             <div class="alert alert-danger border-0 shadow-sm">
@@ -31,13 +39,19 @@
         @endif
 
 
+
+
         <form method="POST" action="{{ route('admin.users.update', $user->user_id) }}">
             @csrf
+
+
 
 
             <div class="row">
                 <!-- LEFT -->
                 <div class="col-md-8">
+
+
 
 
                     <h6 class="tieu-de-nho">THÔNG TIN TÀI KHOẢN</h6>
@@ -55,6 +69,8 @@
                     </div>
 
 
+
+
                     <h6 class="tieu-de-nho">THÔNG TIN CÁ NHÂN</h6>
                     <div class="row mb-4">
                         <div class="col-md-6">
@@ -68,6 +84,8 @@
                                    value="{{ $user->phone }}">
                         </div>
                     </div>
+
+
 
 
                     <div class="row mb-4">
@@ -87,15 +105,23 @@
                     </div>
 
 
+
+
                 </div>
+
+
 
 
                 <!-- RIGHT -->
                 <div class="col-md-4">
 
 
+
+
                     <div class="card border-0 bg-light rounded-3 p-3 mb-4">
                         <h6 class="fw-bold mb-3">THIẾT LẬP HỆ THỐNG</h6>
+
+
 
 
                         <div class="mb-3">
@@ -108,6 +134,8 @@
                         </div>
 
 
+
+
                         <div class="mb-3">
                             <label class="small fw-bold mb-1">Trạng thái</label>
                             <select name="status" class="form-select o-nhap">
@@ -116,6 +144,8 @@
                                 <option value="Pending" {{ $user->status=='Pending'?'selected':'' }}>Chờ phê duyệt</option>
                             </select>
                         </div>
+
+
 
 
                         <div class="mb-3">
@@ -128,6 +158,8 @@
                         </div>
 
 
+
+
                         <div class="mb-0">
                             <label class="small fw-bold mb-1">Điểm tích lũy</label>
                             <input type="number" name="points" class="form-control o-nhap"
@@ -136,18 +168,26 @@
                     </div>
 
 
+
+
                     <div class="alert alert-info border-0 small">
                         <i class="fas fa-info-circle"></i> Tài khoản này được tạo vào: <br>
                         <b>{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y H:i') }}</b>
                     </div>
 
 
+
+
                 </div>
             </div>
 
 
+
+
             <!-- ACTION -->
             <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
+
+
 
 
                 <div class="d-flex gap-2">
@@ -161,7 +201,7 @@
 
 
                 <div class="d-flex gap-2">
-                    <a href="{{ route('admin.users.reset_password', $user->user_id) }}" class="btn btn-info text-white nut-bam">
+                    <a  href="{{ route('admin.users.resetPassword', $user->user_id) }}" class="btn btn-info text-white nut-bam">
                         <i class="fas fa-key"></i> ĐỔI MẬT KHẨU
                     </a>
                     <a href="{{ route('admin.users.delete', $user->user_id) }}" class="btn btn-danger nut-bam">
@@ -170,12 +210,18 @@
                 </div>
 
 
+
+
             </div>
+
+
 
 
         </form>
     </div>
 </div>
+
+
 
 
 @endsection

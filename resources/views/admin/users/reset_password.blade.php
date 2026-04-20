@@ -1,10 +1,16 @@
 @extends('layouts.app')
 
 
+
+
 @section('title', 'Đặt lại mật khẩu')
 
 
+
+
 @section('content')
+
+
 
 
 <style>
@@ -15,8 +21,12 @@
 </style>
 
 
+
+
 <div class="container">
     <div class="khung-reset shadow-sm mx-auto" style="max-width: 600px;">
+
+
 
 
         <div class="text-center mb-4">
@@ -27,12 +37,16 @@
         </div>
 
 
+
+
         {{-- ERROR --}}
         @if ($error != '')
             <div class="alert alert-danger border-0 shadow-sm">
                 <i class="fas fa-exclamation-circle me-2"></i> {{ $error }}
             </div>
         @endif
+
+
 
 
         {{-- INFO --}}
@@ -50,8 +64,12 @@
         </div>
 
 
-        <form method="POST" action="{{ route('admin.users.reset_password', $user->user_id) }}">
+
+
+        <form method="POST" action="{{ route('admin.users.resetPassword', $user->user_id) }}">
             @csrf
+
+
 
 
             <div class="mb-4">
@@ -61,11 +79,15 @@
             </div>
 
 
+
+
             <div class="mb-4">
                 <label class="fw-bold mb-2">Xác nhận mật khẩu mới *</label>
                 <input type="password" name="confirm_password" class="form-control o-nhap"
                        placeholder="Nhập lại mật khẩu phía trên" required>
             </div>
+
+
 
 
             <div class="alert alert-warning border-0 small mb-4">
@@ -74,10 +96,14 @@
             </div>
 
 
+
+
             <div class="pt-3 border-top d-flex gap-2">
                 <button type="submit" class="btn btn-primary nut-bam shadow w-100">
                     <i class="fas fa-check-circle me-2"></i> XÁC NHẬN ĐỔI MẬT KHẨU
                 </button>
+
+
 
 
                 <a href="{{ route('admin.users.show', $user->user_id) }}"
@@ -88,8 +114,12 @@
         </form>
 
 
+
+
     </div>
 </div>
+
+
 
 
 @endsection
