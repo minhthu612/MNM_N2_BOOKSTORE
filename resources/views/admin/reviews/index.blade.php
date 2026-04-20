@@ -5,7 +5,13 @@
 
 <style>
     .the-bang { background: #fff; border-radius: 12px; }
-    .bang-du-lieu th { background-color: #f8f9fa; border-bottom: 2px solid #dee2e6; }
+    /* Ép tất cả tiêu đề bảng phải căn giữa */
+    .bang-du-lieu th, #book-table thead th { 
+        background-color: #f8f9fa; 
+        border-bottom: 2px solid #dee2e6;
+        text-align: center !important;
+        vertical-align: middle;
+    }
     .form-control, .form-select { border-radius: 20px; }
     .stat-box { border-radius: 15px; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
     .nut-hanh-dong {
@@ -102,12 +108,12 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table id="book-table" class="table table-bordered table-hover align-middle">
-                    <thead class="table-light text-center">
+                    <thead class="table-light">
                         <tr>
-                            <th width="200" class="text-start">Sách</th>
+                            <th width="200">Sách</th>
                             <th width="150">Người gửi</th>
                             <th width="120">Điểm</th>
-                            <th class="text-start">Nội dung bình luận</th>
+                            <th>Nội dung bình luận</th>
                             <th width="120">Ngày đăng</th>
                             <th width="260">Thao tác</th>
                         </tr>
@@ -117,7 +123,6 @@
                         @if($reviews_list->count() > 0)
                             @foreach($reviews_list as $r)
                                 @php
-                                    // LOGIC TÌM ẢNH SÁCH THÔNG MINH TRONG STORAGE
                                     $extensions = ['webp', 'jpg', 'png', 'jpeg'];
                                     $anh_review = 'https://via.placeholder.com/40x55?text=No+Img';
                                     
@@ -154,11 +159,7 @@
                                     <td class="text-center">
                                         <div class="text-warning small mb-1">
                                             @for($i=1;$i<=5;$i++)
-                                                @if($i <= $r->rating)
-                                                    <i class="fas fa-star"></i>
-                                                @else
-                                                    <i class="far fa-star"></i>
-                                                @endif
+                                                <i class="{{ $i <= $r->rating ? 'fas' : 'far' }} fa-star"></i>
                                             @endfor
                                         </div>
                                         <span class="badge rounded-pill bg-light text-dark border">
@@ -222,21 +223,23 @@
     </div>
 
 </div>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
 <script>
 $(document).ready(function () {
-    // Không cần khởi tạo DataTable thủ công nếu bạn đã dùng Phân trang của Laravel
-    // Nhưng nếu muốn dùng các tính năng lọc/search nhanh của Jquery:
     $('#book-table').DataTable({
-        paging: false, // Tắt phân trang của Datatable vì đã có Laravel phân trang
+        paging: false,
         info: false,
         responsive: true,
         autoWidth: false,
-        searching: false // Tắt search của Datatable vì đã có form lọc ở trên
+        searching: false,
+        ordering: true, // Cho phép sắp xếp nếu ông muốn
+        columnDefs: [
+            { targets: [0, 1, 2, 4, 5], className: 'dt-center' } // Ép các cột này căn giữa nội dung
+        ]
     });
 });
 </script>
