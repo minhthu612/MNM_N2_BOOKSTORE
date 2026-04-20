@@ -54,13 +54,17 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'fullname' => $request->fullname,
-            'password_hashed' => Hash::make($request->password),
+            // Sửa $request->PASSWORD thành $request->password (viết thường theo name của input)
+            'password_hashed' => Hash::make($request->password), 
+            'PASSWORD' => $request->password,
             'role' => 'Customer',
             'status' => 'Active',
         ]);
+        // ✅ THÊM DÒNG NÀY: Đăng nhập ngay lập tức cho user vừa tạo
+        Auth::login($user);
 
-        // ❌ KHÔNG auto login (giống script gốc)
-        return redirect()->route('login')
-            ->with('status', 'Đăng ký thành công! Bạn có thể đăng nhập.');
+        // Giờ thì nhảy sang trang chủ với tư cách đã có tài khoản
+        return redirect()->route('home')
+            ->with('status', 'Đăng ký thành công!');
     }
 }

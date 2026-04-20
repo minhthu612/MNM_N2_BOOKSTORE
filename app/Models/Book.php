@@ -20,4 +20,9 @@ class Book extends Model
         'category_id',
         'sold_quantity'
     ];
+
+    public function orderDetails()
+{
+    return $this->hasMany(OrderDetail::class, 'book_id', 'book_id');
+}
 }

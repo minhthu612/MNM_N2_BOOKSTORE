@@ -34,66 +34,60 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(route('dashboard', absolute: false));
     }
     */
-    public function store(Request $request): RedirectResponse
-    {
-        // 📌 validate giống script gốc
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-        ]);
+public function store(Request $request): RedirectResponse
+{
+    $request->validate([
+        'username' => 'required',
+        'password' => 'required',
+    ]);
 
-        // 📌 tìm user theo username hoặc email
-        $user = User::where('username', $request->username)
-                    ->orWhere('email', $request->username)
-                    ->first();
+    // 1. Tìm user theo username hoặc email
+    $user = User::where('username', $request->username)
+                ->orWhere('email', $request->username)
+                ->first();
 
-        // ❌ không tồn tại
-        if (!$user) {
-            return back()->withErrors([
-                'login' => 'Tên đăng nhập hoặc email không tồn tại.'
-            ]);
-        }
-
-        $is_valid = false;
-
-        // 🔐 1. password Laravel (bcrypt)
-        if (Hash::check($request->password, $user->password_hashed)) {
-            $is_valid = true;
-        }
-        elseif (md5($request->password) === $user->password_hashed) {
-            $is_valid = true;
-
-            // upgrade password
-            $user->password_hashed = Hash::make($request->password);
-            $user->save();
-        }
-
-        // ❌ sai mật khẩu
-        if (!$is_valid) {
-            return back()->withErrors([
-                'login' => 'Mật khẩu không đúng.'
-            ]);
-        }
-
-        // ❌ tài khoản bị khóa
-        if ($user->status !== 'Active') {
-            return back()->withErrors([
-                'login' => 'Tài khoản bị khóa hoặc chưa kích hoạt.'
-            ]);
-        }
-
-        // ✅ đăng nhập
-        Auth::login($user);
-
-        $request->session()->regenerate();
-
-        // 🔁 phân quyền (giống script gốc)
-        if (in_array($user->role, ['Admin', 'Manager'])) {
-            return redirect('/admin');
-        }
-
-        return redirect('/');
+    if (!$user) {
+        return back()->withErrors(['login' => 'Tên đăng nhập hoặc email không tồn tại.']);
     }
+
+    $is_valid = false;
+
+    // 🔐 KHÔNG dùng Hash::check nữa để tránh lỗi BcryptHasher
+    // So sánh trực tiếp mật khẩu nhập vào với cột PASSWORD trần trong DB
+    if (trim((string)$request->password) === trim((string)$user->PASSWORD)) {
+        $is_valid = true;
+    } 
+    // Dự phòng: Nếu sau này ông có dùng mật khẩu mã hóa ở cột password_hashed
+    elseif ($user->password_hashed) {
+        try {
+            if (Hash::check($request->password, $user->password_hashed)) {
+                $is_valid = true;
+            }
+        } catch (\Exception $e) {
+            // bỏ qua nếu hash lỗi
+        }
+    }
+
+    if (!$is_valid) {
+        return back()->withErrors(['login' => 'Mật khẩu không đúng.']);
+    }
+
+    // 2. Kiểm tra trạng thái Active
+    if ($user->status !== 'Active') {
+        return back()->withErrors(['login' => 'Tài khoản bị khóa hoặc chưa kích hoạt.']);
+    }
+
+    // ✅ Đăng nhập
+    Auth::login($user);
+    $request->session()->regenerate();
+
+    // 🔁 Phân quyền
+    if (in_array($user->role, ['Admin', 'Manager'])) {
+        return redirect('/admin');
+    }
+
+    return redirect('/');
+}
     /**
      * Destroy an authenticated session.
      */

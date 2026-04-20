@@ -51,12 +51,16 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a href="{{ route('password.request') }}" class="text-sm text-blue-600">
+        <div class="flex items-center justify-end mt-4 space-x-4">
+            <a href="{{ route('register') }}" class="text-sm text-blue-600 hover:underline">
+                Bạn chưa có tài khoản?
+            </a>
+
+            <a href="{{ route('password.request') }}" class="text-sm text-blue-600 hover:underline">
                 Quên mật khẩu?
             </a>
 
-            <x-primary-button class="ms-3">
+            <x-primary-button>
                 Đăng nhập
             </x-primary-button>
         </div>

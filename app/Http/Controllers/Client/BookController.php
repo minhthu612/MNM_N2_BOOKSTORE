@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -16,15 +17,22 @@ class BookController extends Controller
     {
         $query = Book::query();
 
-        // lọc theo category nếu có
         if ($request->category_id) {
             $query->where('category_id', $request->category_id);
         }
 
-        $books = $query->orderBy('book_id', 'desc')
-                       ->paginate(12);
+        $books = $query->orderBy('book_id', 'desc')->paginate(12);
 
-        return view('client.books.index', compact('books'));
+        // Lấy danh sách ID đã yêu thích để hiện tim đậm/rỗng ở trang danh sách
+        $wishlist_ids = [];
+        if (Auth::check()) {
+            $wishlist_ids = DB::table('wishlist')
+                ->where('user_id', Auth::id())
+                ->pluck('book_id')
+                ->toArray();
+        }
+
+        return view('client.books.index', compact('books', 'wishlist_ids'));
     }
 
     // =========================
@@ -43,31 +51,48 @@ class BookController extends Controller
             abort(404);
         }
 
-        // tăng lượt xem (KHÔNG bắt login)
+        // VIEW COUNT
         DB::table('book_views')->insert([
             'user_id' => auth()->id() ?? null,
             'book_id' => $id,
             'viewed_at' => now()
         ]);
 
-        // rating
+        $total_views = DB::table('book_views')->where('book_id', $id)->count();
+
+        // RATING
         $rating = DB::table('reviews')
             ->where('book_id', $id)
             ->selectRaw('AVG(rating) as avg_rating, COUNT(*) as total_reviews')
             ->first();
 
-        // reviews list
-        $reviews = DB::table('reviews as r')
+        $avg_rating = round($rating->avg_rating ?? 0, 1);
+        $total_reviews = $rating->total_reviews ?? 0;
+
+        // LIST REVIEWS
+        $list_reviews = DB::table('reviews as r')
             ->join('users as u', 'r.user_id', '=', 'u.user_id')
             ->where('r.book_id', $id)
+            ->select('r.*', 'u.fullname', 'u.username')
             ->orderBy('r.created_at', 'desc')
             ->get();
 
-        return view('client.books.detail', [
-            'book' => $book,
-            'avg_rating' => round($rating->avg_rating ?? 0, 1),
-            'total_reviews' => $rating->total_reviews ?? 0,
-            'reviews' => $reviews
-        ]);
+        // WISHLIST CHECK
+        $wishlist_ids = [];
+        if (Auth::check()) {
+            $wishlist_ids = DB::table('wishlist')
+                ->where('user_id', Auth::id())
+                ->pluck('book_id')
+                ->toArray();
+        }
+
+        return view('client.books.detail', compact(
+            'book',
+            'avg_rating',
+            'total_reviews',
+            'total_views',
+            'list_reviews',
+            'wishlist_ids'
+        ));
     }
 }

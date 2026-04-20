@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 15, 2026 at 03:59 PM
+-- Generation Time: Apr 19, 2026 at 03:21 PM
 -- Server version: 9.1.0
 -- PHP Version: 8.3.14
 
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`address_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `addresses`
@@ -186,7 +186,10 @@ INSERT INTO `addresses` (`address_id`, `user_id`, `fullname`, `phone`, `street`,
 (99, 99, 'Mai Văn Lợi', '0901000099', '66 Kha Vạn Cân', 'TP Hồ Chí Minh', 'TP Thủ Đức', 'Phường Linh Tây', 1, '2025-04-10 13:05:31'),
 (100, 100, 'Lê Thị Hương', '0901000100', '88 Phạm Văn Đồng', 'TP Hồ Chí Minh', 'TP Thủ Đức', 'Phường Hiệp Bình Chánh', 1, '2025-07-14 18:06:42'),
 (101, 101, 'Thư', '0901000101', '75 Phạm Văn Đồng', 'TP Hồ Chí Minh', 'Quận Bình Thạnh', 'Phường 13', 1, '2025-12-22 09:41:15'),
-(102, 102, 'Thư', '0901000102', '120 Nơ Trang Long', 'TP Hồ Chí Minh', 'Quận Bình Thạnh', 'Phường 7', 1, '2026-01-03 20:27:58');
+(102, 102, 'Thư', '0901000102', '120 Nơ Trang Long', 'TP Hồ Chí Minh', 'Quận Bình Thạnh', 'Phường 7', 1, '2026-01-03 20:27:58'),
+(108, 110, 'Huỳnh Minh Thư', '902000020', '1234', 'TP.HCM', 'Q.10', '13', 1, '2026-04-19 21:02:50'),
+(107, 110, 'Huỳnh Minh Thư', '902000020', '0986', 'TP.HCM', 'Q.10', '13', 0, '2026-04-19 21:02:40'),
+(105, 109, 'HMT', '902000020', '56780345', 'TP.HCM', 'Q.10', '13', 1, '2026-04-18 22:34:34');
 
 -- --------------------------------------------------------
 
@@ -211,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `books` (
   KEY `category_id` (`category_id`),
   KEY `idx_books_title` (`title`(250)),
   KEY `idx_books_author` (`author`(250))
-) ENGINE=MyISAM AUTO_INCREMENT=217 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=219 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `books`
@@ -246,14 +249,14 @@ INSERT INTO `books` (`book_id`, `title`, `author`, `category_id`, `price`, `disc
 (26, 'Mỹ Thuật 1', 'Bộ GD&ĐT', 3, 30000.00, 5, 'Làm quen với màu sắc và hình khối.', '26.jpg', 'https://sachdientu.sachthietbigiaoduc.vn/upload/bia-sgk-lop-1/bia-sach-giao-khoa-mi-thuat.jpg?v=1.0.1', 85, '2024-11-26 00:00:00'),
 (27, 'Tin Học 1', 'Bộ GD&ĐT', 3, 35000.00, 5, 'Làm quen với máy tính và thao tác chuột.', '27.png', 'https://nxb.hcmue.edu.vn/wp-content/uploads/2022/07/BIA-EM-VUI-HOC-TIN-HOC-LOP-1.png', 80, '2024-11-26 00:00:00'),
 (28, 'Đạo Đức 1', 'Bộ GD&ĐT', 3, 32000.00, 5, 'Bài học về cư xử, lễ phép và kỷ luật.', '28.jpg', 'https://online.pubhtml5.com/uohzi/sigy/files/large/834c0a27984816e1551a9956f212b0c7.jpg', 95, '2024-11-26 00:00:00'),
-(29, 'Toán 2', 'Bộ GD&ĐT', 3, 36000.00, 5, 'SGK Toán 2 với phép cộng, trừ có nhớ và các bài toán thực tế.', '29.jpg', 'https://hieutruong.com/uploads/sach/2023/05/16/toan-lop-2-tap-1-canh-dieu.png', 160, '2024-11-26 00:00:00'),
-(30, 'Tiếng Việt 2 - Tập 1', 'Bộ GD&ĐT', 3, 39000.00, 5, 'Bài học nâng cao về đọc hiểu và luyện viết.', '30.jpg', 'https://www.robins.vn/wp-content/uploads/2025/09/erttSUOt8XHyhaVvU5egEzABYjMlJB2o.jpg.jpg', 140, '2024-11-26 00:00:00'),
-(31, 'Tiếng Việt 2 - Tập 2', 'Bộ GD&ĐT', 3, 39000.00, 5, 'Phát triển kỹ năng viết đoạn và đọc truyện ngắn cho học sinh.', '31.jpg', 'https://cdn2-retail-images.kiotviet.vn/nhasachtinnghia/d0c441a449794492800057e4f12ed556.jpg', 130, '2024-11-26 00:00:00'),
-(32, 'Tự Nhiên & Xã Hội 2', 'Bộ GD&ĐT', 3, 33000.00, 5, 'Giúp học sinh tìm hiểu cơ thể người, thực vật, động vật.', '32.png', 'https://ebdbook.vn/upload/sgk/lop2/tu-nhien-va-xa-hoi-2-bo-sach-chan-troi-sang-tao/4-compressed.jpg?v=1.0.1', 125, '2024-11-26 00:00:00'),
-(33, 'Âm Nhạc 2', 'Bộ GD&ĐT', 3, 30000.00, 5, 'Học hát, nhịp điệu và nhận biết nhạc cụ.', '33.jpg', 'https://thuvienkiengiang.vn/wp-content/uploads/2025/12/am-nhac-2-canh-dieu.jpg', 70, '2024-11-26 00:00:00'),
-(34, 'Mỹ Thuật 2', 'Bộ GD&ĐT', 3, 30000.00, 5, 'Vẽ tranh đề tài đơn giản.', '34.jpg', 'https://sachdientu.sachthietbigiaoduc.vn/upload/bia-web5.jpg?v=1.0.4', 68, '2024-11-26 00:00:00'),
-(35, 'Tin Học 2', 'Bộ GD&ĐT', 3, 35000.00, 5, 'SGK Tin học cơ bản cho học sinh lớp 2.', '35.jpg', 'https://khangphuc.vn/storage/617f5f573030311ff4a5928a/images/EVHTH2/TH-05-02.jpg', 75, '2024-11-26 00:00:00'),
-(36, 'Đạo Đức 2', 'Bộ GD&ĐT', 3, 33000.00, 5, 'Giáo dục kỹ năng sống và ứng xử.', '36.jpg', 'https://thuvienkiengiang.vn/wp-content/uploads/2025/12/dao-duc-2-canh-dieu.jpg', 72, '2024-11-26 00:00:00'),
+(29, 'Toán 2', 'Bộ GD&ĐT', 3, 36000.00, 5, 'SGK Toán 2 với phép cộng, trừ có nhớ và các bài toán thực tế.', '29.jpg', 'https://hieutruong.com/uploads/sach/2023/05/16/toan-lop-2-tap-1-canh-dieu.png', 164, '2024-11-26 00:00:00'),
+(30, 'Tiếng Việt 2 - Tập 1', 'Bộ GD&ĐT', 3, 39000.00, 5, 'Bài học nâng cao về đọc hiểu và luyện viết.', '30.jpg', 'https://www.robins.vn/wp-content/uploads/2025/09/erttSUOt8XHyhaVvU5egEzABYjMlJB2o.jpg.jpg', 142, '2024-11-26 00:00:00'),
+(31, 'Tiếng Việt 2 - Tập 2', 'Bộ GD&ĐT', 3, 39000.00, 5, 'Phát triển kỹ năng viết đoạn và đọc truyện ngắn cho học sinh.', '31.jpg', 'https://cdn2-retail-images.kiotviet.vn/nhasachtinnghia/d0c441a449794492800057e4f12ed556.jpg', 132, '2024-11-26 00:00:00'),
+(32, 'Tự Nhiên & Xã Hội 2', 'Bộ GD&ĐT', 3, 33000.00, 5, 'Giúp học sinh tìm hiểu cơ thể người, thực vật, động vật.', '32.png', 'https://ebdbook.vn/upload/sgk/lop2/tu-nhien-va-xa-hoi-2-bo-sach-chan-troi-sang-tao/4-compressed.jpg?v=1.0.1', 127, '2024-11-26 00:00:00'),
+(33, 'Âm Nhạc 2', 'Bộ GD&ĐT', 3, 30000.00, 5, 'Học hát, nhịp điệu và nhận biết nhạc cụ.', '33.jpg', 'https://thuvienkiengiang.vn/wp-content/uploads/2025/12/am-nhac-2-canh-dieu.jpg', 72, '2024-11-26 00:00:00'),
+(34, 'Mỹ Thuật 2', 'Bộ GD&ĐT', 3, 30000.00, 5, 'Vẽ tranh đề tài đơn giản.', '34.jpg', 'https://sachdientu.sachthietbigiaoduc.vn/upload/bia-web5.jpg?v=1.0.4', 70, '2024-11-26 00:00:00'),
+(35, 'Tin Học 2', 'Bộ GD&ĐT', 3, 35000.00, 5, 'SGK Tin học cơ bản cho học sinh lớp 2.', '35.jpg', 'https://khangphuc.vn/storage/617f5f573030311ff4a5928a/images/EVHTH2/TH-05-02.jpg', 77, '2024-11-26 00:00:00'),
+(36, 'Đạo Đức 2', 'Bộ GD&ĐT', 3, 33000.00, 5, 'Giáo dục kỹ năng sống và ứng xử.', '36.jpg', 'https://thuvienkiengiang.vn/wp-content/uploads/2025/12/dao-duc-2-canh-dieu.jpg', 74, '2024-11-26 00:00:00'),
 (37, 'Toán 3', 'Bộ GD&ĐT', 3, 38000.00, 5, 'Bao gồm phép nhân, chia và bài toán có lời văn.', '37.jpg', 'https://giaokhoaonline.com/wp-content/uploads/2024/06/Toan-3-Tap-1-Bo-Ket-Noi.jpg', 140, '2024-11-26 00:00:00'),
 (38, 'Tiếng Việt 3 - Tập 1', 'Bộ GD&ĐT', 3, 40000.00, 5, 'Phát triển năng lực đọc hiểu và diễn đạt.', '38.jpg', 'https://cdn1.fahasa.com/media/flashmagazine/images/page_images/tieng_viet_3___tap_1_canh_dieu_2023/2024_05_14_11_54_13_1-390x510.jpg', 135, '2024-11-26 00:00:00'),
 (39, 'Tiếng Việt 3 - Tập 2', 'Bộ GD&ĐT', 3, 40000.00, 5, 'Luyện viết đoạn văn miêu tả và kể chuyện.', '39.jpg', 'https://giaokhoaonline.com/wp-content/uploads/2024/06/Tieng-Viet-3-Tap-2-Bo-Ket-Noi.jpg', 128, '2024-11-26 00:00:00'),
@@ -366,23 +369,23 @@ INSERT INTO `books` (`book_id`, `title`, `author`, `category_id`, `price`, `disc
 (146, 'GDCD 12 - Ôn Thi THPT', 'Bộ GD&ĐT', 3, 60000.00, 5, 'Bộ câu hỏi trắc nghiệm và lý thuyết.', '146.jpg', 'https://product.hstatic.net/200000343833/product/screenshot_2024-07-09_154228_a410b62192614b2ca87ebf7af2ad2d94_master.png', 110, '2024-11-26 00:00:00'),
 (147, 'Dế Mèn Phiêu Lưu Ký', 'Tô Hoài', 2, 95000.00, 10, 'Cuộc phiêu lưu đầy ý nghĩa của chú dế mèn gan dạ và tinh nghịch.', '147.jpg', 'https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-de-men-phieu-luu-ky.jpg', 4200, '2024-02-01 00:00:00'),
 (148, 'Toto Chan Bên Cửa Sổ', 'Tetsuko Kuroyanagi', 2, 120000.00, 15, 'Câu chuyện giáo dục nhân văn về cô bé Toto Chan tại ngôi trường Tomoe.', '148.jpg', 'https://metiz.vn/media/poster_film/totto-chan_-_teaser_poster_kt_facebook_-_dkkc_31.05.2024.jpg', 3900, '2024-02-02 00:00:00'),
-(149, 'Harry Potter và Hòn Đá Phù Thủy', 'J.K. Rowling', 2, 150000.00, 20, 'Phần đầu tiên của series Harry Potter nổi tiếng toàn cầu.', '149.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKKFnflLeb9sb7UqxlKXOJbh_KHBccY-Uc1w&s', 8500, '2024-02-03 00:00:00'),
+(149, 'Harry Potter và Hòn Đá Phù Thủy', 'J.K. Rowling', 2, 150000.00, 20, 'Phần đầu tiên của series Harry Potter nổi tiếng toàn cầu.', '149.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKKFnflLeb9sb7UqxlKXOJbh_KHBccY-Uc1w&s', 8505, '2024-02-03 00:00:00'),
 (150, 'Hoàng Tử Bé', 'Antoine de Saint-Exupéry', 2, 80000.00, 5, 'Một trong những tác phẩm thiếu nhi kinh điển giàu triết lý.', '150.jpg', 'https://product.hstatic.net/200000343865/product/hoang-tu-be---tb-2022_f0f2f9b813c246c4878e7e685f683d50_5b46a794d64c4996a6695f6e9e8d3213.jpg', 7600, '2024-02-04 00:00:00'),
 (151, 'Alice Ở Xứ Sở Thần Tiê', 'Lewis Carroll', 2, 100000.00, 12, 'Hành trình kỳ ảo của Alice trong thế giới phép thuật.', '151.jpg', 'https://www.nxbtre.com.vn/Images/Book/nxbtre_full_28402016_104013.jpg', 5400, '2024-02-05 00:00:00'),
-(152, 'Cây Táo Yêu Thương', 'Shel Silverstei', 2, 90000.00, 10, 'Câu chuyện đầy cảm động về tình yêu vô điều kiện.', '152.jpg', 'https://minhkhai.com.vn/hinhlon/8935036669513.JPG', 6800, '2024-02-06 00:00:00'),
+(152, 'Cây Táo Yêu Thương', 'Shel Silverstei', 2, 90000.00, 10, 'Câu chuyện đầy cảm động về tình yêu vô điều kiện.', '152.jpg', 'https://minhkhai.com.vn/hinhlon/8935036669513.JPG', 6801, '2024-02-06 00:00:00'),
 (153, 'Chú Bé Rồng', 'Nguyễn Khánh Trung', 2, 85000.00, 8, 'Hành trình khám phá sức mạnh và lòng dũng cảm.', '153.jpg', 'https://cdn1.fahasa.com/media/catalog/product/i/m/image_217138.jpg', 2100, '2024-02-07 00:00:00'),
-(154, 'Nhật Ký Chú Bé Nhút Nhát', 'Jeff Kinney', 2, 110000.00, 10, 'Hài hước và gần gũi, kể về cuộc sống thường ngày của Greg Heffley.', '154.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9CQz5USzD0769vIdEZyhDBFwVYtAGN4jYog&s', 7300, '2024-02-08 00:00:00'),
-(155, 'Doraemon Từ Điển Bí mật', 'Fujiko F. Fujio', 2, 70000.00, 5, 'Bộ truyện tranh nổi tiếng về chú mèo máy tương lai.', '155.jpg', 'https://bookbuy.vn/Res/Images/Product/doraemon-tu-dien-bi-mat_31564_1.jpg', 9200, '2024-02-09 00:00:00'),
+(154, 'Nhật Ký Chú Bé Nhút Nhát', 'Jeff Kinney', 2, 110000.00, 10, 'Hài hước và gần gũi, kể về cuộc sống thường ngày của Greg Heffley.', '154.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9CQz5USzD0769vIdEZyhDBFwVYtAGN4jYog&s', 7302, '2024-02-08 00:00:00'),
+(155, 'Doraemon Từ Điển Bí mật', 'Fujiko F. Fujio', 2, 70000.00, 5, 'Bộ truyện tranh nổi tiếng về chú mèo máy tương lai.', '155.jpg', 'https://bookbuy.vn/Res/Images/Product/doraemon-tu-dien-bi-mat_31564_1.jpg', 9204, '2024-02-09 00:00:00'),
 (156, 'Cậu Bé Mũ Rơm', 'Nguyễn Nhật Ánh', 2, 85000.00, 5, 'Câu chuyện trong trẻo về ký ức tuổi thơ.', '156.jpg', 'https://nxbhcm.com.vn/Image/Biasach/342873_p88126mmurom.jpg', 4100, '2024-02-10 00:00:00'),
-(157, 'Mười Vạn Câu Hỏi Vì Sao', 'Nhiều tác giả', 2, 160000.00, 18, 'Kho kiến thức giúp trẻ giải đáp các câu hỏi về thế giới.', '157.jpg', 'https://cdn1.fahasa.com/media/catalog/product/m/u/muoivancauhoi2.jpg', 6800, '2024-02-11 00:00:00'),
+(157, 'Mười Vạn Câu Hỏi Vì Sao', 'Nhiều tác giả', 2, 160000.00, 18, 'Kho kiến thức giúp trẻ giải đáp các câu hỏi về thế giới.', '157.jpg', 'https://cdn1.fahasa.com/media/catalog/product/m/u/muoivancauhoi2.jpg', 6803, '2024-02-11 00:00:00'),
 (158, 'Ngôi Nhà Nhỏ Trên Thảo Nguyê', 'Laura Ingalls Wilder', 2, 115000.00, 15, 'Cuộc sống gia đình ấm áp ở miền thảo nguyên nước Mỹ.', '158.jpg', 'https://product.hstatic.net/200000979221/product/ngoi-nha-nho-tren-thao-nguyen-tap-8_22721209cc5c4491b874b0f87527ecb5_grande.jpeg', 2400, '2024-02-12 00:00:00'),
 (159, 'Khu Vườn Bí Mật', 'Frances Hodgson Burnett', 2, 105000.00, 12, 'Câu chuyện chữa lành đầy yêu thương về tình bạn và thiên nhiên.', '159.jpg', 'https://bizweb.dktcdn.net/thumb/1024x1024/100/363/455/products/1-32f0e785-1d30-4911-b09d-f8e3c98bad46.png?v=1759391334623', 3000, '2024-02-13 00:00:00'),
 (160, 'Charlie và Nhà Máy Sô-Cô-La', 'Roald Dahl', 2, 125000.00, 20, 'Hành trình kỳ diệu của Charlie trong nhà máy sô-cô-la.', '160.jpg', 'https://product.hstatic.net/200000343865/product/roald-dahl---charlie-va-nha-may-socola_a4875bf2d6c440d4bd1024288fb6ada2_master.jpg', 5100, '2024-02-14 00:00:00'),
 (161, 'Cô Bé Quàng Khăn Đỏ', 'Grimm Brothers', 2, 65000.00, 10, 'Truyện cổ tích kinh điển dành cho trẻ nhỏ.', '161.jpg', 'https://bizweb.dktcdn.net/100/418/570/products/8935210226969-0.jpg?v=1614915890400', 5700, '2024-02-15 00:00:00'),
-(162, 'Nàng Bạch Tuyết Và Bảy Chú Lù', 'Grimm Brothers', 2, 65000.00, 10, 'Câu chuyện cổ tích nổi tiếng về lòng tốt và sự dũng cảm.', '162.jpg', 'https://bizweb.dktcdn.net/100/567/082/products/8935210237163.jpg?v=1747217382613', 6300, '2024-02-16 00:00:00'),
+(162, 'Nàng Bạch Tuyết Và Bảy Chú Lù', 'Grimm Brothers', 2, 65000.00, 10, 'Câu chuyện cổ tích nổi tiếng về lòng tốt và sự dũng cảm.', '162.jpg', 'https://bizweb.dktcdn.net/100/567/082/products/8935210237163.jpg?v=1747217382613', 6301, '2024-02-16 00:00:00'),
 (163, 'Bí Kíp Trở Thành Thiên Tài', 'Nhiều tác giả', 2, 140000.00, 18, 'Bộ sách kỹ năng giúp trẻ phát triển tư duy và sáng tạo.', '163.jpg', 'https://www.netabooks.vn/Data/Sites/1/Product/28324/tu-ao-nhiem-mau-bi-kip-tro-thanh-co-nang-thoi-trang-trong-nhay-mat.jpg', 2800, '2024-02-17 00:00:00'),
 (164, 'Doraemon - Vương Quốc Mèo', 'Tsujimura Mizuki', 2, 100000.00, 12, 'Chuyến phiêu lưu kỳ lạ vào thế giới của những chú mèo.', '164.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOYPEc_PdAzrrmrQDuKhYOr1x8qKTpeCSEAA&s', 3400, '2024-02-18 00:00:00'),
-(165, 'Cuộc Phiêu Lưu Của Pinocchio', 'Carlo Collodi', 2, 85000.00, 10, 'Câu chuyện kinh điển về chú bé gỗ thích nói dối.', '165.jpg', 'https://ntthnue.edu.vn/uploads/Images/2020/06/035.jpg', 5900, '2024-02-19 00:00:00'),
+(165, 'Cuộc Phiêu Lưu Của Pinocchio', 'Carlo Collodi', 2, 85000.00, 10, 'Câu chuyện kinh điển về chú bé gỗ thích nói dối.', '165.jpg', 'https://ntthnue.edu.vn/uploads/Images/2020/06/035.jpg', 5902, '2024-02-19 00:00:00'),
 (166, 'Cậu Bé Hobbit', 'J.R.R. Tolkie', 2, 140000.00, 15, 'Cuộc phiêu lưu kỳ ảo đưa Bilbo bước vào thế giới thần thoại.', '166.jpg', 'https://www.netabooks.vn/Data/Sites/1/Product/49297/anh-chang-hobbit-tai-ban-2022.jpg', 5100, '2024-02-20 00:00:00'),
 (167, 'Cây Cam Ngọt Của Tôi', 'José Mauro de Vasconcelos', 4, 91500.00, 15, 'Với một đứa trẻ, thế giới không giới hạn trong một bữa ăn, mà thế giới cần có hào quang của tình thương. Bạn có bao giờ cảm thấy bị lạc lõng trong chính ngôi nhà của mình? Một câu chuyện chạm đến tận cùng cảm xúc.', '167.jpg', 'https://library.hust.edu.vn/sites/default/files/C%C3%A2y%20cam%20ng%E1%BB%8Dt%20c%E1%BB%A7a%20t%C3%B4i%20-%20%E1%BA%A2nh%20b%C3%ACa.jpg', 2000, '2024-01-25 00:00:00'),
 (168, 'Nhà Giả Kim', 'Paulo Coelho', 4, 67000.00, 15, 'Những bài học về lòng dũng cảm, sự hy sinh vì người khác sẽ khiến độc giả suy ngẫm và trân trọng hơn những giá trị cuộc sống.', '168.jpg', 'https://bizweb.dktcdn.net/thumb/1024x1024/100/363/455/products/nhagiakimnew03.jpg?v=1705552576547', 2900, '2020-09-11 00:00:00'),
@@ -393,7 +396,7 @@ INSERT INTO `books` (`book_id`, `title`, `author`, `category_id`, `price`, `disc
 (173, 'Sống Mò', 'Nam Cao', 4, 67500.00, 25, 'Bản tính cốt yếu của sự sống chính là cảm giác và tư tưởng. Cảm giác càng mạnh, càng linh diệu, tư tưởng càng dồi dào, càng sâu sắc, càng sáng suốt thì sự sống càng cao.', '173.jpg', 'https://cdn1.fahasa.com/media/flashmagazine/images/page_images/song_mon/2024_06_10_16_12_48_1-390x510.jpg', 9, '2023-11-14 00:00:00'),
 (174, 'Đời Thừa', 'Nam Cao', 4, 56000.00, 20, 'Đời Thừa đã ghi lại chân thật hình ảnh buồn thảm của người tri thức tiểu tư sản nghèo', '174.jpg', 'https://vn-live-01.slatic.net/p/ee88d65aaaf61d1965e65b765e16cebb.jpg', 20, '2023-11-15 00:00:00'),
 (175, 'Trường Ca Achilles', 'Madeline Miller', 4, 132500.00, 15, 'Lấy cảm hứng từ sử thi Iliad, Madeline Miller đã tái hiện một câu chuyện tình yêu đầy say đắm nhưng cũng nhuốm màu bi kịch giữa hai người anh hùng Hy Lạp.', '175.jpg', 'https://cdn1.fahasa.com/media/catalog/product/i/m/image_195509_1_41170.jpg', 2600, '2020-12-02 00:00:00'),
-(176, 'Mưa Đỏ', 'Chu Lai', 4, 184500.00, 10, 'Trong cuộc chiến đấu 81 ngày đêm bảo vệ thành Cổ Quảng Trị, bảo vệ Tổ quốc với những gian khổ, thiểu thốn lẫn những mất mát đau thương.', '176.jpg', 'https://upload.wikimedia.org/wikipedia/vi/thumb/f/f2/Muado_sach.webp/250px-Muado_sach.webp.png', 10000, '2025-02-16 00:00:00'),
+(176, 'Mưa Đỏ', 'Chu Lai', 4, 184500.00, 10, 'Trong cuộc chiến đấu 81 ngày đêm bảo vệ thành Cổ Quảng Trị, bảo vệ Tổ quốc với những gian khổ, thiểu thốn lẫn những mất mát đau thương.', '176.jpg', 'https://upload.wikimedia.org/wikipedia/vi/thumb/f/f2/Muado_sach.webp/250px-Muado_sach.webp.png', 10008, '2025-02-16 00:00:00'),
 (177, 'Nếu Biết Trăm Năm Là Hữu Hạ', 'Phạm Lữ Â', 4, 143000.00, 10, 'Bạn đã bao giờ tự hỏi: Nếu biết trước cuộc đời là hữu hạn, bạn sẽ sống khác đi chứ?', '177.jpg', 'https://pos.nvncdn.com/fd5775-40602/ps/20240627_KOrtgLU0Kc.jpeg?v=1719479082', 2900, '2024-03-29 00:00:00'),
 (178, 'Hai Vạn Dặm Dưới Biể', 'Jules Verne', 4, 69300.00, 30, 'Con tàu Nautilus kỳ diệu của thuyền trưởng Nemo đưa người đọc tới với những cuộc phiêu lưu và kho báu, chinh phục những miền đất lạ.', '178.jpg', 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1630640093i/29426640.jpg', 393, '2024-10-15 00:00:00'),
 (179, 'Tôi Thấy Hoa Vàng Trên Cỏ Xanh', 'Nguyễn Nhật Ánh', 4, 127500.00, 15, 'Những câu chuyện nhỏ xảy ra ở một ngôi làng nhỏ: chuyện người, chuyện cóc, chuyện ma, rồi chuyện đói ăn, cháy nhà, lụt lội,...', '179.jpg', 'https://upload.wikimedia.org/wikipedia/vi/3/3d/T%C3%B4i_th%E1%BA%A5y_hoa_v%C3%A0ng_tr%C3%AAn_c%E1%BB%8F_xanh.jpg', 3200, '2023-04-22 00:00:00'),
@@ -506,7 +509,7 @@ CREATE TABLE IF NOT EXISTS `book_sets` (
   `stock_status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `last_updated` datetime DEFAULT NULL,
   PRIMARY KEY (`set_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `book_sets`
@@ -658,7 +661,7 @@ CREATE TABLE IF NOT EXISTS `book_views` (
   PRIMARY KEY (`view_id`),
   KEY `idx_book_views_user` (`user_id`),
   KEY `idx_book_views_book` (`book_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=218 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `book_views`
@@ -734,7 +737,154 @@ INSERT INTO `book_views` (`view_id`, `user_id`, `book_id`, `viewed_at`) VALUES
 (67, 33, 97, '2025-12-05 09:22:50'),
 (68, 35, 98, '2025-12-05 11:30:14'),
 (69, 38, 99, '2025-12-05 13:55:55'),
-(70, 41, 100, '2025-12-05 16:12:00');
+(70, 41, 100, '2025-12-05 16:12:00'),
+(71, NULL, 215, '2026-04-16 07:28:16'),
+(72, NULL, 215, '2026-04-16 07:28:19'),
+(73, NULL, 215, '2026-04-16 07:29:41'),
+(74, NULL, 215, '2026-04-16 07:29:51'),
+(75, 101, 213, '2026-04-16 08:18:55'),
+(76, 101, 215, '2026-04-16 08:20:11'),
+(77, 101, 215, '2026-04-16 08:24:41'),
+(78, 101, 214, '2026-04-16 08:24:46'),
+(79, 101, 214, '2026-04-16 08:24:50'),
+(80, NULL, 214, '2026-04-17 11:13:09'),
+(81, NULL, 215, '2026-04-17 11:18:54'),
+(82, NULL, 150, '2026-04-17 11:26:42'),
+(83, 20, 150, '2026-04-17 11:36:03'),
+(84, NULL, 2, '2026-04-17 11:47:17'),
+(85, NULL, 155, '2026-04-17 11:50:30'),
+(86, NULL, 155, '2026-04-17 11:53:59'),
+(87, 20, 154, '2026-04-17 11:54:28'),
+(88, 20, 154, '2026-04-17 11:56:41'),
+(89, 20, 154, '2026-04-17 11:56:47'),
+(90, 20, 154, '2026-04-17 11:58:33'),
+(91, 20, 154, '2026-04-17 12:01:10'),
+(92, 20, 154, '2026-04-17 12:01:13'),
+(93, 20, 154, '2026-04-17 12:01:34'),
+(94, 20, 154, '2026-04-17 12:02:24'),
+(95, 20, 150, '2026-04-17 12:07:37'),
+(96, 20, 149, '2026-04-17 12:07:51'),
+(97, 20, 176, '2026-04-17 12:08:03'),
+(98, 20, 190, '2026-04-17 12:33:35'),
+(99, 20, 149, '2026-04-17 12:34:46'),
+(100, NULL, 149, '2026-04-17 12:37:47'),
+(101, NULL, 149, '2026-04-17 12:37:54'),
+(102, 20, 149, '2026-04-17 12:38:10'),
+(103, 20, 150, '2026-04-17 12:48:45'),
+(104, 20, 149, '2026-04-17 12:48:52'),
+(105, 20, 155, '2026-04-17 12:56:21'),
+(106, 20, 2, '2026-04-17 13:09:16'),
+(107, 20, 2, '2026-04-17 13:15:56'),
+(108, 20, 2, '2026-04-17 13:16:10'),
+(109, 20, 2, '2026-04-17 13:21:42'),
+(110, 20, 155, '2026-04-17 13:23:32'),
+(111, 20, 149, '2026-04-17 13:31:57'),
+(112, 20, 149, '2026-04-17 13:37:36'),
+(113, 20, 155, '2026-04-17 13:40:39'),
+(114, 20, 155, '2026-04-17 13:43:02'),
+(115, 20, 150, '2026-04-17 13:43:09'),
+(116, 20, 162, '2026-04-17 13:43:12'),
+(117, 20, 2, '2026-04-17 13:43:52'),
+(118, 20, 155, '2026-04-17 13:55:58'),
+(119, 20, 2, '2026-04-17 13:56:37'),
+(120, 20, 155, '2026-04-17 13:59:52'),
+(121, 20, 149, '2026-04-17 14:03:34'),
+(122, 20, 155, '2026-04-17 14:05:48'),
+(123, 20, 149, '2026-04-17 14:07:44'),
+(124, 20, 155, '2026-04-17 14:09:44'),
+(125, 20, 150, '2026-04-17 14:09:49'),
+(126, 20, 176, '2026-04-17 14:09:52'),
+(127, 20, 151, '2026-04-17 14:10:11'),
+(128, 20, 162, '2026-04-17 14:10:13'),
+(129, 20, 176, '2026-04-17 14:10:21'),
+(130, 20, 165, '2026-04-17 14:10:28'),
+(131, 20, 149, '2026-04-17 14:10:35'),
+(132, 20, 152, '2026-04-17 14:10:42'),
+(133, 20, 149, '2026-04-17 14:10:54'),
+(134, 20, 155, '2026-04-17 14:15:43'),
+(135, 20, 29, '2026-04-17 14:16:11'),
+(136, 20, 3, '2026-04-17 14:16:16'),
+(137, 20, 155, '2026-04-17 14:20:25'),
+(138, 20, 155, '2026-04-17 14:26:12'),
+(139, 20, 152, '2026-04-17 14:26:18'),
+(140, 20, 149, '2026-04-17 14:34:57'),
+(141, 20, 155, '2026-04-17 14:36:15'),
+(142, 20, 216, '2026-04-17 14:42:25'),
+(143, 20, 204, '2026-04-17 15:00:17'),
+(144, 20, 2, '2026-04-17 15:03:27'),
+(145, 20, 2, '2026-04-17 15:04:06'),
+(146, 20, 2, '2026-04-17 15:05:58'),
+(147, 20, 2, '2026-04-17 15:06:00'),
+(148, 20, 2, '2026-04-17 15:06:04'),
+(149, 20, 2, '2026-04-17 15:08:23'),
+(150, 20, 2, '2026-04-17 15:08:25'),
+(151, 20, 2, '2026-04-17 15:11:14'),
+(152, 20, 155, '2026-04-17 15:11:22'),
+(153, 20, 1, '2026-04-17 15:11:50'),
+(154, 20, 1, '2026-04-17 15:20:48'),
+(155, 20, 176, '2026-04-17 15:20:54'),
+(156, 20, 190, '2026-04-17 15:23:28'),
+(157, 20, 150, '2026-04-17 15:30:29'),
+(158, NULL, 150, '2026-04-18 12:37:26'),
+(159, 108, 149, '2026-04-18 12:52:25'),
+(160, 109, 176, '2026-04-18 12:59:13'),
+(161, 109, 152, '2026-04-18 14:24:39'),
+(162, 109, 162, '2026-04-18 14:35:45'),
+(163, 109, 149, '2026-04-18 14:39:15'),
+(164, 109, 157, '2026-04-18 14:54:21'),
+(165, 109, 155, '2026-04-18 15:08:48'),
+(166, 109, 155, '2026-04-18 15:09:08'),
+(167, 109, 149, '2026-04-18 15:13:14'),
+(168, 109, 149, '2026-04-18 15:16:28'),
+(169, 109, 149, '2026-04-18 15:16:55'),
+(170, 109, 149, '2026-04-18 15:20:47'),
+(171, 109, 149, '2026-04-18 15:20:50'),
+(172, 109, 149, '2026-04-18 15:20:53'),
+(173, 109, 149, '2026-04-18 15:23:19'),
+(174, 109, 149, '2026-04-18 15:23:22'),
+(175, 109, 149, '2026-04-18 15:25:55'),
+(176, 109, 155, '2026-04-18 15:26:01'),
+(177, 109, 155, '2026-04-18 15:26:21'),
+(178, 109, 3, '2026-04-18 15:27:25'),
+(179, 109, 3, '2026-04-18 15:28:58'),
+(180, 109, 3, '2026-04-18 15:29:03'),
+(181, 109, 1, '2026-04-18 15:33:13'),
+(182, 109, 150, '2026-04-18 15:33:21'),
+(183, 109, 154, '2026-04-18 15:33:40'),
+(184, 109, 149, '2026-04-18 15:39:13'),
+(185, 109, 149, '2026-04-18 15:59:05'),
+(186, 109, 155, '2026-04-18 16:03:17'),
+(187, 109, 176, '2026-04-18 16:11:20'),
+(188, 109, 155, '2026-04-18 16:13:47'),
+(189, NULL, 1, '2026-04-19 04:28:28'),
+(190, NULL, 22, '2026-04-19 04:28:42'),
+(191, 110, 176, '2026-04-19 04:52:42'),
+(192, 110, 150, '2026-04-19 05:04:54'),
+(193, 110, 162, '2026-04-19 05:04:57'),
+(194, 110, 162, '2026-04-19 05:05:00'),
+(195, 110, 149, '2026-04-19 07:37:47'),
+(196, 110, 176, '2026-04-19 07:48:00'),
+(197, 110, 162, '2026-04-19 08:41:08'),
+(198, 1, 162, '2026-04-19 08:52:00'),
+(199, 110, 149, '2026-04-19 08:52:26'),
+(200, 110, 149, '2026-04-19 08:52:28'),
+(201, 110, 155, '2026-04-19 08:56:05'),
+(202, 110, 165, '2026-04-19 13:52:11'),
+(203, 110, 176, '2026-04-19 20:54:20'),
+(204, 110, 161, '2026-04-19 21:30:39'),
+(205, 110, 157, '2026-04-19 21:30:45'),
+(206, 110, 176, '2026-04-19 21:50:48'),
+(207, 110, 149, '2026-04-19 21:52:32'),
+(208, 110, 149, '2026-04-19 21:52:36'),
+(209, 110, 149, '2026-04-19 21:53:42'),
+(210, 110, 161, '2026-04-19 21:53:47'),
+(211, 110, 152, '2026-04-19 21:53:50'),
+(212, 110, 152, '2026-04-19 21:53:52'),
+(213, 110, 3, '2026-04-19 21:56:26'),
+(214, 110, 3, '2026-04-19 21:56:28'),
+(215, 110, 149, '2026-04-19 21:57:44'),
+(216, 110, 11, '2026-04-19 21:57:59'),
+(217, 110, 3, '2026-04-19 21:58:03');
 
 -- --------------------------------------------------------
 
@@ -744,8 +894,8 @@ INSERT INTO `book_views` (`view_id`, `user_id`, `book_id`, `viewed_at`) VALUES
 
 DROP TABLE IF EXISTS `cache`;
 CREATE TABLE IF NOT EXISTS `cache` (
-  `key` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `key` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration` bigint NOT NULL,
   PRIMARY KEY (`key`),
   KEY `cache_expiration_index` (`expiration`)
@@ -759,8 +909,8 @@ CREATE TABLE IF NOT EXISTS `cache` (
 
 DROP TABLE IF EXISTS `cache_locks`;
 CREATE TABLE IF NOT EXISTS `cache_locks` (
-  `key` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `owner` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `key` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration` bigint NOT NULL,
   PRIMARY KEY (`key`),
   KEY `cache_locks_expiration_index` (`expiration`)
@@ -780,7 +930,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`cart_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `cart`
@@ -886,7 +1036,10 @@ INSERT INTO `cart` (`cart_id`, `user_id`, `created_at`, `updated_at`) VALUES
 (97, 97, '2025-05-27 17:25:00', '2025-05-29 13:20:00'),
 (98, 98, '2025-05-28 09:10:00', '2025-05-30 15:50:00'),
 (99, 99, '2025-05-29 14:35:00', '2025-05-31 16:35:00'),
-(100, 100, '2025-05-30 11:00:00', '2025-06-01 12:45:00');
+(100, 100, '2025-05-30 11:00:00', '2025-06-01 12:45:00'),
+(101, 108, '2026-04-18 19:52:26', '2026-04-18 19:52:26'),
+(102, 109, '2026-04-18 19:59:14', '2026-04-18 19:59:14'),
+(103, 110, '2026-04-19 11:52:43', '2026-04-19 11:52:43');
 
 -- --------------------------------------------------------
 
@@ -904,7 +1057,7 @@ CREATE TABLE IF NOT EXISTS `cart_items` (
   PRIMARY KEY (`cart_item_id`),
   UNIQUE KEY `cart_id` (`cart_id`,`book_id`),
   KEY `book_id` (`book_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=130 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `cart_items`
@@ -930,7 +1083,6 @@ INSERT INTO `cart_items` (`cart_item_id`, `cart_id`, `book_id`, `quantity`, `add
 (17, 17, 41, 1, '2025-03-10 10:18:59'),
 (18, 18, 167, 4, '2025-03-11 15:47:13'),
 (19, 19, 24, 3, '2025-03-12 18:06:32'),
-(20, 20, 190, 2, '2025-03-13 12:59:48'),
 (21, 21, 72, 5, '2025-03-14 08:21:07'),
 (22, 22, 155, 1, '2025-03-15 20:34:55'),
 (23, 23, 9, 3, '2025-03-16 14:02:18'),
@@ -1010,7 +1162,8 @@ INSERT INTO `cart_items` (`cart_item_id`, `cart_id`, `book_id`, `quantity`, `add
 (97, 97, 158, 5, '2025-05-29 17:25:00'),
 (98, 98, 197, 3, '2025-05-30 09:10:00'),
 (99, 99, 122, 4, '2025-05-31 14:35:00'),
-(100, 100, 210, 2, '2025-06-01 11:00:00');
+(100, 100, 210, 2, '2025-06-01 11:00:00'),
+(111, 101, 149, 1, '2026-04-18 19:52:26');
 
 -- --------------------------------------------------------
 
@@ -1022,20 +1175,21 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` int NOT NULL AUTO_INCREMENT,
   `category_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `description` text COLLATE utf8mb4_vietnamese_ci,
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`category_id`, `category_name`) VALUES
-(1, 'Sách tâm lý - kỹ năng'),
-(2, 'Sách thiếu nhi'),
-(3, 'Sách giáo khoa'),
-(4, 'Sách văn học'),
-(5, 'Sách kinh tế'),
-(6, 'Sách nấu ăn');
+INSERT INTO `categories` (`category_id`, `category_name`, `description`) VALUES
+(1, 'Sách tâm lý - kỹ năng', NULL),
+(2, 'Sách thiếu nhi', NULL),
+(3, 'Sách giáo khoa', NULL),
+(4, 'Sách văn học', NULL),
+(5, 'Sách kinh tế', NULL),
+(6, 'Sách nấu ăn', NULL);
 
 -- --------------------------------------------------------
 
@@ -1086,11 +1240,11 @@ INSERT INTO `coupons` (`coupon_id`, `code`, `discount`, `status`, `created_at`) 
 DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
@@ -1112,7 +1266,7 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `last_updated` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`inventory_id`),
   UNIQUE KEY `book_id` (`book_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=217 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=219 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `inventory`
@@ -1126,9 +1280,9 @@ INSERT INTO `inventory` (`inventory_id`, `book_id`, `stock`, `reorder_level`, `s
 (5, 5, 762, 500, 'ACTIVE', '2024-01-09 00:00:00'),
 (6, 6, 437, 100, 'ACTIVE', '2024-01-10 00:00:00'),
 (7, 7, 619, 300, 'ACTIVE', '2024-01-11 00:00:00'),
-(8, 8, 1049, 500, 'ACTIVE', '2024-01-12 00:00:00'),
+(8, 8, 1050, 500, 'ACTIVE', '2026-04-19 09:07:00'),
 (9, 9, 236, 100, 'ACTIVE', '2024-01-13 00:00:00'),
-(10, 10, 0, 300, 'OUT_OF_STOCK', '2024-01-14 00:00:00'),
+(10, 10, 0, 300, 'OUT_OF_STOCK', '2026-04-19 13:29:23'),
 (11, 11, -25, 500, 'HIDDEN', '2024-01-15 00:00:00'),
 (12, 12, 311, 100, 'ACTIVE', '2024-01-16 00:00:00'),
 (13, 13, 526, 300, 'ACTIVE', '2024-01-17 00:00:00'),
@@ -1147,14 +1301,14 @@ INSERT INTO `inventory` (`inventory_id`, `book_id`, `stock`, `reorder_level`, `s
 (26, 26, 1309, 500, 'ACTIVE', '2024-11-26 00:00:00'),
 (27, 27, 384, 100, 'ACTIVE', '2024-11-26 00:00:00'),
 (28, 28, 593, 300, 'ACTIVE', '2024-11-26 00:00:00'),
-(29, 29, 1431, 500, 'ACTIVE', '2024-11-26 00:00:00'),
-(30, 30, 0, 100, 'OUT_OF_STOCK', '2024-11-26 00:00:00'),
-(31, 31, -41, 300, 'HIDDEN', '2024-11-26 00:00:00'),
-(32, 32, 952, 500, 'ACTIVE', '2024-11-26 00:00:00'),
-(33, 33, 401, 100, 'ACTIVE', '2024-11-26 00:00:00'),
-(34, 34, 620, 300, 'ACTIVE', '2024-11-26 00:00:00'),
-(35, 35, 1559, 500, 'ACTIVE', '2024-11-26 00:00:00'),
-(36, 36, 181, 100, 'ACTIVE', '2024-11-26 00:00:00'),
+(29, 29, 1429, 500, 'ACTIVE', '2024-11-26 00:00:00'),
+(30, 30, -1, 100, 'OUT_OF_STOCK', '2024-11-26 00:00:00'),
+(31, 31, -42, 300, 'HIDDEN', '2024-11-26 00:00:00'),
+(32, 32, 951, 500, 'ACTIVE', '2024-11-26 00:00:00'),
+(33, 33, 400, 100, 'ACTIVE', '2024-11-26 00:00:00'),
+(34, 34, 619, 300, 'ACTIVE', '2024-11-26 00:00:00'),
+(35, 35, 1558, 500, 'ACTIVE', '2024-11-26 00:00:00'),
+(36, 36, 180, 100, 'ACTIVE', '2024-11-26 00:00:00'),
 (37, 37, 636, 300, 'ACTIVE', '2024-11-26 00:00:00'),
 (38, 38, 671, 500, 'ACTIVE', '2024-11-26 00:00:00'),
 (39, 39, 400, 100, 'ACTIVE', '2024-11-26 00:00:00'),
@@ -1267,15 +1421,15 @@ INSERT INTO `inventory` (`inventory_id`, `book_id`, `stock`, `reorder_level`, `s
 (146, 146, 871, 500, 'ACTIVE', '2024-11-26 00:00:00'),
 (147, 147, 366, 100, 'ACTIVE', '2024-02-01 00:00:00'),
 (148, 148, 415, 300, 'ACTIVE', '2024-02-02 00:00:00'),
-(149, 149, 1983, 500, 'ACTIVE', '2024-02-03 00:00:00'),
+(149, 149, 1982, 500, 'ACTIVE', '2024-02-03 00:00:00'),
 (150, 150, 0, 100, 'OUT_OF_STOCK', '2024-02-04 00:00:00'),
 (151, 151, -43, 300, 'HIDDEN', '2024-02-05 00:00:00'),
 (152, 152, 976, 500, 'ACTIVE', '2024-02-06 00:00:00'),
 (153, 153, 391, 100, 'ACTIVE', '2024-02-07 00:00:00'),
 (154, 154, 510, 300, 'ACTIVE', '2024-02-08 00:00:00'),
-(155, 155, 1567, 500, 'ACTIVE', '2024-02-09 00:00:00'),
+(155, 155, 1566, 500, 'ACTIVE', '2024-02-09 00:00:00'),
 (156, 156, 387, 100, 'ACTIVE', '2024-02-10 00:00:00'),
-(157, 157, 842, 300, 'ACTIVE', '2024-02-11 00:00:00'),
+(157, 157, 841, 300, 'ACTIVE', '2024-02-11 00:00:00'),
 (158, 158, 664, 500, 'ACTIVE', '2024-02-12 00:00:00'),
 (159, 159, 323, 100, 'ACTIVE', '2024-02-13 00:00:00'),
 (160, 160, 0, 300, 'OUT_OF_STOCK', '2024-02-14 00:00:00'),
@@ -1283,7 +1437,7 @@ INSERT INTO `inventory` (`inventory_id`, `book_id`, `stock`, `reorder_level`, `s
 (162, 162, 153, 100, 'ACTIVE', '2024-02-16 00:00:00'),
 (163, 163, 808, 300, 'ACTIVE', '2024-02-17 00:00:00'),
 (164, 164, 666, 500, 'ACTIVE', '2024-02-18 00:00:00'),
-(165, 165, 386, 100, 'ACTIVE', '2024-02-19 00:00:00'),
+(165, 165, 385, 100, 'ACTIVE', '2024-02-19 00:00:00'),
 (166, 166, 795, 300, 'ACTIVE', '2024-02-20 00:00:00'),
 (167, 167, 1435, 500, 'ACTIVE', '2024-01-25 00:00:00'),
 (168, 168, 333, 100, 'ACTIVE', '2020-09-11 00:00:00'),
@@ -1294,7 +1448,7 @@ INSERT INTO `inventory` (`inventory_id`, `book_id`, `stock`, `reorder_level`, `s
 (173, 173, 1417, 500, 'ACTIVE', '2023-11-14 00:00:00'),
 (174, 174, 182, 100, 'ACTIVE', '2023-11-15 00:00:00'),
 (175, 175, 795, 300, 'ACTIVE', '2020-12-02 00:00:00'),
-(176, 176, 1480, 500, 'ACTIVE', '2025-02-16 00:00:00'),
+(176, 176, 1477, 500, 'ACTIVE', '2025-02-16 00:00:00'),
 (177, 177, 381, 100, 'ACTIVE', '2024-03-29 00:00:00'),
 (178, 178, 886, 300, 'ACTIVE', '2024-10-15 00:00:00'),
 (179, 179, 1374, 500, 'ACTIVE', '2023-04-22 00:00:00'),
@@ -1315,10 +1469,10 @@ INSERT INTO `inventory` (`inventory_id`, `book_id`, `stock`, `reorder_level`, `s
 (194, 194, 1785, 500, 'ACTIVE', '2021-04-26 00:00:00'),
 (195, 195, 241, 100, 'ACTIVE', '2022-09-19 00:00:00'),
 (196, 196, 890, 300, 'ACTIVE', '2018-08-16 00:00:00'),
-(197, 197, 1989, 500, 'ACTIVE', '2024-06-28 00:00:00'),
+(197, 197, 4989, 500, 'ACTIVE', '2026-04-19 13:29:15'),
 (198, 198, 155, 100, 'ACTIVE', '2023-01-28 00:00:00'),
 (199, 199, 458, 300, 'ACTIVE', '2023-03-07 00:00:00'),
-(200, 200, 0, 500, 'OUT_OF_STOCK', '2020-09-07 00:00:00'),
+(200, 200, 3, 500, 'LOW_STOCK', '2026-04-19 13:17:26'),
 (201, 201, -27, 100, 'HIDDEN', '2023-06-20 00:00:00'),
 (202, 202, 542, 300, 'ACTIVE', '2025-05-29 00:00:00'),
 (203, 203, 1779, 500, 'ACTIVE', '2025-11-07 00:00:00'),
@@ -1334,7 +1488,9 @@ INSERT INTO `inventory` (`inventory_id`, `book_id`, `stock`, `reorder_level`, `s
 (213, 213, 244, 100, 'ACTIVE', '2023-09-18 00:00:00'),
 (214, 214, 880, 300, 'ACTIVE', '2024-09-19 00:00:00'),
 (215, 215, 1809, 500, 'ACTIVE', '2022-11-12 00:00:00'),
-(216, 216, 280, 100, 'ACTIVE', '2025-05-17 00:00:00');
+(216, 216, 280, 100, 'ACTIVE', '2025-05-17 00:00:00'),
+(217, 217, 111, 10, NULL, '2026-04-19 13:18:31'),
+(218, 218, 111, 10, NULL, '2026-04-19 14:21:42');
 
 -- --------------------------------------------------------
 
@@ -1345,8 +1501,8 @@ INSERT INTO `inventory` (`inventory_id`, `book_id`, `stock`, `reorder_level`, `s
 DROP TABLE IF EXISTS `jobs`;
 CREATE TABLE IF NOT EXISTS `jobs` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `queue` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `attempts` tinyint UNSIGNED NOT NULL,
   `reserved_at` int UNSIGNED DEFAULT NULL,
   `available_at` int UNSIGNED NOT NULL,
@@ -1363,13 +1519,13 @@ CREATE TABLE IF NOT EXISTS `jobs` (
 
 DROP TABLE IF EXISTS `job_batches`;
 CREATE TABLE IF NOT EXISTS `job_batches` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_jobs` int NOT NULL,
   `pending_jobs` int NOT NULL,
   `failed_jobs` int NOT NULL,
-  `failed_job_ids` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `options` mediumtext COLLATE utf8mb4_unicode_ci,
+  `failed_job_ids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `options` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `cancelled_at` int DEFAULT NULL,
   `created_at` int NOT NULL,
   `finished_at` int DEFAULT NULL,
@@ -1385,10 +1541,10 @@ CREATE TABLE IF NOT EXISTS `job_batches` (
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -1398,7 +1554,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000001_create_cache_table', 1),
 (2, '0001_01_01_000002_create_jobs_table', 1),
 (3, '2026_04_15_155713_create_sessions_table', 2),
-(4, '2026_04_15_155722_create_password_reset_tokens_table', 2);
+(4, '2026_04_15_155722_create_password_reset_tokens_table', 2),
+(5, '2026_04_16_060858_add_email_to_password_reset_tokens_table', 3);
 
 -- --------------------------------------------------------
 
@@ -1491,6 +1648,8 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
+  `fullname` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `total_amount` decimal(12,2) NOT NULL,
   `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL DEFAULT 'pending',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -1502,56 +1661,76 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci,
   `delivered_at` datetime DEFAULT NULL,
   `tracking_number` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `user_id`, `total_amount`, `status`, `created_at`, `shipping_address`, `payment_method`, `shipping_fee`, `discount_amount`, `coupon_code`, `notes`, `delivered_at`, `tracking_number`) VALUES
-(1, 11, 585000.00, 'Delivered', '2025-05-31 10:05:00', '22 Lê Đức Thọ, Phường 6, Quận Gò Vấp, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Gọi trước khi giao', NULL, 'TRACK000001'),
-(2, 12, 155000.00, 'Delivered', '2025-06-01 14:10:00', '105 Phạm Văn Chiêu, Phường 9, Quận Gò Vấp, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, 'WELCOME2025', 'Để hàng ở bảo vệ', NULL, 'TRACK000002'),
-(3, 13, 405000.00, 'Shipped', '2025-06-02 09:30:00', '60 Nguyễn Oanh, Phường 17, Quận Gò Vấp, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Giao buổi chiều', '2025-06-04 09:30:00', 'TRACK000003'),
-(4, 14, 85000.00, 'Pending', '2025-06-03 16:55:00', '88 Thống Nhất, Phường 11, Quận Gò Vấp, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, 'FREESHIP50', NULL, NULL, 'TRACK000004'),
-(5, 15, 620000.00, 'Delivered', '2025-06-04 11:20:00', '14 Lê Văn Thọ, Phường 8, Quận Gò Vấp, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Giao giờ hành chính', NULL, 'TRACK000005'),
-(6, 16, 225000.00, 'Delivered', '2025-06-05 08:45:00', '45 Nguyễn Văn Lượng, Phường 16, Quận Gò Vấp, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, 'SALE12_12', 'Gọi trước khi giao', NULL, 'TRACK000006'),
-(7, 17, 310000.00, 'Cancelled', '2025-06-06 13:00:00', '120 Phạm Ngũ Lão, Phường Phạm Ngũ Lão, Quận 1, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Để hàng ở bảo vệ', NULL, 'TRACK000007'),
-(8, 18, 195000.00, 'Delivered', '2025-06-07 17:15:00', '99 Bùi Viện, Phường Phạm Ngũ Lão, Quận 1, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, 'BOOKLOVER', 'Giao buổi chiều', NULL, 'TRACK000008'),
-(9, 19, 50000.00, 'Shipped', '2025-06-08 10:30:00', '210 Trần Hưng Đạo, Phường Cô Giang, Quận 1, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, NULL, NULL, '2025-06-10 10:30:00', 'TRACK000009'),
-(10, 20, 780000.00, 'Delivered', '2025-06-09 15:40:00', '75 Nguyễn Trãi, Phường 2, Quận 5, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, 'VIP2025', 'Giao giờ hành chính', NULL, 'TRACK000010'),
-(11, 21, 120000.00, 'Pending', '2025-06-10 09:00:00', '188 Trần Bình Trọng, Phường 4, Quận 5, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, 'Gọi trước khi giao', NULL, 'TRACK000011'),
-(12, 22, 345000.00, 'Delivered', '2025-06-11 14:25:00', '40 Hồng Bàng, Phường 1, Quận 5, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, 'GIAM18', 'Để hàng ở bảo vệ', NULL, 'TRACK000012'),
-(13, 23, 99000.00, 'Shipped', '2025-06-12 18:40:00', '90 An Dương Vương, Phường 9, Quận 5, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, 'Giao buổi chiều', '2025-06-14 18:40:00', 'TRACK000013'),
-(14, 24, 450000.00, 'Delivered', '2025-06-13 07:50:00', '33 Nguyễn Chí Thanh, Phường 6, Quận 10, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, 'READY45', NULL, NULL, 'TRACK000014'),
-(15, 25, 275000.00, 'Delivered', '2025-06-14 12:15:00', '120 Ba Tháng Hai, Phường 12, Quận 10, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, NULL, 'Giao giờ hành chính', NULL, 'TRACK000015'),
-(16, 26, 680000.00, 'Shipped', '2025-06-15 16:30:00', '58 Sư Vạn Hạnh, Phường 9, Quận 10, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, 'FUN5', 'Gọi trước khi giao', '2025-06-17 16:30:00', 'TRACK000016'),
-(17, 27, 105000.00, 'Delivered', '2025-06-16 11:55:00', '102 Lạc Long Quân, Phường 3, Quận 11, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, 'Để hàng ở bảo vệ', NULL, 'TRACK000017'),
-(18, 28, 51000.00, 'Delivered', '2025-06-17 15:20:00', '210 Âu Cơ, Phường 10, Quận Tân Bình, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, 'SUNDAY8', 'Giao buổi chiều', NULL, 'TRACK000018'),
-(19, 29, 390000.00, 'Pending', '2025-06-18 08:05:00', '88 Trường Chinh, Phường 13, Quận Tân Bình, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, NULL, NULL, NULL, 'TRACK000019'),
-(20, 30, 145000.00, 'Cancelled', '2025-06-19 13:30:00', '15 Cộng Hòa, Phường 4, Quận Tân Bình, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, 'BLACKFRIDAY', 'Giao giờ hành chính', NULL, 'TRACK000020'),
-(21, 31, 720000.00, 'Delivered', '2025-06-20 17:45:00', '120 Hoàng Hoa Thám, Phường 12, Quận Tân Bình, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Gọi trước khi giao', NULL, 'TRACK000021'),
-(22, 32, 200000.00, 'Shipped', '2025-06-21 10:10:00', '77 Phạm Phú Thứ, Phường 11, Quận Tân Bình, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, NULL, 'Để hàng ở bảo vệ', '2025-06-23 10:10:00', 'TRACK000022'),
-(23, 33, 49000.00, 'Delivered', '2025-06-22 14:55:00', '50 Lũy Bán Bích, Phường Hòa Thạnh, Quận Tân Phú, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Giao buổi chiều', NULL, 'TRACK000023'),
-(24, 34, 550000.00, 'Pending', '2025-06-23 09:20:00', '140 Tân Kỳ Tân Quý, Phường Sơn Kỳ, Quận Tân Phú, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, NULL, NULL, 'TRACK000024'),
-(25, 35, 170000.00, 'Delivered', '2025-06-24 16:05:00', '99 Gò Dầu, Phường Tân Quý, Quận Tân Phú, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Giao giờ hành chính', NULL, 'TRACK000025'),
-(26, 36, 305000.00, 'Shipped', '2025-06-25 11:30:00', '210 Thoại Ngọc Hầu, Phường Phú Thạnh, Quận Tân Phú, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Gọi trước khi giao', '2025-06-27 11:30:00', 'TRACK000026'),
-(27, 37, 88000.00, 'Delivered', '2025-06-26 15:45:00', '35 Hòa Bình, Phường Hiệp Tân, Quận Tân Phú, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Để hàng ở bảo vệ', NULL, 'TRACK000027'),
-(28, 38, 650000.00, 'Cancelled', '2025-06-27 08:10:00', '88 Kinh Dương Vương, Phường An Lạc, Quận Bình Tân, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Giao buổi chiều', NULL, 'TRACK000028'),
-(29, 39, 115000.00, 'Delivered', '2025-06-28 12:25:00', '120 Lê Văn Quới, Phường Bình Trị Đông, Quận Bình Tân, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, NULL, NULL, 'TRACK000029'),
-(30, 40, 420000.00, 'Shipped', '2025-06-29 16:40:00', '77 Tên Lửa, Phường Bình Trị Đông B, Quận Bình Tân, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Giao giờ hành chính', '2025-07-01 16:40:00', 'TRACK000030'),
-(31, 41, 190000.00, 'Delivered', '2025-06-30 10:00:00', '55 Nguyễn Thị Tú, Phường Bình Hưng Hòa, Quận Bình Tân, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Gọi trước khi giao', NULL, 'TRACK000031'),
-(32, 42, 53000.00, 'Pending', '2025-07-01 14:15:00', '160 Mã Lò, Phường Bình Trị Đông A, Quận Bình Tân, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Để hàng ở bảo vệ', NULL, 'TRACK000032'),
-(33, 43, 370000.00, 'Delivered', '2025-07-02 09:35:00', '98 Phạm Văn Hai, Phường 2, Quận Tân Bình, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, 'Giao buổi chiều', NULL, 'TRACK000033'),
-(34, 44, 160000.00, 'Shipped', '2025-07-03 17:00:00', '12 Nguyễn Hồng Đào, Phường 14, Quận Tân Bình, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, NULL, '2025-07-05 17:00:00', 'TRACK000034'),
-(35, 45, 750000.00, 'Delivered', '2025-07-04 11:25:00', '230 Bàu Cát, Phường 12, Quận Tân Bình, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Giao giờ hành chính', NULL, 'TRACK000035'),
-(36, 46, 95000.00, 'Delivered', '2025-07-05 08:50:00', '66 Đồng Đen, Phường 10, Quận Tân Bình, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Gọi trước khi giao', NULL, 'TRACK000036'),
-(37, 47, 280000.00, 'Cancelled', '2025-07-06 13:05:00', '102 Cách Mạng Tháng 8, Phường 5, Quận 3, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Để hàng ở bảo vệ', NULL, 'TRACK000037'),
-(38, 48, 41000.00, 'Delivered', '2025-07-07 17:20:00', '55 Nguyễn Đình Chiểu, Phường 4, Quận 3, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Giao buổi chiều', NULL, 'TRACK000038'),
-(39, 49, 580000.00, 'Shipped', '2025-07-08 10:35:00', '88 Võ Văn Tần, Phường 6, Quận 3, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, NULL, NULL, '2025-07-10 10:35:00', 'TRACK000039'),
-(40, 50, 130000.00, 'Pending', '2025-07-09 15:50:00', '140 Trần Quốc Thảo, Phường 7, Quận 3, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, 'Giao giờ hành chính', NULL, 'TRACK000040'),
-(41, 5, 0.00, 'pending', '2025-12-09 07:49:02', '35 Điện Biên Phủ, Phường 15, Quận Bình Thạnh, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Gọi trước khi giao', NULL, 'TRACK000041');
+INSERT INTO `orders` (`order_id`, `user_id`, `fullname`, `phone`, `total_amount`, `status`, `created_at`, `shipping_address`, `payment_method`, `shipping_fee`, `discount_amount`, `coupon_code`, `notes`, `delivered_at`, `tracking_number`, `updated_at`) VALUES
+(1, 11, NULL, NULL, 585000.00, 'shipped', '2025-05-31 10:05:00', '22 Lê Đức Thọ, Phường 6, Quận Gò Vấp, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Gọi trước khi giao\n[19/04/2026 09:25 ADMIN]: HK BIT', NULL, 'TRACK000001', '2026-04-19 13:34:14'),
+(2, 12, NULL, NULL, 155000.00, 'delivered', '2025-06-01 14:10:00', '105 Phạm Văn Chiêu, Phường 9, Quận Gò Vấp, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, 'WELCOME2025', 'Để hàng ở bảo vệ', NULL, 'TRACK000002', '2026-04-19 15:09:39'),
+(3, 13, NULL, NULL, 405000.00, 'shipped', '2025-06-02 09:30:00', '60 Nguyễn Oanh, Phường 17, Quận Gò Vấp, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Giao buổi chiều', '2025-06-04 09:30:00', 'TRACK000003', '2026-04-19 15:09:39'),
+(4, 14, NULL, NULL, 85000.00, 'pending', '2025-06-03 16:55:00', '88 Thống Nhất, Phường 11, Quận Gò Vấp, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, 'FREESHIP50', NULL, NULL, 'TRACK000004', '2026-04-19 15:09:39'),
+(5, 15, NULL, NULL, 620000.00, 'delivered', '2025-06-04 11:20:00', '14 Lê Văn Thọ, Phường 8, Quận Gò Vấp, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Giao giờ hành chính', NULL, 'TRACK000005', '2026-04-19 15:09:39'),
+(6, 16, NULL, NULL, 225000.00, 'delivered', '2025-06-05 08:45:00', '45 Nguyễn Văn Lượng, Phường 16, Quận Gò Vấp, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, 'SALE12_12', 'Gọi trước khi giao', NULL, 'TRACK000006', '2026-04-19 15:09:39'),
+(7, 17, NULL, NULL, 310000.00, 'cancelled', '2025-06-06 13:00:00', '120 Phạm Ngũ Lão, Phường Phạm Ngũ Lão, Quận 1, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Để hàng ở bảo vệ', NULL, 'TRACK000007', '2026-04-19 15:09:39'),
+(8, 18, NULL, NULL, 195000.00, 'delivered', '2025-06-07 17:15:00', '99 Bùi Viện, Phường Phạm Ngũ Lão, Quận 1, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, 'BOOKLOVER', 'Giao buổi chiều', NULL, 'TRACK000008', '2026-04-19 15:09:39'),
+(9, 19, NULL, NULL, 50000.00, 'shipped', '2025-06-08 10:30:00', '210 Trần Hưng Đạo, Phường Cô Giang, Quận 1, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, NULL, NULL, '2025-06-10 10:30:00', 'TRACK000009', '2026-04-19 15:09:39'),
+(10, 20, NULL, NULL, 780000.00, 'delivered', '2025-06-09 15:40:00', '75 Nguyễn Trãi, Phường 2, Quận 5, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, 'VIP2025', 'Giao giờ hành chính', NULL, 'TRACK000010', '2026-04-19 15:09:39'),
+(11, 21, NULL, NULL, 120000.00, 'pending', '2025-06-10 09:00:00', '188 Trần Bình Trọng, Phường 4, Quận 5, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, 'Gọi trước khi giao', NULL, 'TRACK000011', '2026-04-19 15:09:39'),
+(12, 22, NULL, NULL, 345000.00, 'delivered', '2025-06-11 14:25:00', '40 Hồng Bàng, Phường 1, Quận 5, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, 'GIAM18', 'Để hàng ở bảo vệ', NULL, 'TRACK000012', '2026-04-19 15:09:39'),
+(13, 23, NULL, NULL, 99000.00, 'shipped', '2025-06-12 18:40:00', '90 An Dương Vương, Phường 9, Quận 5, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, 'Giao buổi chiều', '2025-06-14 18:40:00', 'TRACK000013', '2026-04-19 15:09:39'),
+(14, 24, NULL, NULL, 450000.00, 'delivered', '2025-06-13 07:50:00', '33 Nguyễn Chí Thanh, Phường 6, Quận 10, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, 'READY45', NULL, NULL, 'TRACK000014', '2026-04-19 15:09:39'),
+(15, 25, NULL, NULL, 275000.00, 'delivered', '2025-06-14 12:15:00', '120 Ba Tháng Hai, Phường 12, Quận 10, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, NULL, 'Giao giờ hành chính', NULL, 'TRACK000015', '2026-04-19 15:09:39'),
+(16, 26, NULL, NULL, 680000.00, 'shipped', '2025-06-15 16:30:00', '58 Sư Vạn Hạnh, Phường 9, Quận 10, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, 'FUN5', 'Gọi trước khi giao', '2025-06-17 16:30:00', 'TRACK000016', '2026-04-19 15:09:39'),
+(17, 27, NULL, NULL, 105000.00, 'delivered', '2025-06-16 11:55:00', '102 Lạc Long Quân, Phường 3, Quận 11, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, 'Để hàng ở bảo vệ', NULL, 'TRACK000017', '2026-04-19 15:09:39'),
+(18, 28, NULL, NULL, 51000.00, 'delivered', '2025-06-17 15:20:00', '210 Âu Cơ, Phường 10, Quận Tân Bình, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, 'SUNDAY8', 'Giao buổi chiều', NULL, 'TRACK000018', '2026-04-19 15:09:39'),
+(19, 29, NULL, NULL, 390000.00, 'pending', '2025-06-18 08:05:00', '88 Trường Chinh, Phường 13, Quận Tân Bình, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, NULL, NULL, NULL, 'TRACK000019', '2026-04-19 15:09:39'),
+(20, 30, NULL, NULL, 145000.00, 'cancelled', '2025-06-19 13:30:00', '15 Cộng Hòa, Phường 4, Quận Tân Bình, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, 'BLACKFRIDAY', 'Giao giờ hành chính', NULL, 'TRACK000020', '2026-04-19 15:09:39'),
+(21, 31, NULL, NULL, 720000.00, 'delivered', '2025-06-20 17:45:00', '120 Hoàng Hoa Thám, Phường 12, Quận Tân Bình, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Gọi trước khi giao', NULL, 'TRACK000021', '2026-04-19 15:09:39'),
+(22, 32, NULL, NULL, 200000.00, 'shipped', '2025-06-21 10:10:00', '77 Phạm Phú Thứ, Phường 11, Quận Tân Bình, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, NULL, 'Để hàng ở bảo vệ', '2025-06-23 10:10:00', 'TRACK000022', '2026-04-19 15:09:39'),
+(23, 33, NULL, NULL, 49000.00, 'delivered', '2025-06-22 14:55:00', '50 Lũy Bán Bích, Phường Hòa Thạnh, Quận Tân Phú, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Giao buổi chiều', NULL, 'TRACK000023', '2026-04-19 15:09:39'),
+(24, 34, NULL, NULL, 550000.00, 'pending', '2025-06-23 09:20:00', '140 Tân Kỳ Tân Quý, Phường Sơn Kỳ, Quận Tân Phú, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, NULL, NULL, 'TRACK000024', '2026-04-19 15:09:39'),
+(25, 35, NULL, NULL, 170000.00, 'delivered', '2025-06-24 16:05:00', '99 Gò Dầu, Phường Tân Quý, Quận Tân Phú, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Giao giờ hành chính', NULL, 'TRACK000025', '2026-04-19 15:09:39'),
+(26, 36, NULL, NULL, 305000.00, 'shipped', '2025-06-25 11:30:00', '210 Thoại Ngọc Hầu, Phường Phú Thạnh, Quận Tân Phú, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Gọi trước khi giao', '2025-06-27 11:30:00', 'TRACK000026', '2026-04-19 15:09:39'),
+(27, 37, NULL, NULL, 88000.00, 'delivered', '2025-06-26 15:45:00', '35 Hòa Bình, Phường Hiệp Tân, Quận Tân Phú, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Để hàng ở bảo vệ', NULL, 'TRACK000027', '2026-04-19 15:09:39'),
+(28, 38, NULL, NULL, 650000.00, 'cancelled', '2025-06-27 08:10:00', '88 Kinh Dương Vương, Phường An Lạc, Quận Bình Tân, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Giao buổi chiều', NULL, 'TRACK000028', '2026-04-19 15:09:39'),
+(29, 39, NULL, NULL, 115000.00, 'delivered', '2025-06-28 12:25:00', '120 Lê Văn Quới, Phường Bình Trị Đông, Quận Bình Tân, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, NULL, NULL, 'TRACK000029', '2026-04-19 15:09:39'),
+(30, 40, NULL, NULL, 420000.00, 'shipped', '2025-06-29 16:40:00', '77 Tên Lửa, Phường Bình Trị Đông B, Quận Bình Tân, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Giao giờ hành chính', '2025-07-01 16:40:00', 'TRACK000030', '2026-04-19 15:09:39'),
+(31, 41, NULL, NULL, 190000.00, 'delivered', '2025-06-30 10:00:00', '55 Nguyễn Thị Tú, Phường Bình Hưng Hòa, Quận Bình Tân, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Gọi trước khi giao', NULL, 'TRACK000031', '2026-04-19 15:09:39'),
+(32, 42, NULL, NULL, 53000.00, 'pending', '2025-07-01 14:15:00', '160 Mã Lò, Phường Bình Trị Đông A, Quận Bình Tân, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, 'Để hàng ở bảo vệ', NULL, 'TRACK000032', '2026-04-19 15:09:39'),
+(33, 43, NULL, NULL, 370000.00, 'delivered', '2025-07-02 09:35:00', '98 Phạm Văn Hai, Phường 2, Quận Tân Bình, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, 'Giao buổi chiều', NULL, 'TRACK000033', '2026-04-19 15:09:39'),
+(34, 44, NULL, NULL, 160000.00, 'shipped', '2025-07-03 17:00:00', '12 Nguyễn Hồng Đào, Phường 14, Quận Tân Bình, TP Hồ Chí Minh', 'Banking', 20000.00, 0.00, NULL, NULL, '2025-07-05 17:00:00', 'TRACK000034', '2026-04-19 15:09:39'),
+(35, 45, NULL, NULL, 750000.00, 'delivered', '2025-07-04 11:25:00', '230 Bàu Cát, Phường 12, Quận Tân Bình, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Giao giờ hành chính', NULL, 'TRACK000035', '2026-04-19 15:09:39'),
+(36, 46, NULL, NULL, 95000.00, 'delivered', '2025-07-05 08:50:00', '66 Đồng Đen, Phường 10, Quận Tân Bình, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Gọi trước khi giao', NULL, 'TRACK000036', '2026-04-19 15:09:39'),
+(37, 47, NULL, NULL, 280000.00, 'cancelled', '2025-07-06 13:05:00', '102 Cách Mạng Tháng 8, Phường 5, Quận 3, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Để hàng ở bảo vệ', NULL, 'TRACK000037', '2026-04-19 15:09:39'),
+(38, 48, NULL, NULL, 41000.00, 'delivered', '2025-07-07 17:20:00', '55 Nguyễn Đình Chiểu, Phường 4, Quận 3, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Giao buổi chiều', NULL, 'TRACK000038', '2026-04-19 15:09:39'),
+(39, 49, NULL, NULL, 580000.00, 'shipped', '2025-07-08 10:35:00', '88 Võ Văn Tần, Phường 6, Quận 3, TP Hồ Chí Minh', 'Momo', 20000.00, 0.00, NULL, NULL, '2025-07-10 10:35:00', 'TRACK000039', '2026-04-19 15:09:39'),
+(40, 50, NULL, NULL, 130000.00, 'pending', '2025-07-09 15:50:00', '140 Trần Quốc Thảo, Phường 7, Quận 3, TP Hồ Chí Minh', 'COD', 20000.00, 0.00, NULL, 'Giao giờ hành chính', NULL, 'TRACK000040', '2026-04-19 15:09:39'),
+(41, 5, NULL, NULL, 0.00, 'pending', '2025-12-09 07:49:02', '35 Điện Biên Phủ, Phường 15, Quận Bình Thạnh, TP Hồ Chí Minh', 'ZaloPay', 20000.00, 0.00, NULL, 'Gọi trước khi giao', NULL, 'TRACK000041', '2026-04-19 07:33:56'),
+(42, 20, NULL, NULL, 285020.00, 'pending', '2026-04-17 16:28:17', '75 Nguyễn Trãi, Phường 2, Quận 5, TP Hồ Chí Minh', 'COD', 30000.00, 55980.00, NULL, NULL, NULL, NULL, '2026-04-19 15:09:39'),
+(43, 109, NULL, NULL, 181290.00, 'cancelled', '2026-04-18 13:45:02', '123456, phường 13, Q.10, TP.HCM', 'COD', 30000.00, 33210.00, NULL, '123456', NULL, NULL, '2026-04-19 07:33:56'),
+(44, 109, NULL, NULL, 120000.00, 'cancelled', '2026-04-18 14:24:47', '123456, phường 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 07:33:56'),
+(45, 109, NULL, NULL, 95000.00, 'cancelled', '2026-04-18 14:35:59', '5678, phường 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 07:33:56'),
+(46, 109, NULL, NULL, 180000.00, 'cancelled', '2026-04-18 14:52:43', '123456, phường 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 07:33:56'),
+(47, 109, NULL, NULL, 190000.00, 'cancelled', '2026-04-18 14:54:24', '123456, phường 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 07:33:56'),
+(48, 109, NULL, NULL, 210400.00, 'cancelled', '2026-04-18 15:34:55', '56780345, 13, Q.10, TP.HCM', 'COD', 30000.00, 39600.00, NULL, NULL, NULL, NULL, '2026-04-19 07:33:56'),
+(49, 109, NULL, NULL, 180000.00, 'cancelled', '2026-04-18 15:39:17', '56780345, 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 07:33:56'),
+(50, 109, NULL, NULL, 180000.00, 'cancelled', '2026-04-18 15:59:12', '56780345, 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 07:33:56'),
+(51, 109, NULL, NULL, 100000.00, 'cancelled', '2026-04-18 16:03:21', '56780345, 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 07:33:56'),
+(52, 109, NULL, NULL, 214500.00, 'pending', '2026-04-18 16:11:24', '56780345, 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 07:33:56'),
+(53, 109, NULL, NULL, 100000.00, 'cancelled', '2026-04-18 16:13:50', '56780345, 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 07:33:56'),
+(54, 110, NULL, NULL, 214500.00, 'cancelled', '2026-04-19 04:53:06', '12345678, 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 07:33:56'),
+(55, 110, 'Huỳnh Minh Thư', '0911111111', 180000.00, 'cancelled', '2026-04-19 07:37:52', '5678, phường 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 14:15:55'),
+(56, 110, NULL, NULL, 214500.00, 'pending', '2026-04-19 07:48:06', '12345678, 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 07:48:06'),
+(57, 110, NULL, NULL, 100000.00, 'pending', '2026-04-19 08:56:14', NULL, 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 08:56:14'),
+(58, 110, NULL, NULL, 115000.00, 'cancelled', '2026-04-19 13:52:16', NULL, 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 14:05:22'),
+(59, 110, 'Huỳnh Minh Thư', '902000020', 214500.00, 'pending', '2026-04-19 21:05:08', '123456789, phường 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 14:26:39'),
+(60, 110, 'Huỳnh Minh Thư', '902000020', 190000.00, 'pending', '2026-04-19 21:30:50', '123, phường 13, Q.10, TP.HCM', 'COD', 30000.00, 0.00, NULL, NULL, NULL, NULL, '2026-04-19 14:39:40');
 
 --
 -- Triggers `orders`
@@ -1592,7 +1771,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   PRIMARY KEY (`order_item_id`),
   KEY `order_id` (`order_id`),
   KEY `book_id` (`book_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `order_items`
@@ -1673,7 +1852,33 @@ INSERT INTO `order_items` (`order_item_id`, `order_id`, `book_id`, `quantity`, `
 (72, 36, 98, 1, 155000.00),
 (73, 37, 99, 1, 110000.00),
 (74, 37, 100, 2, 99000.00),
-(75, 1, 5, 2, 130000.00);
+(75, 1, 5, 2, 130000.00),
+(76, 42, 29, 2, 36000.00),
+(77, 42, 30, 1, 39000.00),
+(78, 42, 31, 1, 39000.00),
+(79, 42, 32, 1, 33000.00),
+(80, 42, 33, 1, 30000.00),
+(81, 42, 34, 1, 30000.00),
+(82, 42, 35, 1, 35000.00),
+(83, 42, 36, 1, 33000.00),
+(84, 43, 176, 1, 184500.00),
+(85, 44, 152, 1, 90000.00),
+(86, 45, 162, 1, 65000.00),
+(87, 46, 149, 1, 150000.00),
+(88, 47, 157, 1, 160000.00),
+(89, 48, 154, 2, 110000.00),
+(90, 49, 149, 1, 150000.00),
+(91, 50, 149, 1, 150000.00),
+(92, 51, 155, 1, 70000.00),
+(93, 52, 176, 1, 184500.00),
+(94, 53, 155, 1, 70000.00),
+(95, 54, 176, 1, 184500.00),
+(96, 55, 149, 1, 150000.00),
+(97, 56, 176, 1, 184500.00),
+(98, 57, 155, 1, 70000.00),
+(99, 58, 165, 1, 85000.00),
+(100, 59, 176, 1, 184500.00),
+(101, 60, 157, 1, 160000.00);
 
 --
 -- Triggers `order_items`
@@ -1696,10 +1901,10 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `password_reset_tokens`;
 CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1800,16 +2005,23 @@ INSERT INTO `reviews` (`review_id`, `user_id`, `book_id`, `rating`, `comment`, `
 
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE IF NOT EXISTS `sessions` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text COLLATE utf8mb4_unicode_ci,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_activity` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sessions_user_id_index` (`user_id`),
   KEY `sessions_last_activity_index` (`last_activity`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('a7t5ixzxmOfxYpZOzP4UjesmAuicZgCinMF2p7dm', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0', 'eyJfdG9rZW4iOiJFeEJYMkFWRlBhS242ZzR1M2hUZ01ZYmtBUWxrcTB6UXpxVGoweU5LIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvMTI3LjAuMC4xOjgwMDFcL2FkbWluXC9vcmRlcnNcLzU0P3BhZ2U9MiZzdGF0dXM9Y2FuY2VsbGVkIiwicm91dGUiOiJhZG1pbi5vcmRlcnMuc2hvdyJ9LCJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI6MX0=', 1776611984);
 
 -- --------------------------------------------------------
 
@@ -1834,120 +2046,121 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_login` datetime DEFAULT NULL,
   `points` int DEFAULT '0',
   `membership_level` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT 'regular',
+  `remember_token` varchar(100) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `phone` (`phone`),
   KEY `idx_users_username` (`username`),
   KEY `idx_users_email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password_hashed`, `PASSWORD`, `email`, `fullname`, `role`, `status`, `created_at`, `phone`, `birthdate`, `gender`, `last_login`, `points`, `membership_level`) VALUES
-(1, 'admin_user', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'admin@shop.com', 'Nguyễn Trọng Thắng', 'Admin', 'Active', '2025-01-01 10:00:00', '0901000001', '1991-01-01', 'female', NULL, 37, 'regular'),
-(2, 'manager_a', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'manager.a@shop.com', 'Lê Thị Thuỳ Dung', 'Manager', 'Active', '2025-01-05 14:30:00', '0901000002', '1992-01-01', 'other', '2026-01-07 18:51:00', 74, 'regular'),
-(3, 'manager_b', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'manager.b@shop.com', 'Trần Văn Long', 'Manager', 'Active', '2025-01-10 09:00:00', '0901000003', '1993-01-01', 'male', NULL, 111, 'regular'),
-(4, 'support_c', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'support.c@shop.com', 'Phạm Minh Duy', 'Manager', 'Active', '2025-01-15 16:45:00', '0901000004', '1994-01-01', 'female', '2026-01-05 18:51:00', 148, 'regular'),
-(5, 'admin_hr', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'hr@shop.com', 'Hoàng Thanh Ngọc', 'Admin', 'Pending', '2025-01-20 11:20:00', '0901000005', '1995-01-01', 'other', NULL, 185, 'regular'),
-(6, 'manager_ops', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'ops@shop.com', 'Võ Đình Hiếu', 'Manager', 'Active', '2025-01-25 13:10:00', '0901000006', '1996-01-01', 'male', '2026-01-03 18:51:00', 222, 'regular'),
-(7, 'manager_sale', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'sale@shop.com', 'Bùi Thị Hồng', 'Manager', 'Active', '2025-01-30 08:40:00', '0901000007', '1997-01-01', 'female', NULL, 259, 'regular'),
-(8, 'accountant', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'acc@shop.com', 'Đỗ Minh Quâ', 'Manager', 'Active', '2025-02-05 17:00:00', '0901000008', '1998-01-01', 'other', '2026-01-01 18:51:00', 296, 'regular'),
-(9, 'super_admi', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'superadmin@shop.com', 'Phan Văn Tài', 'Admin', 'Active', '2025-02-10 10:55:00', '0901000009', '1999-01-01', 'male', NULL, 333, 'gold'),
-(10, 'marketing_d', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'marketing@shop.com', 'Ngô Hoàng Yế', 'Manager', 'Inactive', '2025-02-15 15:30:00', '0901000010', '2000-01-01', 'female', '2025-12-30 18:51:00', 370, 'gold'),
-(11, 'customer_11', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_11@mail.com', 'Trịnh Xuân Hùng', 'Customer', 'Active', '2025-03-01 07:15:00', '0901000011', '2001-01-01', 'other', NULL, 407, 'gold'),
-(12, 'customer_12', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_12@mail.com', 'Vũ Ngọc La', 'Customer', 'Active', '2025-03-02 12:40:00', '0901000012', '2002-01-01', 'male', '2025-12-28 18:51:00', 444, 'gold'),
-(13, 'customer_13', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_13@mail.com', 'Dương Chí Dũng', 'Customer', 'Active', '2025-03-03 18:05:00', '0901000013', '2003-01-01', 'female', NULL, 481, 'gold'),
-(14, 'customer_14', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_14@mail.com', 'Bạch Mai Phương', 'Customer', 'Active', '2025-03-04 09:50:00', '0901000014', '2004-01-01', 'other', '2025-12-26 18:51:00', 518, 'gold'),
-(15, 'customer_15', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_15@mail.com', 'Đặng Quang Huy', 'Customer', 'Active', '2025-03-05 14:15:00', '0901000015', '2005-01-01', 'male', NULL, 555, 'gold'),
-(16, 'customer_16', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_16@mail.com', 'Tô Thị Kim', 'Customer', 'Active', '2025-03-06 11:30:00', '0901000016', '2006-01-01', 'female', '2025-12-24 18:51:00', 592, 'gold'),
-(17, 'customer_17', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_17@mail.com', 'Huỳnh Thế Anh', 'Customer', 'Active', '2025-03-07 16:55:00', '0901000017', '2007-01-01', 'other', NULL, 629, 'gold'),
-(18, 'customer_18', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_18@mail.com', 'Nguyễn Phương Nhi', 'Customer', 'Active', '2025-03-08 10:20:00', '0901000018', '2008-01-01', 'male', '2025-12-22 18:51:00', 666, 'gold'),
-(19, 'customer_19', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_19@mail.com', 'Lý Văn Thành', 'Customer', 'Active', '2025-03-09 15:45:00', '0901000019', '2009-01-01', 'female', NULL, 703, 'vip'),
-(20, 'customer_20', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_20@mail.com', 'Trần Huyền Trang', 'Customer', 'Active', '2025-03-10 08:00:00', '0901000020', '2010-01-01', 'other', '2025-12-20 18:51:00', 740, 'vip'),
-(21, 'customer_21', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_21@mail.com', 'Phạm Quang Vinh', 'Customer', 'Active', '2025-03-11 13:25:00', '0901000021', '2011-01-01', 'male', NULL, 777, 'vip'),
-(22, 'customer_22', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_22@mail.com', 'Đoàn Thị Thủy', 'Customer', 'Active', '2025-03-12 18:50:00', '0901000022', '2012-01-01', 'female', '2025-12-18 18:51:00', 814, 'vip'),
-(23, 'customer_23', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_23@mail.com', 'Lưu Đình Kiê', 'Customer', 'Active', '2025-03-13 07:35:00', '0901000023', '2013-01-01', 'other', NULL, 851, 'vip'),
-(24, 'customer_24', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_24@mail.com', 'Võ Thanh Tú', 'Customer', 'Active', '2025-03-14 12:00:00', '0901000024', '2014-01-01', 'male', '2025-12-16 18:51:00', 888, 'vip'),
-(25, 'customer_25', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_25@mail.com', 'Nguyễn Bá Sơ', 'Customer', 'Active', '2025-03-15 17:25:00', '0901000025', '2015-01-01', 'female', NULL, 925, 'vip'),
-(26, 'customer_26', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_26@mail.com', 'Hoàng Ánh Ngọc', 'Customer', 'Active', '2025-03-16 09:10:00', '0901000026', '2016-01-01', 'other', '2025-12-14 18:51:00', 962, 'vip'),
-(27, 'customer_27', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_27@mail.com', 'Mai Hồng Phát', 'Customer', 'Active', '2025-03-17 14:35:00', '0901000027', '2017-01-01', 'male', NULL, 999, 'vip'),
-(28, 'customer_28', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_28@mail.com', 'Lê Văn Duẩ', 'Customer', 'Active', '2025-03-18 11:00:00', '0901000028', '2018-01-01', 'female', '2025-12-12 18:51:00', 36, 'regular'),
-(29, 'customer_29', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_29@mail.com', 'Trần Thị Mai', 'Customer', 'Active', '2025-03-19 16:25:00', '0901000029', '2019-01-01', 'other', NULL, 73, 'regular'),
-(30, 'customer_30', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_30@mail.com', 'Đinh Quốc Việt', 'Customer', 'Inactive', '2025-03-20 08:50:00', '0901000030', '1990-01-01', 'male', '2026-01-09 18:51:00', 110, 'regular'),
-(31, 'customer_31', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_31@mail.com', 'Nguyễn Hải Nam', 'Customer', 'Active', '2025-03-21 13:15:00', '0901000031', '1991-01-01', 'female', NULL, 147, 'regular'),
-(32, 'customer_32', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_32@mail.com', 'Phan Thị Kim Ngâ', 'Customer', 'Active', '2025-03-22 17:40:00', '0901000032', '1992-01-01', 'other', '2026-01-07 18:51:00', 184, 'regular'),
-(33, 'customer_33', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_33@mail.com', 'Võ Văn Dũng', 'Customer', 'Active', '2025-03-23 09:25:00', '0901000033', '1993-01-01', 'male', NULL, 221, 'regular'),
-(34, 'customer_34', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_34@mail.com', 'Hồ Ngọc Diệp', 'Customer', 'Active', '2025-03-24 14:50:00', '0901000034', '1994-01-01', 'female', '2026-01-05 18:51:00', 258, 'regular'),
-(35, 'customer_35', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_35@mail.com', 'Trần Quốc Bảo', 'Customer', 'Active', '2025-03-25 11:15:00', '0901000035', '1995-01-01', 'other', NULL, 295, 'regular'),
-(36, 'customer_36', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_36@mail.com', 'Lê Thanh Thúy', 'Customer', 'Active', '2025-03-26 16:40:00', '0901000036', '1996-01-01', 'male', '2026-01-03 18:51:00', 332, 'gold'),
-(37, 'customer_37', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_37@mail.com', 'Đỗ Trọng Nghĩa', 'Customer', 'Active', '2025-03-27 08:25:00', '0901000037', '1997-01-01', 'female', NULL, 369, 'gold'),
-(38, 'customer_38', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_38@mail.com', 'Nguyễn Hồng Hạnh', 'Customer', 'Active', '2025-03-28 13:50:00', '0901000038', '1998-01-01', 'other', '2026-01-01 18:51:00', 406, 'gold'),
-(39, 'customer_39', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_39@mail.com', 'Phạm Văn Cường', 'Customer', 'Active', '2025-03-29 18:15:00', '0901000039', '1999-01-01', 'male', NULL, 443, 'gold'),
-(40, 'customer_40', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_40@mail.com', 'Lý Kim Chi', 'Customer', 'Active', '2025-03-30 07:00:00', '0901000040', '2000-01-01', 'female', '2025-12-30 18:51:00', 480, 'gold'),
-(41, 'customer_41', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_41@mail.com', 'Hoàng Quốc Đại', 'Customer', 'Active', '2025-04-01 12:25:00', '0901000041', '2001-01-01', 'other', NULL, 517, 'gold'),
-(42, 'customer_42', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_42@mail.com', 'Mai Hồng Nga', 'Customer', 'Active', '2025-04-02 17:50:00', '0901000042', '2002-01-01', 'male', '2025-12-28 18:51:00', 554, 'gold'),
-(43, 'customer_43', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_43@mail.com', 'Bùi Thanh Liêm', 'Customer', 'Active', '2025-04-03 09:35:00', '0901000043', '2003-01-01', 'female', NULL, 591, 'gold'),
-(44, 'customer_44', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_44@mail.com', 'Vũ Quỳnh Hương', 'Customer', 'Active', '2025-04-04 14:00:00', '0901000044', '2004-01-01', 'other', '2025-12-26 18:51:00', 628, 'gold'),
-(45, 'customer_45', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_45@mail.com', 'Trần Minh Khang', 'Customer', 'Active', '2025-04-05 11:45:00', '0901000045', '2005-01-01', 'male', NULL, 665, 'gold'),
-(46, 'customer_46', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_46@mail.com', 'Nguyễn Thị Yế', 'Customer', 'Active', '2025-04-06 16:10:00', '0901000046', '2006-01-01', 'female', '2025-12-24 18:51:00', 702, 'vip'),
-(47, 'customer_47', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_47@mail.com', 'Đinh Tuấn Kiệt', 'Customer', 'Active', '2025-04-07 08:35:00', '0901000047', '2007-01-01', 'other', NULL, 739, 'vip'),
-(48, 'customer_48', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_48@mail.com', 'Lê Phương Anh', 'Customer', 'Active', '2025-04-08 13:00:00', '0901000048', '2008-01-01', 'male', '2025-12-22 18:51:00', 776, 'vip'),
-(49, 'customer_49', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_49@mail.com', 'Phan Văn Minh', 'Customer', 'Active', '2025-04-09 17:25:00', '0901000049', '2009-01-01', 'female', NULL, 813, 'vip'),
-(50, 'customer_50', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_50@mail.com', 'Hà Thị Tuyết', 'Customer', 'Active', '2025-04-10 09:50:00', '0901000050', '2010-01-01', 'other', '2025-12-20 18:51:00', 850, 'vip'),
-(51, 'customer_51', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_51@mail.com', 'Nguyễn Anh Khoa', 'Customer', 'Active', '2025-04-11 14:15:00', '0901000051', '2011-01-01', 'male', NULL, 887, 'vip'),
-(52, 'customer_52', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_52@mail.com', 'Trần Huyền My', 'Customer', 'Active', '2025-04-12 11:30:00', '0901000052', '2012-01-01', 'female', '2025-12-18 18:51:00', 924, 'vip'),
-(53, 'customer_53', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_53@mail.com', 'Võ Minh Trí', 'Customer', 'Inactive', '2025-04-13 16:55:00', '0901000053', '2013-01-01', 'other', NULL, 961, 'vip'),
-(54, 'customer_54', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_54@mail.com', 'Lê Kim Cương', 'Customer', 'Active', '2025-04-14 10:20:00', '0901000054', '2014-01-01', 'male', '2025-12-16 18:51:00', 998, 'vip'),
-(55, 'customer_55', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_55@mail.com', 'Hoàng Quốc Trung', 'Customer', 'Active', '2025-04-15 15:45:00', '0901000055', '2015-01-01', 'female', NULL, 35, 'regular'),
-(56, 'customer_56', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_56@mail.com', 'Bùi Thị Dung', 'Customer', 'Active', '2025-04-16 08:00:00', '0901000056', '2016-01-01', 'other', '2025-12-14 18:51:00', 72, 'regular'),
-(57, 'customer_57', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_57@mail.com', 'Mai Văn Tấ', 'Customer', 'Active', '2025-04-17 13:25:00', '0901000057', '2017-01-01', 'male', NULL, 109, 'regular'),
-(58, 'customer_58', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_58@mail.com', 'Đinh Thị Loa', 'Customer', 'Active', '2025-04-18 18:50:00', '0901000058', '2018-01-01', 'female', '2025-12-12 18:51:00', 146, 'regular'),
-(59, 'customer_59', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_59@mail.com', 'Phạm Hữu Đức', 'Customer', 'Active', '2025-04-19 07:35:00', '0901000059', '2019-01-01', 'other', NULL, 183, 'regular'),
-(60, 'customer_60', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_60@mail.com', 'Trần Mai Linh', 'Customer', 'Active', '2025-04-20 12:00:00', '0901000060', '1990-01-01', 'male', '2026-01-09 18:51:00', 220, 'regular'),
-(61, 'customer_61', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_61@mail.com', 'Nguyễn Đình Khoa', 'Customer', 'Active', '2025-04-21 17:25:00', '0901000061', '1991-01-01', 'female', NULL, 257, 'regular'),
-(62, 'customer_62', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_62@mail.com', 'Lý Thu Hằng', 'Customer', 'Active', '2025-04-22 09:10:00', '0901000062', '1992-01-01', 'other', '2026-01-07 18:51:00', 294, 'regular'),
-(63, 'customer_63', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_63@mail.com', 'Văn Đức Huy', 'Customer', 'Active', '2025-04-23 14:35:00', '0901000063', '1993-01-01', 'male', NULL, 331, 'gold'),
-(64, 'customer_64', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_64@mail.com', 'Dương Thị Hoà', 'Customer', 'Active', '2025-04-24 11:00:00', '0901000064', '1994-01-01', 'female', '2026-01-05 18:51:00', 368, 'gold'),
-(65, 'customer_65', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_65@mail.com', 'Bùi Anh Tuấ', 'Customer', 'Active', '2025-04-25 16:25:00', '0901000065', '1995-01-01', 'other', NULL, 405, 'gold'),
-(66, 'customer_66', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_66@mail.com', 'Phạm Thu Nguyệt', 'Customer', 'Active', '2025-04-26 08:50:00', '0901000066', '1996-01-01', 'male', '2026-01-03 18:51:00', 442, 'gold'),
-(67, 'customer_67', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_67@mail.com', 'Lê Minh Cường', 'Customer', 'Active', '2025-04-27 13:15:00', '0901000067', '1997-01-01', 'female', NULL, 479, 'gold'),
-(68, 'customer_68', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_68@mail.com', 'Trần Văn Long', 'Customer', 'Active', '2025-04-28 17:40:00', '0901000068', '1998-01-01', 'other', '2026-01-01 18:51:00', 516, 'gold'),
-(69, 'customer_69', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_69@mail.com', 'Đỗ Thị Ngọc', 'Customer', 'Active', '2025-04-29 09:25:00', '0901000069', '1999-01-01', 'male', NULL, 553, 'gold'),
-(70, 'customer_70', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_70@mail.com', 'Nguyễn Quang Minh', 'Customer', 'Active', '2025-04-30 14:50:00', '0901000070', '2000-01-01', 'female', '2025-12-30 18:51:00', 590, 'gold'),
-(71, 'customer_71', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_71@mail.com', 'Vũ Đình Khải', 'Customer', 'Pending', '2025-05-01 11:15:00', '0901000071', '2001-01-01', 'other', NULL, 627, 'gold'),
-(72, 'customer_72', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_72@mail.com', 'Hoàng Thị Vâ', 'Customer', 'Active', '2025-05-02 16:40:00', '0901000072', '2002-01-01', 'male', '2025-12-28 18:51:00', 664, 'gold'),
-(73, 'customer_73', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_73@mail.com', 'Mai Hữu Tài', 'Customer', 'Active', '2025-05-03 08:25:00', '0901000073', '2003-01-01', 'female', NULL, 701, 'vip'),
-(74, 'customer_74', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_74@mail.com', 'Lê Kim Ngâ', 'Customer', 'Active', '2025-05-04 13:50:00', '0901000074', '2004-01-01', 'other', '2025-12-26 18:51:00', 738, 'vip'),
-(75, 'customer_75', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_75@mail.com', 'Phạm Văn Trung', 'Customer', 'Active', '2025-05-05 18:15:00', '0901000075', '2005-01-01', 'male', NULL, 775, 'vip'),
-(76, 'customer_76', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_76@mail.com', 'Trần Ngọc Hằng', 'Customer', 'Active', '2025-05-06 07:00:00', '0901000076', '2006-01-01', 'female', '2025-12-24 18:51:00', 812, 'vip'),
-(77, 'customer_77', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_77@mail.com', 'Đặng Thanh Tùng', 'Customer', 'Active', '2025-05-07 12:25:00', '0901000077', '2007-01-01', 'other', NULL, 849, 'vip'),
-(78, 'customer_78', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_78@mail.com', 'Nguyễn Thùy Linh', 'Customer', 'Active', '2025-05-08 17:50:00', '0901000078', '2008-01-01', 'male', '2025-12-22 18:51:00', 886, 'vip'),
-(79, 'customer_79', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_79@mail.com', 'Lý Văn Bách', 'Customer', 'Active', '2025-05-09 09:35:00', '0901000079', '2009-01-01', 'female', NULL, 923, 'vip'),
-(80, 'customer_80', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_80@mail.com', 'Võ Thị Trâm', 'Customer', 'Active', '2025-05-10 14:00:00', '0901000080', '2010-01-01', 'other', '2025-12-20 18:51:00', 960, 'vip'),
-(81, 'customer_81', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_81@mail.com', 'Hoàng Minh Nhật', 'Customer', 'Active', '2025-05-11 11:45:00', '0901000081', '2011-01-01', 'male', NULL, 997, 'vip'),
-(82, 'customer_82', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_82@mail.com', 'Bùi Kim Anh', 'Customer', 'Active', '2025-05-12 16:10:00', '0901000082', '2012-01-01', 'female', '2025-12-18 18:51:00', 34, 'regular'),
-(83, 'customer_83', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_83@mail.com', 'Mai Đình Phong', 'Customer', 'Active', '2025-05-13 08:35:00', '0901000083', '2013-01-01', 'other', NULL, 71, 'regular'),
-(84, 'customer_84', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_84@mail.com', 'Đinh Thanh Hương', 'Customer', 'Active', '2025-05-14 13:00:00', '0901000084', '2014-01-01', 'male', '2025-12-16 18:51:00', 108, 'regular'),
-(85, 'customer_85', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_85@mail.com', 'Phạm Duy Anh', 'Customer', 'Active', '2025-05-15 17:25:00', '0901000085', '2015-01-01', 'female', NULL, 145, 'regular'),
-(86, 'customer_86', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_86@mail.com', 'Trần Hải Yế', 'Customer', 'Active', '2025-05-16 09:50:00', '0901000086', '2016-01-01', 'other', '2025-12-14 18:51:00', 182, 'regular'),
-(87, 'customer_87', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_87@mail.com', 'Nguyễn Quang Huy', 'Customer', 'Active', '2025-05-17 14:15:00', '0901000087', '2017-01-01', 'male', NULL, 219, 'regular'),
-(88, 'customer_88', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_88@mail.com', 'Lý Thị Thanh', 'Customer', 'Active', '2025-05-18 11:30:00', '0901000088', '2018-01-01', 'female', '2025-12-12 18:51:00', 256, 'regular'),
-(89, 'customer_89', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_89@mail.com', 'Võ Văn Nam', 'Customer', 'Active', '2025-05-19 16:55:00', '0901000089', '2019-01-01', 'other', NULL, 293, 'regular'),
-(90, 'customer_90', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_90@mail.com', 'Dương Thúy Nga', 'Customer', 'Inactive', '2025-05-20 10:20:00', '0901000090', '1990-01-01', 'male', '2026-01-09 18:51:00', 330, 'gold'),
-(91, 'customer_91', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_91@mail.com', 'Bùi Minh Khôi', 'Customer', 'Active', '2025-05-21 15:45:00', '0901000091', '1991-01-01', 'female', NULL, 367, 'gold'),
-(92, 'customer_92', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_92@mail.com', 'Phạm Phương Thảo', 'Customer', 'Active', '2025-05-22 08:00:00', '0901000092', '1992-01-01', 'other', '2026-01-07 18:51:00', 404, 'gold'),
-(93, 'customer_93', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_93@mail.com', 'Lê Đình Trọng', 'Customer', 'Active', '2025-05-23 13:25:00', '0901000093', '1993-01-01', 'male', NULL, 441, 'gold'),
-(94, 'customer_94', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_94@mail.com', 'Trần Mai Chi', 'Customer', 'Active', '2025-05-24 18:50:00', '0901000094', '1994-01-01', 'female', '2026-01-05 18:51:00', 478, 'gold'),
-(95, 'customer_95', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_95@mail.com', 'Đỗ Văn Quyết', 'Customer', 'Active', '2025-05-25 07:35:00', '0901000095', '1995-01-01', 'other', NULL, 515, 'gold'),
-(96, 'customer_96', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_96@mail.com', 'Nguyễn Thị Hoa', 'Customer', 'Active', '2025-05-26 12:00:00', '0901000096', '1996-01-01', 'male', '2026-01-03 18:51:00', 552, 'gold'),
-(97, 'customer_97', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_97@mail.com', 'Vũ Quang Vinh', 'Customer', 'Active', '2025-05-27 17:25:00', '0901000097', '1997-01-01', 'female', NULL, 589, 'gold'),
-(98, 'customer_98', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_98@mail.com', 'Hoàng Tuyết Mai', 'Customer', 'Active', '2025-05-28 09:10:00', '0901000098', '1998-01-01', 'other', '2026-01-01 18:51:00', 626, 'gold'),
-(99, 'customer_99', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_99@mail.com', 'Mai Văn Lợi', 'Customer', 'Active', '2025-05-29 14:35:00', '0901000099', '1999-01-01', 'male', NULL, 663, 'gold'),
-(100, 'customer_100', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'customer_100@mail.com', 'Lê Thị Hương', 'Customer', 'Pending', '2025-05-30 11:00:00', '0901000100', '2000-01-01', 'female', '2025-12-30 18:51:00', 700, 'vip'),
-(101, 'Minh Thư', 'df10ef8509dc176d733d59549e7dbfaf', '123456abc', 'hmt06122005@gmail.com', 'Thư', 'Customer', 'Active', '2026-01-08 14:44:25', '0901000101', '2001-01-01', 'other', NULL, 737, 'vip');
+INSERT INTO `users` (`user_id`, `username`, `password_hashed`, `PASSWORD`, `email`, `fullname`, `role`, `status`, `created_at`, `phone`, `birthdate`, `gender`, `last_login`, `points`, `membership_level`, `remember_token`) VALUES
+(1, 'admin_user', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'admin@shop.com', 'Nguyễn Trọng Thắng', 'Admin', 'Active', '2025-01-01 10:00:00', '0901000001', '1991-01-01', 'female', NULL, 37, 'regular', NULL),
+(2, 'manager_a', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'manager.a@shop.com', 'Lê Thị Thuỳ Dung', 'Manager', 'Active', '2025-01-05 14:30:00', '0901000002', '1992-01-01', 'other', '2026-01-07 18:51:00', 74, 'regular', NULL),
+(3, 'manager_b', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'manager.b@shop.com', 'Trần Văn Long', 'Manager', 'Active', '2025-01-10 09:00:00', '0901000003', '1993-01-01', 'male', NULL, 111, 'regular', NULL),
+(4, 'support_c', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'support.c@shop.com', 'Phạm Minh Duy', 'Manager', 'Active', '2025-01-15 16:45:00', '0901000004', '1994-01-01', 'female', '2026-01-05 18:51:00', 148, 'regular', NULL),
+(5, 'admin_hr', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'hr@shop.com', 'Hoàng Thanh Ngọc', 'Admin', 'Inactive', '2025-01-20 11:20:00', '0901000005', '1995-01-01', 'other', NULL, 185, 'regular', NULL),
+(6, 'manager_ops', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'ops@shop.com', 'Võ Đình Hiếu', 'Manager', 'Active', '2025-01-25 13:10:00', '0901000006', '1996-01-01', 'male', '2026-01-03 18:51:00', 222, 'regular', NULL),
+(7, 'manager_sale', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'sale@shop.com', 'Bùi Thị Hồng', 'Manager', 'Active', '2025-01-30 08:40:00', '0901000007', '1997-01-01', 'female', NULL, 259, 'regular', NULL),
+(8, 'accountant', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'acc@shop.com', 'Đỗ Minh Quâ', 'Manager', 'Active', '2025-02-05 17:00:00', '0901000008', '1998-01-01', 'other', '2026-01-01 18:51:00', 296, 'regular', NULL),
+(9, 'super_admi', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'superadmin@shop.com', 'Phan Văn Tài', 'Admin', 'Active', '2025-02-10 10:55:00', '0901000009', '1999-01-01', 'male', NULL, 444, 'gold', NULL),
+(10, 'marketing_d', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'marketing@shop.com', 'Ngô Hoàng Yế', 'Manager', 'Inactive', '2025-02-15 15:30:00', '0901000010', '2000-01-01', 'female', '2025-12-30 18:51:00', 370, 'gold', NULL),
+(11, 'customer_11', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_11@mail.com', 'Trịnh Xuân Hùng', 'Customer', 'Active', '2025-03-01 07:15:00', '0901000011', '2001-01-01', 'other', NULL, 407, 'gold', NULL),
+(12, 'customer_12', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_12@mail.com', 'Vũ Ngọc La', 'Customer', 'Active', '2025-03-02 12:40:00', '0901000012', '2002-01-01', 'male', '2025-12-28 18:51:00', 444, 'gold', NULL),
+(13, 'customer_13', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_13@mail.com', 'Dương Chí Dũng', 'Customer', 'Active', '2025-03-03 18:05:00', '0901000013', '2003-01-01', 'female', NULL, 481, 'gold', NULL),
+(14, 'customer_14', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_14@mail.com', 'Bạch Mai Phương', 'Customer', 'Active', '2025-03-04 09:50:00', '0901000014', '2004-01-01', 'other', '2025-12-26 18:51:00', 518, 'gold', NULL),
+(15, 'customer_15', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_15@mail.com', 'Đặng Quang Huy', 'Customer', 'Active', '2025-03-05 14:15:00', '0901000015', '2005-01-01', 'male', NULL, 555, 'gold', NULL),
+(16, 'customer_16', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_16@mail.com', 'Tô Thị Kim', 'Customer', 'Active', '2025-03-06 11:30:00', '0901000016', '2006-01-01', 'female', '2025-12-24 18:51:00', 592, 'gold', NULL),
+(17, 'customer_17', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_17@mail.com', 'Huỳnh Thế Anh', 'Customer', 'Active', '2025-03-07 16:55:00', '0901000017', '2007-01-01', 'other', NULL, 629, 'gold', NULL),
+(18, 'customer_18', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_18@mail.com', 'Nguyễn Phương Nhi', 'Customer', 'Active', '2025-03-08 10:20:00', '0901000018', '2008-01-01', 'male', '2025-12-22 18:51:00', 666, 'gold', NULL),
+(19, 'customer_19', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_19@mail.com', 'Lý Văn Thành', 'Customer', 'Active', '2025-03-09 15:45:00', '0901000019', '2009-01-01', 'female', NULL, 703, 'vip', NULL),
+(20, 'customer_20', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_20@mail.com', 'Trần Huyền Trang', 'Customer', 'Active', '2025-03-10 08:00:00', '0901000020', '2010-01-01', 'other', '2025-12-20 18:51:00', 740, 'vip', NULL),
+(21, 'customer_21', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_21@mail.com', 'Phạm Quang Vinh', 'Customer', 'Active', '2025-03-11 13:25:00', '0901000021', '2011-01-01', 'male', NULL, 777, 'vip', NULL),
+(22, 'customer_22', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_22@mail.com', 'Đoàn Thị Thủy', 'Customer', 'Active', '2025-03-12 18:50:00', '0901000022', '2012-01-01', 'female', '2025-12-18 18:51:00', 814, 'vip', NULL),
+(23, 'customer_23', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_23@mail.com', 'Lưu Đình Kiê', 'Customer', 'Active', '2025-03-13 07:35:00', '0901000023', '2013-01-01', 'other', NULL, 851, 'vip', NULL),
+(24, 'customer_24', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_24@mail.com', 'Võ Thanh Tú', 'Customer', 'Active', '2025-03-14 12:00:00', '0901000024', '2014-01-01', 'male', '2025-12-16 18:51:00', 888, 'vip', NULL),
+(25, 'customer_25', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_25@mail.com', 'Nguyễn Bá Sơ', 'Customer', 'Active', '2025-03-15 17:25:00', '0901000025', '2015-01-01', 'female', NULL, 925, 'vip', NULL),
+(26, 'customer_26', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_26@mail.com', 'Hoàng Ánh Ngọc', 'Customer', 'Active', '2025-03-16 09:10:00', '0901000026', '2016-01-01', 'other', '2025-12-14 18:51:00', 962, 'vip', NULL),
+(27, 'customer_27', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_27@mail.com', 'Mai Hồng Phát', 'Customer', 'Active', '2025-03-17 14:35:00', '0901000027', '2017-01-01', 'male', NULL, 999, 'vip', NULL),
+(28, 'customer_28', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_28@mail.com', 'Lê Văn Duẩ', 'Customer', 'Active', '2025-03-18 11:00:00', '0901000028', '2018-01-01', 'female', '2025-12-12 18:51:00', 36, 'regular', NULL),
+(29, 'customer_29', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_29@mail.com', 'Trần Thị Mai', 'Customer', 'Active', '2025-03-19 16:25:00', '0901000029', '2019-01-01', 'other', NULL, 73, 'regular', NULL),
+(30, 'customer_30', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_30@mail.com', 'Đinh Quốc Việt', 'Customer', 'Inactive', '2025-03-20 08:50:00', '0901000030', '1990-01-01', 'male', '2026-01-09 18:51:00', 110, 'regular', NULL),
+(31, 'customer_31', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_31@mail.com', 'Nguyễn Hải Nam', 'Customer', 'Active', '2025-03-21 13:15:00', '0901000031', '1991-01-01', 'female', NULL, 147, 'regular', NULL),
+(32, 'customer_32', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_32@mail.com', 'Phan Thị Kim Ngâ', 'Customer', 'Active', '2025-03-22 17:40:00', '0901000032', '1992-01-01', 'other', '2026-01-07 18:51:00', 184, 'regular', NULL),
+(33, 'customer_33', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_33@mail.com', 'Võ Văn Dũng', 'Customer', 'Active', '2025-03-23 09:25:00', '0901000033', '1993-01-01', 'male', NULL, 221, 'regular', NULL),
+(34, 'customer_34', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_34@mail.com', 'Hồ Ngọc Diệp', 'Customer', 'Active', '2025-03-24 14:50:00', '0901000034', '1994-01-01', 'female', '2026-01-05 18:51:00', 258, 'regular', NULL),
+(35, 'customer_35', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_35@mail.com', 'Trần Quốc Bảo', 'Customer', 'Active', '2025-03-25 11:15:00', '0901000035', '1995-01-01', 'other', NULL, 295, 'regular', NULL),
+(36, 'customer_36', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_36@mail.com', 'Lê Thanh Thúy', 'Customer', 'Active', '2025-03-26 16:40:00', '0901000036', '1996-01-01', 'male', '2026-01-03 18:51:00', 332, 'gold', NULL),
+(37, 'customer_37', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_37@mail.com', 'Đỗ Trọng Nghĩa', 'Customer', 'Active', '2025-03-27 08:25:00', '0901000037', '1997-01-01', 'female', NULL, 369, 'gold', NULL),
+(38, 'customer_38', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_38@mail.com', 'Nguyễn Hồng Hạnh', 'Customer', 'Active', '2025-03-28 13:50:00', '0901000038', '1998-01-01', 'other', '2026-01-01 18:51:00', 406, 'gold', NULL),
+(39, 'customer_39', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_39@mail.com', 'Phạm Văn Cường', 'Customer', 'Active', '2025-03-29 18:15:00', '0901000039', '1999-01-01', 'male', NULL, 443, 'gold', NULL),
+(40, 'customer_40', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_40@mail.com', 'Lý Kim Chi', 'Customer', 'Active', '2025-03-30 07:00:00', '0901000040', '2000-01-01', 'female', '2025-12-30 18:51:00', 480, 'gold', NULL),
+(41, 'customer_41', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_41@mail.com', 'Hoàng Quốc Đại', 'Customer', 'Active', '2025-04-01 12:25:00', '0901000041', '2001-01-01', 'other', NULL, 517, 'gold', NULL),
+(42, 'customer_42', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_42@mail.com', 'Mai Hồng Nga', 'Customer', 'Active', '2025-04-02 17:50:00', '0901000042', '2002-01-01', 'male', '2025-12-28 18:51:00', 554, 'gold', NULL),
+(43, 'customer_43', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_43@mail.com', 'Bùi Thanh Liêm', 'Customer', 'Active', '2025-04-03 09:35:00', '0901000043', '2003-01-01', 'female', NULL, 591, 'gold', NULL),
+(44, 'customer_44', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_44@mail.com', 'Vũ Quỳnh Hương', 'Customer', 'Active', '2025-04-04 14:00:00', '0901000044', '2004-01-01', 'other', '2025-12-26 18:51:00', 628, 'gold', NULL),
+(45, 'customer_45', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_45@mail.com', 'Trần Minh Khang', 'Customer', 'Active', '2025-04-05 11:45:00', '0901000045', '2005-01-01', 'male', NULL, 665, 'gold', NULL),
+(46, 'customer_46', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_46@mail.com', 'Nguyễn Thị Yế', 'Customer', 'Active', '2025-04-06 16:10:00', '0901000046', '2006-01-01', 'female', '2025-12-24 18:51:00', 702, 'vip', NULL),
+(47, 'customer_47', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_47@mail.com', 'Đinh Tuấn Kiệt', 'Customer', 'Active', '2025-04-07 08:35:00', '0901000047', '2007-01-01', 'other', NULL, 739, 'vip', NULL),
+(48, 'customer_48', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_48@mail.com', 'Lê Phương Anh', 'Customer', 'Active', '2025-04-08 13:00:00', '0901000048', '2008-01-01', 'male', '2025-12-22 18:51:00', 776, 'vip', NULL),
+(49, 'customer_49', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_49@mail.com', 'Phan Văn Minh', 'Customer', 'Active', '2025-04-09 17:25:00', '0901000049', '2009-01-01', 'female', NULL, 813, 'vip', NULL),
+(50, 'customer_50', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_50@mail.com', 'Hà Thị Tuyết', 'Customer', 'Active', '2025-04-10 09:50:00', '0901000050', '2010-01-01', 'other', '2025-12-20 18:51:00', 850, 'vip', NULL),
+(51, 'customer_51', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_51@mail.com', 'Nguyễn Anh Khoa', 'Customer', 'Active', '2025-04-11 14:15:00', '0901000051', '2011-01-01', 'male', NULL, 887, 'vip', NULL),
+(52, 'customer_52', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_52@mail.com', 'Trần Huyền My', 'Customer', 'Active', '2025-04-12 11:30:00', '0901000052', '2012-01-01', 'female', '2025-12-18 18:51:00', 924, 'vip', NULL),
+(53, 'customer_53', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_53@mail.com', 'Võ Minh Trí', 'Customer', 'Inactive', '2025-04-13 16:55:00', '0901000053', '2013-01-01', 'other', NULL, 961, 'vip', NULL),
+(54, 'customer_54', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_54@mail.com', 'Lê Kim Cương', 'Customer', 'Active', '2025-04-14 10:20:00', '0901000054', '2014-01-01', 'male', '2025-12-16 18:51:00', 998, 'vip', NULL),
+(55, 'customer_55', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_55@mail.com', 'Hoàng Quốc Trung', 'Customer', 'Active', '2025-04-15 15:45:00', '0901000055', '2015-01-01', 'female', NULL, 35, 'regular', NULL),
+(56, 'customer_56', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_56@mail.com', 'Bùi Thị Dung', 'Customer', 'Active', '2025-04-16 08:00:00', '0901000056', '2016-01-01', 'other', '2025-12-14 18:51:00', 72, 'regular', NULL),
+(57, 'customer_57', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_57@mail.com', 'Mai Văn Tấ', 'Customer', 'Active', '2025-04-17 13:25:00', '0901000057', '2017-01-01', 'male', NULL, 109, 'regular', NULL),
+(58, 'customer_58', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_58@mail.com', 'Đinh Thị Loa', 'Customer', 'Active', '2025-04-18 18:50:00', '0901000058', '2018-01-01', 'female', '2025-12-12 18:51:00', 146, 'regular', NULL),
+(59, 'customer_59', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_59@mail.com', 'Phạm Hữu Đức', 'Customer', 'Active', '2025-04-19 07:35:00', '0901000059', '2019-01-01', 'other', NULL, 183, 'regular', NULL),
+(60, 'customer_60', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_60@mail.com', 'Trần Mai Linh', 'Customer', 'Active', '2025-04-20 12:00:00', '0901000060', '1990-01-01', 'male', '2026-01-09 18:51:00', 220, 'regular', NULL),
+(61, 'customer_61', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_61@mail.com', 'Nguyễn Đình Khoa', 'Customer', 'Active', '2025-04-21 17:25:00', '0901000061', '1991-01-01', 'female', NULL, 257, 'regular', NULL),
+(62, 'customer_62', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_62@mail.com', 'Lý Thu Hằng', 'Customer', 'Active', '2025-04-22 09:10:00', '0901000062', '1992-01-01', 'other', '2026-01-07 18:51:00', 294, 'regular', NULL),
+(63, 'customer_63', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_63@mail.com', 'Văn Đức Huy', 'Customer', 'Active', '2025-04-23 14:35:00', '0901000063', '1993-01-01', 'male', NULL, 331, 'gold', NULL),
+(64, 'customer_64', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_64@mail.com', 'Dương Thị Hoà', 'Customer', 'Active', '2025-04-24 11:00:00', '0901000064', '1994-01-01', 'female', '2026-01-05 18:51:00', 368, 'gold', NULL),
+(65, 'customer_65', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_65@mail.com', 'Bùi Anh Tuấ', 'Customer', 'Active', '2025-04-25 16:25:00', '0901000065', '1995-01-01', 'other', NULL, 405, 'gold', NULL),
+(66, 'customer_66', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_66@mail.com', 'Phạm Thu Nguyệt', 'Customer', 'Active', '2025-04-26 08:50:00', '0901000066', '1996-01-01', 'male', '2026-01-03 18:51:00', 442, 'gold', NULL),
+(67, 'customer_67', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_67@mail.com', 'Lê Minh Cường', 'Customer', 'Active', '2025-04-27 13:15:00', '0901000067', '1997-01-01', 'female', NULL, 479, 'gold', NULL),
+(68, 'customer_68', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_68@mail.com', 'Trần Văn Long', 'Customer', 'Active', '2025-04-28 17:40:00', '0901000068', '1998-01-01', 'other', '2026-01-01 18:51:00', 516, 'gold', NULL),
+(69, 'customer_69', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_69@mail.com', 'Đỗ Thị Ngọc', 'Customer', 'Active', '2025-04-29 09:25:00', '0901000069', '1999-01-01', 'male', NULL, 553, 'gold', NULL),
+(70, 'customer_70', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_70@mail.com', 'Nguyễn Quang Minh', 'Customer', 'Active', '2025-04-30 14:50:00', '0901000070', '2000-01-01', 'female', '2025-12-30 18:51:00', 590, 'gold', NULL),
+(71, 'customer_71', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_71@mail.com', 'Vũ Đình Khải', 'Customer', 'Pending', '2025-05-01 11:15:00', '0901000071', '2001-01-01', 'other', NULL, 627, 'gold', NULL),
+(72, 'customer_72', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_72@mail.com', 'Hoàng Thị Vâ', 'Customer', 'Active', '2025-05-02 16:40:00', '0901000072', '2002-01-01', 'male', '2025-12-28 18:51:00', 664, 'gold', NULL),
+(73, 'customer_73', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_73@mail.com', 'Mai Hữu Tài', 'Customer', 'Active', '2025-05-03 08:25:00', '0901000073', '2003-01-01', 'female', NULL, 701, 'vip', NULL),
+(74, 'customer_74', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_74@mail.com', 'Lê Kim Ngâ', 'Customer', 'Active', '2025-05-04 13:50:00', '0901000074', '2004-01-01', 'other', '2025-12-26 18:51:00', 738, 'vip', NULL),
+(75, 'customer_75', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_75@mail.com', 'Phạm Văn Trung', 'Customer', 'Active', '2025-05-05 18:15:00', '0901000075', '2005-01-01', 'male', NULL, 775, 'vip', NULL),
+(76, 'customer_76', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_76@mail.com', 'Trần Ngọc Hằng', 'Customer', 'Active', '2025-05-06 07:00:00', '0901000076', '2006-01-01', 'female', '2025-12-24 18:51:00', 812, 'vip', NULL),
+(77, 'customer_77', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_77@mail.com', 'Đặng Thanh Tùng', 'Customer', 'Active', '2025-05-07 12:25:00', '0901000077', '2007-01-01', 'other', NULL, 849, 'vip', NULL),
+(78, 'customer_78', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_78@mail.com', 'Nguyễn Thùy Linh', 'Customer', 'Active', '2025-05-08 17:50:00', '0901000078', '2008-01-01', 'male', '2025-12-22 18:51:00', 886, 'vip', NULL),
+(79, 'customer_79', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_79@mail.com', 'Lý Văn Bách', 'Customer', 'Active', '2025-05-09 09:35:00', '0901000079', '2009-01-01', 'female', NULL, 923, 'vip', NULL),
+(80, 'customer_80', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_80@mail.com', 'Võ Thị Trâm', 'Customer', 'Active', '2025-05-10 14:00:00', '0901000080', '2010-01-01', 'other', '2025-12-20 18:51:00', 960, 'vip', NULL),
+(81, 'customer_81', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_81@mail.com', 'Hoàng Minh Nhật', 'Customer', 'Active', '2025-05-11 11:45:00', '0901000081', '2011-01-01', 'male', NULL, 997, 'vip', NULL),
+(82, 'customer_82', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_82@mail.com', 'Bùi Kim Anh', 'Customer', 'Active', '2025-05-12 16:10:00', '0901000082', '2012-01-01', 'female', '2025-12-18 18:51:00', 34, 'regular', NULL),
+(83, 'customer_83', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_83@mail.com', 'Mai Đình Phong', 'Customer', 'Active', '2025-05-13 08:35:00', '0901000083', '2013-01-01', 'other', NULL, 71, 'regular', NULL),
+(84, 'customer_84', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_84@mail.com', 'Đinh Thanh Hương', 'Customer', 'Active', '2025-05-14 13:00:00', '0901000084', '2014-01-01', 'male', '2025-12-16 18:51:00', 108, 'regular', NULL),
+(85, 'customer_85', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_85@mail.com', 'Phạm Duy Anh', 'Customer', 'Active', '2025-05-15 17:25:00', '0901000085', '2015-01-01', 'female', NULL, 145, 'regular', NULL),
+(86, 'customer_86', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_86@mail.com', 'Trần Hải Yế', 'Customer', 'Active', '2025-05-16 09:50:00', '0901000086', '2016-01-01', 'other', '2025-12-14 18:51:00', 182, 'regular', NULL),
+(87, 'customer_87', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_87@mail.com', 'Nguyễn Quang Huy', 'Customer', 'Active', '2025-05-17 14:15:00', '0901000087', '2017-01-01', 'male', NULL, 219, 'regular', NULL),
+(88, 'customer_88', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_88@mail.com', 'Lý Thị Thanh', 'Customer', 'Active', '2025-05-18 11:30:00', '0901000088', '2018-01-01', 'female', '2025-12-12 18:51:00', 256, 'regular', NULL),
+(89, 'customer_89', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_89@mail.com', 'Võ Văn Nam', 'Customer', 'Active', '2025-05-19 16:55:00', '0901000089', '2019-01-01', 'other', NULL, 293, 'regular', NULL),
+(90, 'customer_90', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_90@mail.com', 'Dương Thúy Nga', 'Customer', 'Inactive', '2025-05-20 10:20:00', '0901000090', '1990-01-01', 'male', '2026-01-09 18:51:00', 330, 'gold', NULL),
+(91, 'customer_91', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_91@mail.com', 'Bùi Minh Khôi', 'Customer', 'Active', '2025-05-21 15:45:00', '0901000091', '1991-01-01', 'female', NULL, 367, 'gold', NULL),
+(92, 'customer_92', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_92@mail.com', 'Phạm Phương Thảo', 'Customer', 'Active', '2025-05-22 08:00:00', '0901000092', '1992-01-01', 'other', '2026-01-07 18:51:00', 404, 'gold', NULL),
+(93, 'customer_93', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_93@mail.com', 'Lê Đình Trọng', 'Customer', 'Active', '2025-05-23 13:25:00', '0901000093', '1993-01-01', 'male', NULL, 441, 'gold', NULL),
+(94, 'customer_94', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_94@mail.com', 'Trần Mai Chi', 'Customer', 'Active', '2025-05-24 18:50:00', '0901000094', '1994-01-01', 'female', '2026-01-05 18:51:00', 478, 'gold', NULL),
+(95, 'customer_95', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_95@mail.com', 'Đỗ Văn Quyết', 'Customer', 'Active', '2025-05-25 07:35:00', '0901000095', '1995-01-01', 'other', NULL, 515, 'gold', NULL),
+(96, 'customer_96', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_96@mail.com', 'Nguyễn Thị Hoa', 'Customer', 'Active', '2025-05-26 12:00:00', '0901000096', '1996-01-01', 'male', '2026-01-03 18:51:00', 552, 'gold', NULL),
+(97, 'customer_97', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_97@mail.com', 'Vũ Quang Vinh', 'Customer', 'Active', '2025-05-27 17:25:00', '0901000097', '1997-01-01', 'female', NULL, 589, 'gold', NULL),
+(98, 'customer_98', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_98@mail.com', 'Hoàng Tuyết Mai', 'Customer', 'Active', '2025-05-28 09:10:00', '0901000098', '1998-01-01', 'other', '2026-01-01 18:51:00', 626, 'gold', NULL),
+(99, 'customer_99', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_99@mail.com', 'Mai Văn Lợi', 'Customer', 'Active', '2025-05-29 14:35:00', '0901000099', '1999-01-01', 'male', NULL, 663, 'gold', NULL),
+(100, 'customer_100', '$2y$12$y.uM92zUvfADc1qIEkqifuG/WamKbl81hmbo74.nduZFaZ97igy2m', '123456abc', 'customer_100@mail.com', 'Lê Thị Hương', 'Customer', 'Pending', '2025-05-30 11:00:00', '0901000100', '2000-01-01', 'female', '2025-12-30 18:51:00', 700, 'vip', NULL),
+(110, 'hmt612', '$2y$12$8N7dacnZBPxJ4EpfUxhtSejuZ3ig60ctaL.VqG5fw9jOFNMElApqK', '123456abc', 'hmt06122005@gmail.com', 'Huỳnh Minh Thư', 'Customer', 'Active', '2026-04-19 00:09:59', '0911111112', NULL, NULL, NULL, 0, 'regular', 'eACLJOmicHOWdik5rBtTofxTDjFKMeor1AtkjH48SXN7CgaumqOtmFMU6Cll');
 
 --
 -- Triggers `users`
@@ -2024,7 +2237,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   UNIQUE KEY `user_id` (`user_id`,`book_id`),
   KEY `idx_wishlist_user` (`user_id`),
   KEY `idx_wishlist_book` (`book_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=166 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=178 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `wishlist`
@@ -2195,7 +2408,15 @@ INSERT INTO `wishlist` (`wishlist_id`, `user_id`, `book_id`) VALUES
 (162, 98, 39),
 (163, 99, 40),
 (164, 99, 41),
-(165, 100, 42);
+(165, 100, 42),
+(172, 110, 155),
+(167, 109, 149),
+(171, 110, 162),
+(173, 110, 149),
+(174, 110, 176),
+(175, 110, 152),
+(176, 110, 3),
+(177, 110, 11);
 
 -- --------------------------------------------------------
 
