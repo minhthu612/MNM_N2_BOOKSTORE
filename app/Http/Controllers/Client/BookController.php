@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth; // 👈 Thêm dòng này để dùng Auth
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -17,15 +17,22 @@ class BookController extends Controller
     {
         $query = Book::query();
 
-        // lọc theo category nếu có
         if ($request->category_id) {
             $query->where('category_id', $request->category_id);
         }
 
-        $books = $query->orderBy('book_id', 'desc')
-                       ->paginate(12);
+        $books = $query->orderBy('book_id', 'desc')->paginate(12);
 
-        return view('client.books.index', compact('books'));
+        // Lấy danh sách ID đã yêu thích để hiện tim đậm/rỗng ở trang danh sách
+        $wishlist_ids = [];
+        if (Auth::check()) {
+            $wishlist_ids = DB::table('wishlist')
+                ->where('user_id', Auth::id())
+                ->pluck('book_id')
+                ->toArray();
+        }
+
+        return view('client.books.index', compact('books', 'wishlist_ids'));
     }
 
     // =========================
@@ -44,23 +51,16 @@ class BookController extends Controller
             abort(404);
         }
 
-        // =========================
-        // VIEW COUNT (GIỐNG CODE CŨ)
-        // =========================
+        // VIEW COUNT
         DB::table('book_views')->insert([
             'user_id' => auth()->id() ?? null,
             'book_id' => $id,
             'viewed_at' => now()
         ]);
 
-        // tổng lượt xem
-        $total_views = DB::table('book_views')
-            ->where('book_id', $id)
-            ->count();
+        $total_views = DB::table('book_views')->where('book_id', $id)->count();
 
-        // =========================
         // RATING
-        // =========================
         $rating = DB::table('reviews')
             ->where('book_id', $id)
             ->selectRaw('AVG(rating) as avg_rating, COUNT(*) as total_reviews')
@@ -69,9 +69,7 @@ class BookController extends Controller
         $avg_rating = round($rating->avg_rating ?? 0, 1);
         $total_reviews = $rating->total_reviews ?? 0;
 
-        // =========================
-        // LIST REVIEWS (ĐỔ VÀO MẢNG GIỐNG PHP CŨ)
-        // =========================
+        // LIST REVIEWS
         $list_reviews = DB::table('reviews as r')
             ->join('users as u', 'r.user_id', '=', 'u.user_id')
             ->where('r.book_id', $id)
@@ -79,9 +77,7 @@ class BookController extends Controller
             ->orderBy('r.created_at', 'desc')
             ->get();
 
-        // ==========================================
-        // 👉 THÊM: LẤY DANH SÁCH ID ĐÃ YÊU THÍCH (NEW)
-        // ==========================================
+        // WISHLIST CHECK
         $wishlist_ids = [];
         if (Auth::check()) {
             $wishlist_ids = DB::table('wishlist')
@@ -90,16 +86,13 @@ class BookController extends Controller
                 ->toArray();
         }
 
-        // =========================
-        // RETURN VIEW (QUAN TRỌNG)
-        // =========================
         return view('client.books.detail', compact(
             'book',
             'avg_rating',
             'total_reviews',
             'total_views',
             'list_reviews',
-            'wishlist_ids' // 👈 Nhớ truyền thêm biến này vào view
+            'wishlist_ids'
         ));
     }
 }

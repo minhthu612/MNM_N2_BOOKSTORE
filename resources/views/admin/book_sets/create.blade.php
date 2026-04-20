@@ -35,6 +35,15 @@
         padding: 8px 25px !important;
         font-weight: bold;
     }
+    /* Style cho ảnh xem trước */
+    #img-preview {
+        max-height: 200px;
+        max-width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        object-fit: contain;
+        background: #f9f9f9;
+    }
 </style>
 
 
@@ -72,7 +81,6 @@
             <div class="row g-4">
 
 
-                <!-- LEFT -->
                 <div class="col-md-7">
 
 
@@ -128,7 +136,6 @@
                 </div>
 
 
-                <!-- RIGHT -->
                 <div class="col-md-5">
 
 
@@ -140,7 +147,14 @@
 
                         <input type="file"
                                class="form-control mb-3"
-                               name="image">
+                               name="image"
+                               accept="image/*"
+                               onchange="previewImage(this)">
+
+                        <div class="text-center mb-3">
+                            <label class="d-block mb-2 small text-muted">Xem trước ảnh bìa:</label>
+                            <img id="img-preview" src="{{ asset('images/no-image.jpg') }}" alt="Preview">
+                        </div>
 
 
                         <div class="alert alert-warning border-0 small mb-0">
@@ -162,7 +176,6 @@
             </div>
 
 
-            <!-- DANH SÁCH SÁCH -->
             <div class="mt-5">
                 <h5 class="fw-bold text-dark mb-3 border-start border-4 border-primary ps-2">
                     DANH SÁCH SÁCH THÀNH PHẦN
@@ -204,14 +217,35 @@
 
                                         <td>
                                             @php
-                                                $img = $sach->link_images;
-                                                if ($img == '') {
-                                                    $img = 'https://via.placeholder.com/40x55';
+                                                $extensions = ['webp', 'jpg', 'png', 'jpeg'];
+                                                $img = 'https://via.placeholder.com/40x55'; // Mặc định
+
+                                                // 1. KIỂM TRA LOẠI VÀ XÁC ĐỊNH TÊN FILE
+                                                if (isset($sach->set_id)) {
+                                                    $ma_id = $sach->set_id;
+                                                    $fileName = $ma_id . '_' . $ma_id; 
+                                                } else {
+                                                    $ma_id = $sach->book_id;
+                                                    $fileName = $ma_id; 
+                                                }
+
+                                                // 2. TÌM TRONG STORAGE TRƯỚC
+                                                foreach ($extensions as $ext) {
+                                                    if (file_exists(storage_path("app/public/image/{$fileName}.{$ext}"))) {
+                                                        $img = asset("storage/image/{$fileName}.{$ext}");
+                                                        break;
+                                                    }
+                                                }
+
+                                                // 3. NẾU STORAGE KHÔNG CÓ, DÙNG LINK TRONG DB
+                                                if (($img == 'https://via.placeholder.com/40x55') && !empty($sach->link_images)) {
+                                                    $img = $sach->link_images;
                                                 }
                                             @endphp
 
-
-                                            <img src="{{ $img }}" class="anh-nho">
+                                            <img src="{{ $img }}" 
+                                                class="anh-nho" 
+                                                onerror="this.src='https://via.placeholder.com/40x55'">
                                         </td>
 
 
@@ -263,7 +297,6 @@
             </div>
 
 
-            <!-- BUTTON -->
             <div class="mt-5 pt-3 border-top d-flex gap-2">
 
 
@@ -286,6 +319,18 @@
         </form>
     </div>
 </div>
+
+<script>
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('img-preview').src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 
 
 @endsection

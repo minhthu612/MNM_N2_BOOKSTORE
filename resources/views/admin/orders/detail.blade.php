@@ -182,14 +182,35 @@
                         @php
                             $thanh_tien = $item->quantity * $item->price;
                             $tong_sl += $item->quantity;
+
+                            // LOGIC TÌM ẢNH THÔNG MINH TRONG STORAGE
+                            $extensions = ['webp', 'jpg', 'png', 'jpeg'];
+                            $anh_item = 'https://via.placeholder.com/50x70?text=No+Img';
+                            
+                            // Xác định ID và quy tắc đặt tên (Nếu có set_id thì dùng ID_ID, ngược lại dùng ID)
+                            $isSet = !empty($item->set_id);
+                            $id = $isSet ? $item->set_id : $item->book_id;
+                            $fileName = $isSet ? ($id . '_' . $id) : $id;
+
+                            foreach ($extensions as $ext) {
+                                if (file_exists(storage_path("app/public/image/{$fileName}.{$ext}"))) {
+                                    $anh_item = asset("storage/image/{$fileName}.{$ext}");
+                                    break;
+                                }
+                            }
+
+                            // Nếu không có trong storage mới dùng link_images
+                            if ($anh_item == 'https://via.placeholder.com/50x70?text=No+Img' && !empty($item->link_images)) {
+                                $anh_item = $item->link_images;
+                            }
                         @endphp
                         <tr>
                             <td class="text-center">
-                                <img src="{{ $item->link_images }}" class="anh-sach shadow-sm">
+                                <img src="{{ $anh_item }}" class="anh-sach shadow-sm" onerror="this.src='https://via.placeholder.com/50x70?text=No+Img'">
                             </td>
                             <td>
                                 <div class="fw-bold">{{ $item->title }}</div>
-                                <small class="text-muted">Mã sách: #{{ $item->book_id }}</small>
+                                <small class="text-muted">Mã: #{{ $id }} {{ $isSet ? '(Bộ sách)' : '' }}</small>
                             </td>
                             <td class="text-center">{{ $item->quantity }}</td>
                             <td class="text-end">{{ number_format($item->price) }}đ</td>
@@ -228,7 +249,7 @@
         {{-- ACTION --}}
         <div class="pt-3 border-top d-flex justify-content-between d-print-none">
             <div class="d-flex gap-2">
-                <a href="{{ route('admin.orders.index') }}" class="btn btn-outline-secondary nut-tron">
+                <a href="{{ route('admin.orders.index') }}?{{ http_build_query(request()->all()) }}" class="btn btn-outline-secondary nut-tron">
                     <i class="fas fa-arrow-left me-2"></i>Quay lại
                 </a>
                 <button onclick="window.print()" class="btn btn-dark nut-tron">

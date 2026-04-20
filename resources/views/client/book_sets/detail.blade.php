@@ -33,7 +33,7 @@
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         text-decoration: none;
     }
-    /* Thêm trạng thái Active để nút đỏ hẳn lên khi đã thích */
+    /* Active state cho trái tim */
     .nut-yeu-thich-tron:hover, .nut-yeu-thich-tron.active {
         background: #ff4d4f !important;
         color: white !important;
@@ -52,6 +52,12 @@
             <div>{{ session('success') }}</div>
         </div>
     @endif
+    @if(session('info'))
+        <div class="alert alert-info border-0 shadow-sm rounded-3 d-flex align-items-center mb-4" role="alert" style="background-color: #cff4fc; color: #055160;">
+            <i class="fas fa-info-circle me-2"></i>
+            <div>{{ session('info') }}</div>
+        </div>
+    @endif
 
     <div class="mb-4">
         <a href="{{ url('/') }}" class="text-decoration-none text-muted">Trang chủ</a> / 
@@ -62,15 +68,38 @@
         <div class="row g-5">
             <div class="col-md-5">
                 <div class="text-center p-3 bg-light rounded-3">
-                    <img src="{{ asset($set->link_images ?? 'images/no-image.jpg') }}" class="anh-combo-lon" alt="{{ $set->name }}">
+                    @php
+                        $exts = ['webp', 'jpg', 'png', 'jpeg'];
+                        $setImg = 'images/no-image.jpg';
+                        $fileNameBase = $set->set_id . '_' . $set->set_id;
+
+                        foreach ($exts as $ext) {
+                            if (file_exists(storage_path("app/public/image/{$fileNameBase}.{$ext}"))) {
+                                $setImg = "storage/image/{$fileNameBase}.{$ext}";
+                                break;
+                            }
+                        }
+                    @endphp
+                    <img src="{{ asset($setImg) }}" class="anh-combo-lon" alt="{{ $set->name }}">
                 </div>
                 
                 <div class="mt-4 card border-0 bg-light rounded-3">
                     <div class="card-body">
                         <h6 class="fw-bold text-primary mb-3 text-uppercase">Sách trong bộ này:</h6>
                         @foreach ($list_items as $item)
-                            <div class="item-nho d-flex align-items-center gap-3">
-                                <img src="{{ asset($item->link_images) }}" width="40" height="55" style="object-fit: cover; border-radius: 5px;">
+                            @php
+                                $itemImg = 'images/no-image.jpg';
+                                $itemFileName = $item->book_id; 
+
+                                foreach ($exts as $ext) {
+                                    if (file_exists(storage_path("app/public/image/{$itemFileName}.{$ext}"))) {
+                                        $itemImg = "storage/image/{$itemFileName}.{$ext}";
+                                        break;
+                                    }
+                                }
+                            @endphp
+                            <div class="item-nho d-flex align-items-center gap-3 mb-2">
+                                <img src="{{ asset($itemImg) }}" width="40" height="55" style="object-fit: cover; border-radius: 5px;">
                                 <div class="small fw-bold text-dark">{{ $item->title }}</div>
                             </div>
                         @endforeach
@@ -81,14 +110,12 @@
             <div class="col-md-7">
                 <div class="mb-2">
                     <span class="badge bg-warning text-dark rounded-pill px-3">BỘ SÁCH TIẾT KIỆM</span>
-                    @if (($set->stock ?? 0) > 0)
-                        <span class="badge bg-success rounded-pill px-3">Sẵn có ({{ $set->stock }})</span>
-                    @else
-                        <span class="badge bg-danger rounded-pill px-3">Tạm hết hàng</span>
-                    @endif
+                    <span class="badge bg-{{ ($set->stock ?? 0) > 0 ? 'success' : 'danger' }} rounded-pill px-3">
+                        {{ ($set->stock ?? 0) > 0 ? 'Sẵn có ('.$set->stock.')' : 'Tạm hết hàng' }}
+                    </span>
                 </div>
 
-                <h1 class="fw-bold mb-3" style="font-size: 2.8rem;">{{ $set->name }}</h1>
+                <h1 class="fw-bold mb-3" style="font-size: 2.5rem;">{{ $set->name }}</h1>
 
                 <div class="mb-4 pb-4 border-bottom">
                     <div class="text-muted small">Lượt xem bộ sách: <b>{{ number_format($total_views) }}</b></div>
@@ -100,8 +127,8 @@
                         $goc = $set->price;
                         $giam = $set->discount ?? 0;
                         $cuoi = $goc - ($goc * $giam / 100);
-                        // Kiểm tra xem bộ sách này đã được thích chưa
-                        $da_thich = in_array($set->set_id, $wishlist_ids ?? []);
+                        // Logic kiểm tra yêu thích cho bộ sách
+                        $da_yeu_thich = in_array($set->set_id, $wishlist_ids ?? []);
                     @endphp
                     <div class="gia-combo">
                         {{ number_format($cuoi, 0, ',', '.') }}đ
@@ -138,10 +165,10 @@
                         </button>
 
                         @auth
-                        {{-- CẬP NHẬT TRẠNG THÁI NÚT TRÁI TIM --}}
-                        <a href="{{ route('wishlist.add', ['book_id' => $set->set_id]) }}"
-                           class="btn nut-yeu-thich-tron shadow-sm {{ $da_thich ? 'active' : '' }}">
-                            <i class="{{ $da_thich ? 'fas' : 'far' }} fa-heart fs-4"></i>
+                        {{-- Nút Wishlist Toggle cho Bộ Sách --}}
+                        <a href="{{ route('wishlist.toggle', ['book_id' => $set->set_id]) }}"
+                           class="btn nut-yeu-thich-tron shadow-sm {{ $da_yeu_thich ? 'active' : '' }}">
+                            <i class="{{ $da_yeu_thich ? 'fas' : 'far' }} fa-heart fs-4"></i>
                         </a>
                         @endauth
                     </div>

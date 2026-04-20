@@ -124,6 +124,23 @@
                             @php
                                 $goc = $s->total_price ? $s->total_price : 0;
                                 $ban = $goc - ($goc * $s->discount / 100);
+
+                                // LOGIC TÌM ẢNH BỘ SÁCH TRONG STORAGE (QUY TẮC ID_ID)
+                                $extensions = ['webp', 'jpg', 'png', 'jpeg'];
+                                $anh = 'https://via.placeholder.com/50x70?text=Set';
+                                $fileNameBase = $s->set_id . '_' . $s->set_id;
+
+                                foreach ($extensions as $ext) {
+                                    if (file_exists(storage_path("app/public/image/{$fileNameBase}.{$ext}"))) {
+                                        $anh = asset("storage/image/{$fileNameBase}.{$ext}");
+                                        break;
+                                    }
+                                }
+
+                                // Nếu storage không có thì dùng link_images trong DB
+                                if ($anh == 'https://via.placeholder.com/50x70?text=Set' && !empty($s->link_images)) {
+                                    $anh = $s->link_images;
+                                }
                             @endphp
 
                             {{-- Đã thêm text-center cho các cột cần thiết --}}
@@ -131,14 +148,7 @@
                                 <td class="text-center">{{ $s->set_id }}</td>
 
                                 <td class="text-center">
-                                    @php
-                                        $anh = $s->link_images;
-                                        if ($anh == '') {
-                                            $anh = 'https://via.placeholder.com/50x70?text=Set';
-                                        }
-                                    @endphp
-
-                                    <img src="{{ $anh }}" class="anh-bo-sach shadow-sm">
+                                    <img src="{{ $anh }}" class="anh-bo-sach shadow-sm" onerror="this.src='https://via.placeholder.com/50x70?text=Set'">
                                 </td>
 
                                 <td>
