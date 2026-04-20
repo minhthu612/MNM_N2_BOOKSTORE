@@ -72,8 +72,9 @@ Route::get('/search', [SearchController::class, 'index']);
 
 
 // ================= ADMIN ROUTES =================
-
-Route::prefix('admin')->name('admin.')->group(function () {
+// Tui bọc thêm Middleware CheckAdmin ở đây để bảo mật nè
+Route::middleware([\App\Http\Middleware\CheckAdmin::class])->prefix('admin')->name('admin.')->group(function () {
+    
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Books
