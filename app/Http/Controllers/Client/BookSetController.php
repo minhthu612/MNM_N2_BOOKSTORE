@@ -83,7 +83,7 @@ class BookSetController extends Controller
             'list_reviews',
             'avg_rating',
             'total_reviews',
-            'wishlist_ids' // 👈 Truyền qua view
+            'wishlist_ids'
         ));
     }
 }

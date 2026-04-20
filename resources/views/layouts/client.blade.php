@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Book Store')</title>
 
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+
     <style>
         html, body { height:100%; margin:0; }
+
 
         body {
             display: flex;
@@ -19,6 +22,7 @@
             background-color: #f8f9fa;
         }
 
+
         /* Navbar Gradient Tím */
         .navbar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
@@ -26,14 +30,17 @@
             padding: 10px 0;
         }
 
+
         .navbar-brand, .nav-link { color: #fff !important; font-weight: 500; }
         .nav-link:hover { color: #ffdd57 !important; }
+
 
         .dropdown-item i {
             width: 20px;
             text-align: center;
             margin-right: 8px;
         }
+
 
         /* --- SEARCH CONTAINER (Y CHANG HÌNH MẪU) --- */
         .search-container {
@@ -46,6 +53,7 @@
             min-width: 300px;
         }
 
+
         .search-container input {
             border: none !important;
             outline: none !important;
@@ -55,6 +63,7 @@
             font-size: 14px;
             height: 28px !important;
         }
+
 
         .search-container button {
             background: #764ba2;
@@ -69,9 +78,11 @@
             transition: 0.3s;
         }
 
+
         .search-container button:hover {
             background: #5a368a;
         }
+
 
         /* Footer Gradient */
         .footer {
@@ -81,23 +92,54 @@
             margin-top: auto;
             flex-shrink: 0;
         }
+
+
+        /* --- PHẦN THÊM MỚI: CSS CHO BADGE GIỎ HÀNG --- */
+        .cart-count-badge {
+            font-size: 0.75rem;
+            vertical-align: top;
+            margin-left: -5px;
+            border: 1px solid white;
+            padding: 0.25em 0.5em;
+        }
+
+
+        /* Hiệu ứng rung icon khi nhận được sản phẩm */
+        .shake-element {
+            animation: shake-cart 0.5s ease-in-out;
+        }
+
+
+        @keyframes shake-cart {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.2) rotate(15deg); }
+            50% { transform: scale(1.2) rotate(-15deg); }
+            75% { transform: scale(1.1) rotate(5deg); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 
+
 <body>
+
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 <div class="container">
+
 
     <a class="navbar-brand" href="{{ url('/') }}">
         <i class="fas fa-book"></i> Book Store
     </a>
 
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
     </button>
 
+
     <div class="collapse navbar-collapse" id="navbarNav">
+
 
         <ul class="navbar-nav me-auto">
             <li class="nav-item">
@@ -105,6 +147,7 @@
                     <i class="fas fa-home"></i> Trang chủ
                 </a>
             </li>
+
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
@@ -121,11 +164,13 @@
                 </ul>
             </li>
 
+
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/?view=best_seller') }}">
                     <i class="fas fa-fire"></i> Bán chạy
                 </a>
             </li>
+
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/?view=new') }}">
@@ -133,6 +178,7 @@
                 </a>
             </li>
         </ul>
+
 
         <form action="{{ url('/search') }}" method="GET" class="d-flex mx-lg-3">
             <div class="search-container">
@@ -143,19 +189,29 @@
             </div>
         </form>
 
+
         <ul class="navbar-nav">
             @auth
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('cart.index') }}">
                         <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                        {{-- THÊM LỚP ĐỊNH DANH cart-count-badge VÀ LOGIC ĐẾM SỐ LƯỢNG --}}
+                        <span class="badge rounded-pill bg-danger cart-count-badge">
+                            {{ DB::table('cart_items')
+                                ->join('cart', 'cart_items.cart_id', '=', 'cart.cart_id')
+                                ->where('cart.user_id', Auth::id())
+                                ->count() }}
+                        </span>
                     </a>
                 </li>
+
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                         <i class="fas fa-user-circle"></i>
                         {{ Auth::user()->fullname ?: Auth::user()->username }}
                     </a>
+
 
                     <ul class="dropdown-menu dropdown-menu-end shadow">
                         @if(in_array(Auth::user()->role, ['Admin', 'Manager']))
@@ -166,12 +222,12 @@
                             </li>
                             <li><hr class="dropdown-divider"></li>
                         @endif
-                        
+                       
                         <li><a class="dropdown-item" href="{{ url('/profile') }}"><i class="fas fa-user-circle text-muted"></i> Hồ sơ</a></li>
                         <li><a class="dropdown-item" href="{{ route('orders.index') }}"><i class="fas fa-shopping-bag text-muted"></i> Đơn hàng</a></li>
                         <li><a class="dropdown-item" href="{{ route('wishlist.index') }}"><i class="fas fa-heart text-danger"></i> Yêu thích</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        
+                       
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -196,31 +252,31 @@
             @endauth
         </ul>
 
+
     </div>
 </div>
 </nav>
 
+
 <main style="flex: 1 0 auto;">
     <div class="container mt-4">
 
-        {{-- 1. Hiển thị thông báo Success/Error --}}
 
-
-        {{-- 2. THANH TIÊU ĐỀ VÀ BỘ LỌC (Chỉ hiển thị khi có biến $category_name) --}}
+        {{-- 2. THANH TIÊU ĐỀ VÀ BỘ LỌC --}}
         @if(isset($category_name))
         <div class="row mb-4">
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center bg-white p-3 rounded shadow-sm border">
+
 
                     {{-- TITLE --}}
                     <h4 class="mb-0 text-primary fw-bold">
                         <i class="fas fa-book-reader me-2"></i> {{ $category_name }}
                     </h4>
 
+
                     {{-- RIGHT BUTTONS --}}
                     <div class="d-flex align-items-center gap-2">
-
-                        {{-- DROPDOWN SGK (Chỉ hiện khi là SGK hoặc đang xem theo bộ) --}}
                         @if(($category_name == 'Sách giáo khoa') || (isset($set_id) && $set_id))
                             @if(isset($bookSets) && count($bookSets) > 0)
                             <div class="dropdown">
@@ -229,6 +285,7 @@
                                         data-bs-toggle="dropdown">
                                     <i class="fas fa-layer-group me-1"></i> Bộ SGK theo lớp
                                 </button>
+
 
                                 <ul class="dropdown-menu dropdown-menu-end shadow border-0">
                                     <li>
@@ -251,10 +308,11 @@
                             @endif
                         @endif
 
-                        {{-- XÓA LỌC --}}
+
                         <a href="{{ url('/') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
                             <i class="fas fa-sync-alt me-1 small"></i> Xóa lọc
                         </a>
+
 
                     </div>
                 </div>
@@ -262,11 +320,13 @@
         </div>
         @endif
 
+
         {{-- 3. NỘI DUNG CHÍNH --}}
         @yield('content')
-        
+       
     </div>
 </main>
+
 
 <footer class="footer">
     <div class="container">
@@ -298,7 +358,15 @@
     </div>
 </footer>
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+{{-- Để nhận script từ các trang con --}}
+@yield('scripts')
+
 
 </body>
 </html>

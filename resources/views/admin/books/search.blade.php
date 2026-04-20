@@ -1,11 +1,8 @@
 @extends('layouts.app')
 
-
 @section('title', 'Tìm kiếm nâng cao')
 
-
 @section('content')
-
 
 <style>
     .khung-tim-kiem {
@@ -38,19 +35,15 @@
     }
 </style>
 
-
 <div class="container-fluid">
-
 
     <div class="khung-tim-kiem shadow-sm">
         <h5 class="mb-4 text-primary fw-bold">
             <i class="fas fa-search-plus"></i> CÔNG CỤ TÌM KIẾM NÂNG CAO
         </h5>
 
-
         <form method="GET" action="{{ route('admin.books.search') }}">
             <div class="row g-3">
-
 
                 <div class="col-md-4">
                     <label class="fw-bold mb-1 small">Từ khóa cần tìm</label>
@@ -59,7 +52,6 @@
                            value="{{ $search }}"
                            placeholder="Tên sách, tác giả...">
                 </div>
-
 
                 <div class="col-md-2">
                     <label class="fw-bold mb-1 small">Danh mục</label>
@@ -74,7 +66,6 @@
                     </select>
                 </div>
 
-
                 <div class="col-md-2">
                     <label class="fw-bold mb-1 small">Tình trạng kho</label>
                     <select class="form-select" name="status">
@@ -84,7 +75,6 @@
                     </select>
                 </div>
 
-
                 <div class="col-md-2">
                     <label class="fw-bold mb-1 small">Giá thấp nhất</label>
                     <input type="number" class="form-control"
@@ -92,7 +82,6 @@
                            value="{{ $min_price }}"
                            placeholder="0">
                 </div>
-
 
                 <div class="col-md-2">
                     <label class="fw-bold mb-1 small">Giá cao nhất</label>
@@ -102,13 +91,11 @@
                            placeholder="999.000">
                 </div>
 
-
                 <div class="col-12 text-end mt-4">
                     <a href="{{ route('admin.books.index') }}"
                        class="btn btn-outline-secondary rounded-pill px-4 me-2">
                         Quay lại
                     </a>
-
 
                     <button type="submit"
                             class="btn btn-primary nut-tim-ngay shadow">
@@ -116,11 +103,9 @@
                     </button>
                 </div>
 
-
             </div>
         </form>
     </div>
-
 
     <div class="card border-0 shadow-sm">
         <div class="card-header bg-white py-3">
@@ -129,10 +114,8 @@
             </h5>
         </div>
 
-
         <div class="card-body">
             <div class="table-responsive">
-
 
                 <table class="table table-hover align-middle border">
                     <thead class="table-light">
@@ -146,32 +129,38 @@
                         </tr>
                     </thead>
 
-
                     <tbody>
 
-
                         @if ($total_results > 0)
-
 
                             @foreach ($books_list as $b)
                                 <tr>
                                     <td>{{ $b->book_id }}</td>
 
-
                                     <td>
                                         <div class="d-flex align-items-center">
                                             @php
-                                                $anh = $b->link_images;
-                                                if ($anh == '') {
-                                                    $anh = 'https://via.placeholder.com/45x60?text=Sách';
+                                                // LOGIC TÌM ẢNH THÔNG MINH TRONG STORAGE
+                                                $extensions = ['webp', 'jpg', 'png', 'jpeg'];
+                                                $anh = 'https://via.placeholder.com/45x60?text=Sách';
+
+                                                foreach ($extensions as $ext) {
+                                                    if (file_exists(storage_path("app/public/image/{$b->book_id}.{$ext}"))) {
+                                                        $anh = asset("storage/image/{$b->book_id}.{$ext}");
+                                                        break;
+                                                    }
+                                                }
+
+                                                // Nếu không có trong storage mới dùng link_images
+                                                if ($anh == 'https://via.placeholder.com/45x60?text=Sách' && !empty($b->link_images)) {
+                                                    $anh = $b->link_images;
                                                 }
                                             @endphp
 
-
                                             <img src="{{ $anh }}"
                                                  class="anh-sach-nho me-3"
-                                                 width="45" height="60">
-
+                                                 width="45" height="60"
+                                                 onerror="this.src='https://via.placeholder.com/45x60?text=Sách'">
 
                                             <div>
                                                 <div class="fw-bold">{{ $b->title }}</div>
@@ -182,13 +171,11 @@
                                         </div>
                                     </td>
 
-
                                     <td>
                                         <span class="badge bg-light text-dark border">
                                             {{ $b->category_name }}
                                         </span>
                                     </td>
-
 
                                     <td>
                                         <strong class="text-primary">
@@ -196,10 +183,8 @@
                                         </strong>
                                     </td>
 
-
                                     <td>
                                         @php $ton = (int)$b->stock; @endphp
-
 
                                         @if ($ton > 0)
                                             <span class="text-success fw-bold small">
@@ -212,13 +197,11 @@
                                         @endif
                                     </td>
 
-
                                     <td class="text-center">
                                         <a href="{{ route('admin.books.edit', $b->book_id) }}"
                                            class="btn btn-info text-white nut-hanh-dong">
                                             Sửa
                                         </a>
-
 
                                         <a href="{{ route('admin.books.delete', $b->book_id) }}"
                                            class="btn btn-danger nut-hanh-dong"
@@ -229,9 +212,7 @@
                                 </tr>
                             @endforeach
 
-
                         @else
-
 
                             <tr>
                                 <td colspan="6" class="text-center py-5">
@@ -245,20 +226,15 @@
                                 </td>
                             </tr>
 
-
                         @endif
-
 
                     </tbody>
                 </table>
-
 
             </div>
         </div>
     </div>
 
-
 </div>
-
 
 @endsection

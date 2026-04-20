@@ -61,7 +61,7 @@
         <span class="badge bg-primary rounded-pill">Đang lưu {{ count($list_fav) }} mục</span>
     </div>
 
-    {{-- PHẦN THÔNG BÁO (HIỆN RA KHI XÓA THÀNH CÔNG) --}}
+    {{-- PHẦN THÔNG BÁO --}}
     @if(session('success'))
         <div class="alert alert-success border-0 shadow-sm rounded-3 d-flex align-items-center mb-4" role="alert" style="background-color: #d1e7dd; color: #0f5132;">
             <i class="fas fa-check-circle me-2"></i>
@@ -76,50 +76,55 @@
         </div>
     @endif
 
-    @if(session('error'))
-        <div class="alert alert-danger border-0 shadow-sm rounded-3 d-flex align-items-center mb-4" role="alert" style="background-color: #f8d7da; color: #842029;">
-            <i class="fas fa-exclamation-triangle me-2"></i>
-            <div>{{ session('error') }}</div>
-        </div>
-    @endif
-
     <div class="row g-4">
         @if (count($list_fav) > 0)
             @foreach ($list_fav as $item) 
                 @php
-                    // Logic kiểm tra loại hàng giống bản cũ
                     $la_bo_sach = !is_null($item->s_id);
                     
                     if ($la_bo_sach) {
                         $ten_hien_thi = $item->s_title;
-                        $anh_hien_thi = $item->s_img;
+                        $ma_id = $item->s_id;
                         $gia_goc = $item->s_price;
                         $phan_tram_giam = $item->s_disc;
-                        $ma_id = $item->s_id;
                         $url_detail = url('/book-set/'.$ma_id);
+                        $fileNameBase = $ma_id . '_' . $ma_id; 
                     } else {
                         $ten_hien_thi = $item->b_title;
-                        $anh_hien_thi = $item->b_img;
+                        $ma_id = $item->b_id;
                         $gia_goc = $item->b_price;
                         $phan_tram_giam = $item->b_disc;
-                        $ma_id = $item->b_id;
                         $url_detail = url('/books/'.$ma_id);
+                        $fileNameBase = $ma_id; 
                     }
                     $gia_sau_giam = $gia_goc * (100 - $phan_tram_giam) / 100;
+
+                    // LOGIC TÌM ẢNH TRONG STORAGE
+                    $extensions = ['webp', 'jpg', 'png', 'jpeg'];
+                    $anh_hien_thi = 'images/no-image.jpg'; 
+
+                    foreach ($extensions as $ext) {
+                        if (file_exists(storage_path("app/public/image/{$fileNameBase}.{$ext}"))) {
+                            $anh_hien_thi = "storage/image/{$fileNameBase}.{$ext}";
+                            break;
+                        }
+                    }
                 @endphp
 
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="card khung-yeu-thich shadow-sm position-relative overflow-hidden">
-                        {{-- Nút xóa nhanh --}}
-                        <form action="{{ route('wishlist.delete', $item->wishlist_id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="nut-xoa-nhanh" onclick="return confirm('Bỏ sản phẩm này khỏi mục yêu thích?')">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </form>
+                        
+                        {{-- Nút xóa nhanh: Dùng route toggle để bấm là bỏ yêu thích luôn --}}
+                        <a href="{{ route('wishlist.toggle', ['book_id' => $ma_id]) }}" 
+                           class="nut-xoa-nhanh" 
+                           onclick="return confirm('Bỏ sản phẩm này khỏi mục yêu thích?')">
+                            <i class="fas fa-times"></i>
+                        </a>
 
                         <div class="text-center mt-3">
-                            <img src="{{ asset($anh_hien_thi) }}" class="anh-san-pham img-fluid">
+                            <img src="{{ asset($anh_hien_thi) }}" 
+                                 class="anh-san-pham img-fluid"
+                                 onerror="this.src='{{ asset('images/no-image.jpg') }}'">
                         </div>
 
                         <div class="card-body d-flex flex-column p-3">

@@ -12,21 +12,26 @@ class OrderCancelled extends Mailable
 
     public $order;
 
+    /**
+     * Create a new message instance.
+     */
     public function __construct($order)
     {
         $this->order = $order;
     }
 
-    // app/Mail/OrderCancelled.php
+    /**
+     * Build the message.
+     */
     public function build()
     {
-        // Chỉ truyền những câu chữ khác biệt qua thôi, $order tự động có ở View rồi
+        // Gửi đến view emails.order với các câu chữ thông báo hủy
         return $this->subject('Thông báo hủy đơn hàng #' . $this->order->order_id)
                     ->view('emails.order')
                     ->with([
-                        'title' => 'Đơn hàng của bạn đã được hủy!',
+                        'title' => 'ĐƠN HÀNG ĐÃ HỦY',
                         'content' => 'Chúng tôi xác nhận đơn hàng',
-                        'content_suffix' => 'đã được hủy thành công theo yêu cầu.'
+                        'content_suffix' => 'đã được hủy thành công theo yêu cầu của bạn.'
                     ]);
     }
 }

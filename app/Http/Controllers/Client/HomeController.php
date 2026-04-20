@@ -43,29 +43,42 @@ class HomeController extends Controller
             }
         }
 
+        // Lọc danh sách Book Sets (Bộ sách) ở sidebar chẳng hạn
+        // Chỉ lấy những bộ không bị DELETED và còn hàng
         $bookSets = DB::table('book_sets')
                     ->where('stock_status', '!=', 'DELETED')
+                    ->where('stock_status', '!=', 'OUT_OF_STOCK') // Lọc theo status bạn đưa trong DB
                     ->orderBy('set_id')
                     ->get();
 
         // ===== QUERY =====
         if ($set_id) {
+            // Trường hợp xem theo Bộ Sách
             $books = DB::table('book_sets')
                 ->where('set_id', $set_id)
+                ->where('stock_status', '!=', 'OUT_OF_STOCK') 
                 ->selectRaw("set_id as book_id, name as title, link_images, price, discount, sold_quantity, 'set' as loai")
                 ->paginate(12)
                 ->appends($request->query());
         } else {
-            $query = DB::table('books');
+            // Trường hợp xem Sách lẻ (Join với bảng inventory để biết stock)
+            $query = DB::table('books')
+                ->join('inventory', 'books.book_id', '=', 'inventory.book_id')
+                ->select('books.*', 'inventory.stock', 'inventory.stock_status');
+
+            // 👉 ĐIỀU KIỆN QUAN TRỌNG: Ẩn sách hết hàng hoặc bị ẩn
+            $query->where('inventory.stock', '>', 0)
+                  ->where('inventory.stock_status', '!=', 'HIDDEN')
+                  ->where('inventory.stock_status', '!=', 'OUT_OF_STOCK');
 
             if ($category_id && $category_id != 'all') {
-                $query->where('category_id', $category_id);
+                $query->where('books.category_id', $category_id);
             }
 
             if ($view_type == 'new') {
-                $query->orderBy('created_at', 'desc');
+                $query->orderBy('books.created_at', 'desc');
             } else {
-                $query->orderBy('sold_quantity', 'desc');
+                $query->orderBy('books.sold_quantity', 'desc');
             }
 
             $books = $query->paginate(12)->appends($request->query());
